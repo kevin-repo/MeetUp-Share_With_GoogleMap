@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.1" >
+
+        <TextView
+            android:id="@+id/intitule"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Evènenement du **/**/**"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/lieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.3"
+        android:background="#33B5E5"
+        android:text="Widget Lieu google map" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.2"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/titre"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content" 
+            android:text="Titre"
+            android:layout_weight="0.75"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/heure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Heure"
+            android:layout_weight="0.25"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.3" >
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="#33B5E5"
+        android:text="Participe" />
+
+</LinearLayout>

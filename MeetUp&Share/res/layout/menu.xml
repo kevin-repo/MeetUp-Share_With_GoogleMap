@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.2">
+
+            <TextView
+                android:id="@+id/titre"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:ems="10"
+	            android:text="Titre"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+			<requestFocus />
+			
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.1">
+		
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Date"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+
+        <TextView
+            android:id="@+id/heure"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Heure" 
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/photos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:text="Voir les photos" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.2">
+        
+         <Button
+             android:id="@+id/boite"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_weight="0.5"
+             android:text="Boite de reception" />
+         
+          <Button
+              android:id="@+id/button4"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="0.5"
+              android:text="Nouvel évènement" />
+         
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.2">
+         
+         <Button
+             android:id="@+id/button3"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_weight="0.5"
+             android:text="Calandrier" />
+         
+          <Button
+              android:id="@+id/button5"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_weight="0.5"
+              android:text="Contacts" />
+         
+    </LinearLayout>
+
+</LinearLayout>
