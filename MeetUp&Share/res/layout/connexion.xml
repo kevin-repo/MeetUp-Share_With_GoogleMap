@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:text="mail" >
+        android:hint="mail" >
 
         <requestFocus />
     </EditText>
@@ -22,7 +22,7 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="password" />
+        android:hint="password" />
 
     <Button
         android:id="@+id/connexion"
@@ -39,6 +39,7 @@
         android:layout_gravity="fill_vertical"
         android:background="#33B5E5"
         android:layout_marginTop="20dp"
-        android:text="Inscription" />
+        android:text="Inscription"
+        android:onClick="signIn" />
 
 </LinearLayout>
