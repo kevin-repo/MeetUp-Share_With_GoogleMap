@@ -28,75 +28,61 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/titre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="Titre" >
+            android:hint="Titre" >
 
             <requestFocus />
         </EditText>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/lieu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:background="#33B5E5"
-        android:text="Widget Lieu google map" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
+        android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <DatePicker
             android:id="@+id/datePicker1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:calendarViewShown="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:gravity="center_horizontal" >
 
         <TimePicker
             android:id="@+id/timePicker1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/editText3"
+        <Button
+            android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:text="Lien &quot;Google Drive&quot;" />
+            android:layout_weight="0.3"
+            android:background="#33B5E5"
+            android:onClick="nouvel_evenement2"
+            android:text="Next" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:orientation="vertical" >
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="Description" />
     </LinearLayout>
 
 </LinearLayout>

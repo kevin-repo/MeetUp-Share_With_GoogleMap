@@ -39,14 +39,6 @@
             android:text="Titre"
             android:layout_weight="0.60"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/heure"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Heure"
-            android:layout_weight="0.20"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
         
         <Button
             android:id="@+id/photos"
