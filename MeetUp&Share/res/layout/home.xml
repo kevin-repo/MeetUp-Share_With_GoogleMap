@@ -63,10 +63,11 @@
         android:layout_weight="0.2" >
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/nouvel_evenement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:onClick="nouvel_evenement"
             android:text="Nouvel évènement" />
     </LinearLayout>
 
@@ -76,17 +77,19 @@
         android:layout_weight="0.2" >
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/calandrier"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:onClick="calandar"
             android:text="Calandrier" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:onClick="contacts"
             android:text="Contacts" />
 
     </LinearLayout>

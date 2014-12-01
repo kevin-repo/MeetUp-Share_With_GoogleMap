@@ -16,7 +16,13 @@ public class Connexion extends Activity{
 	 */
 	 public void signIn(View view){
 	 
-	 Intent intent = new Intent(Connexion.this, SignIn.class);
-	 startActivity(intent);
+		 Intent intent = new Intent(Connexion.this, SignIn.class);
+		 startActivity(intent);
+	 }
+	 
+	 public void home(View view){
+		 
+		 Intent intent = new Intent(Connexion.this, Home.class);
+		 startActivity(intent);
 	 }
 }

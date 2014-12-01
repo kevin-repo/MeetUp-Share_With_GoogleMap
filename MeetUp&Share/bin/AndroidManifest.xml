@@ -26,6 +26,26 @@
             android:name="SignIn"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="Contacts"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="Calandar"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="Home"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="Nouvel_evenement"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="Evenement"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
