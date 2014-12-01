@@ -5,17 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class Nouvel_evenement extends Activity {
-
-    @Override
+public class Nouvel_evenement2 extends Activity {
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nouvel_evenement);
+        setContentView(R.layout.nouvel_evenement2);
     }
-    
-    public void nouvel_evenement2(View view){
+	
+	public void home(View view){
 		 
-		 Intent intent = new Intent(Nouvel_evenement.this, Nouvel_evenement2.class);
+		 Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
 		 startActivity(intent);
 	 }
+
 }
