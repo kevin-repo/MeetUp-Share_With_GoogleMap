@@ -4,47 +4,90 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="0.2">
-
-            <TextView
-                android:id="@+id/titre"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:layout_weight="1"
-	            android:ems="10"
-	            android:text="Titre"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            
-			<requestFocus />
-			
-    </LinearLayout>
-    
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="0.1">
-		
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:text="Date"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.3"
+        android:clickable="true"
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/heure"
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Prochain évènement"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:text="Heure" 
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:text="Titre"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4" >
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text="Date"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/heure"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text="Heure"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2" >
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Nouvel évènement" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2" >
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Calandrier" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Contacts" />
 
     </LinearLayout>
 
@@ -53,48 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
-        android:text="Voir les photos" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="0.2">
-        
-         <Button
-             android:id="@+id/boite"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_weight="0.5"
-             android:text="Boite de reception" />
-         
-          <Button
-              android:id="@+id/button4"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_weight="0.5"
-              android:text="Nouvel évènement" />
-         
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="0.2">
-         
-         <Button
-             android:id="@+id/button3"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_weight="0.5"
-             android:text="Calandrier" />
-         
-          <Button
-              android:id="@+id/button5"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_weight="0.5"
-              android:text="Contacts" />
-         
-    </LinearLayout>
+        android:background="#33B5E5"
+        android:text="Voir vos photos" />
 
 </LinearLayout>
