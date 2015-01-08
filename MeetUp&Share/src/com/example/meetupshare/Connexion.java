@@ -27,28 +27,26 @@ public class Connexion extends Activity{
 		setContentView(R.layout.connexion);
 
 		final Button connexionBtn = (Button) findViewById(R.id.connexion);
+		final Button inscriptionBtn = (Button) findViewById(R.id.inscription);
+		
+		//Connexion
 		connexionBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Click connexion", Toast.LENGTH_SHORT);
-				toast.show();
-				//récupération des informations entrées par l'user
 				final EditText email = (EditText) findViewById(R.id.editText1);
 				final EditText password = (EditText) findViewById(R.id.editText2);
 
 				RequestParams params = new RequestParams();
 				params.put("email", email.getText().toString());
-				params.put("password", password.getText().toString());
+				params.put("pwd", password.getText().toString());
 				
 				Log.d("params", params.toString());
 				
 				Webservice.get("?method=connexionuser", params, new JsonHttpResponseHandler(){
 					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 						Log.d("json", response.toString());
-						Toast toast = Toast.makeText(getApplicationContext(), "connexion réussi", Toast.LENGTH_SHORT);
-						toast.show();
 
 						User user = new User();
-						//user.setId(Long.parseLong(response.optString("id")));
+						user.setId(Long.parseLong(response.optString("id")));
 						user.setEmail(response.optString("email"));
 						user.setLastname(response.optString("lname"));
 						user.setFirstname(response.optString("fname"));
@@ -68,17 +66,23 @@ public class Connexion extends Activity{
 				});
 			}
 		});
+		
+		//Inscription
+		inscriptionBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Click inscription", Toast.LENGTH_SHORT);
+				toast.show();
+				signIn(v);
+			}
+		});
+		
 	}
+	
 	/**
 	 * Passage sur une autre activity
 	 */
 	public void signIn(View view){
 		Intent intent = new Intent(Connexion.this, SignIn.class);
-		startActivity(intent);
-	}
-
-	public void home(View view){
-		Intent intent = new Intent(Connexion.this, Home.class);
 		startActivity(intent);
 	}
 
