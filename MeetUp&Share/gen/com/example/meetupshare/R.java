@@ -27,10 +27,9 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f080015;
-        public static final int action_settings=0x7f08001e;
+        public static final int action_settings=0x7f080021;
         public static final int add=0x7f080009;
         public static final int adresse=0x7f08001a;
-        public static final int button1=0x7f08001c;
         public static final int button2=0x7f08000f;
         public static final int calandrier=0x7f080013;
         public static final int connexion=0x7f080004;
@@ -40,7 +39,7 @@ public final class R {
         public static final int description=0x7f08000e;
         public static final int editText1=0x7f080002;
         public static final int editText2=0x7f080003;
-        public static final int editText3=0x7f08001d;
+        public static final int emailInscription=0x7f080020;
         public static final int expandableListView1=0x7f080001;
         public static final int heure=0x7f080011;
         public static final int inscription=0x7f080005;
@@ -49,10 +48,14 @@ public final class R {
         public static final int lieu=0x7f08000b;
         public static final int liste_contacts=0x7f080008;
         public static final int next=0x7f080018;
+        public static final int nomInscription=0x7f08001c;
         public static final int nouvel_evenement=0x7f080012;
+        public static final int passwordInscription=0x7f08001e;
         public static final int photos=0x7f08000d;
+        public static final int prenomInscription=0x7f08001d;
         public static final int recherche=0x7f080007;
         public static final int remove=0x7f08000a;
+        public static final int submitInscription=0x7f08001f;
         public static final int textView1=0x7f080000;
         public static final int timePicker1=0x7f080017;
         public static final int titre=0x7f08000c;

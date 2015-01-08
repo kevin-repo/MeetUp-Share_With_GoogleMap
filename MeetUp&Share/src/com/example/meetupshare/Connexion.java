@@ -20,6 +20,11 @@ import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 
+/**
+ * Connexion d'un utilisateur
+ * @author Romain
+ *
+ */
 public class Connexion extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
