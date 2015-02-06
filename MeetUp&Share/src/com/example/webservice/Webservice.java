@@ -15,10 +15,14 @@ public class Webservice{
 	}
 
 	public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+		client = new AsyncHttpClient();
 		client.post(getAbsoluteUrl(url), params, responseHandler);
 	}
 
+	//TO DO -> Ajouter méthode delete
+	
 	private static String getAbsoluteUrl(String relativeUrl) {
 		return Url_Connect + relativeUrl;
 	}
+	
 }

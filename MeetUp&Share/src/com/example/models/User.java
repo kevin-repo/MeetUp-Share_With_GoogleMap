@@ -1,6 +1,7 @@
 package com.example.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable{
 
@@ -36,7 +37,7 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getLastname() {
 		return lastname;
 	}
@@ -51,5 +52,22 @@ public class User implements Serializable{
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
+	}
+
+	//Permet de tester la liste d'événements
+	public User(String fname, String lname) {
+		super();
+		this.firstname = fname;
+		this.lastname = lname;
+	}
+
+	public static ArrayList<User> generateListOfFriend() {
+		ArrayList<User> listFriend = new ArrayList<User>();
+
+		listFriend.add(new User("Johnny", "Halliday"));
+		listFriend.add(new User("Sebastien", "Patoche"));
+		listFriend.add(new User("Zinedine", "Zidane"));
+
+		return listFriend;
 	}
 }

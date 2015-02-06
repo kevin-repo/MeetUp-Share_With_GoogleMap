@@ -58,7 +58,7 @@ public class Connexion extends Activity{
 						
 						Intent intent = new Intent(Connexion.this, Home.class);
 						Bundle bundle = new Bundle();
-						bundle.putSerializable("user", user);
+						bundle.putSerializable("currentUser", user);
 						intent.putExtras(bundle);
 						startActivity(intent);
 					}

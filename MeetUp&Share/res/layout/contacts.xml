@@ -35,12 +35,12 @@
             android:hint="Rechercher un nouveau contact ..."
             android:ems="10" />
 
-        <ExpandableListView
+        <ListView
             android:id="@+id/liste_contacts"
             android:layout_width="match_parent"
             android:layout_height="262dp" >
 
-        </ExpandableListView>
+        </ListView>
 
     </LinearLayout>
 
@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:onClick="addFriend"
             android:background="#33B5E5"
             android:text="Add"
             android:textSize="@dimen/vinght" />
@@ -63,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:onClick="removeFriend"
             android:text="Remove"
             android:background="#33B5E5"
             android:textSize="@dimen/vinght" />

@@ -92,6 +92,14 @@
             android:onClick="contacts"
             android:text="Contacts" />
 
+        <Button
+            android:id="@+id/supprimerCompte"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:onClick="supprimerCompte"
+            android:text="Supprimer compte" />
+        
     </LinearLayout>
 
     <Button

@@ -19,10 +19,17 @@
 
     </LinearLayout>
 
+    <ListView android:id="@+id/listEvent" 
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	</ListView>
+    
+    <!--  
     <ExpandableListView
         android:id="@+id/expandableListView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ExpandableListView>
-
+	-->
+	
 </LinearLayout>

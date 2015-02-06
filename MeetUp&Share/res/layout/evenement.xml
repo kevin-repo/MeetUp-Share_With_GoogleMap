@@ -7,17 +7,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:layout_weight="0.1" >
+        android:layout_weight="0.1" 
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/intitule"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Evènenement du **/**/**"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="0.1" 
+	        android:orientation="horizontal">        
+	        <TextView
+	            android:id="@+id/intitule"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.3"
+	            android:text="Evènenement du"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />		
+	        <TextView
+	            android:id="@+id/date_event_evenement_layout"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.4"
+	            android:text="Date"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+    
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="0.1" 
+	        android:orientation="horizontal">        
+	        <TextView
+	            android:id="@+id/a"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:text="A"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />		
+	        <TextView
+	            android:id="@+id/heure_event_evenement_layout"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.5"
+	            android:text="Heure"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+    
     </LinearLayout>
 
+    <!--
     <Button
         android:id="@+id/lieu"
         android:layout_width="match_parent"
@@ -25,7 +62,7 @@
         android:layout_weight="0.3"
         android:background="#33B5E5"
         android:text="Widget Lieu google map" />
-
+	-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
@@ -33,13 +70,14 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/titre"
+            android:id="@+id/titre_event_evenement_layout"
             android:layout_width="match_parent"
         	android:layout_height="wrap_content" 
             android:text="Titre"
             android:layout_weight="0.60"
             android:textAppearance="?android:attr/textAppearanceLarge" />
         
+        <!-- 
         <Button
             android:id="@+id/photos"
             android:layout_width="match_parent"
@@ -47,7 +85,7 @@
             android:layout_weight="0.20"
             android:background="#33B5E5"
             android:text="Voir les photos" />
-
+	 	-->
     </LinearLayout>
 
     <LinearLayout

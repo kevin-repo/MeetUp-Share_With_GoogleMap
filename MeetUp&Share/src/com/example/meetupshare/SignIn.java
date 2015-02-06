@@ -38,14 +38,18 @@ public class SignIn extends Activity {
 		validerBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {					
 				RequestParams params = new RequestParams();
-				params.put("lname", nom.getText().toString());
+				/*params.put("lname", nom.getText().toString());
 				params.put("fname", prenom.getText().toString());
-				params.put("email", email.getText().toString());
+				params.put("email", email.getText().toString());*/
+				params.add("lname", nom.getText().toString());
+				params.add("fname", prenom.getText().toString());
+				params.add("email", email.getText().toString());
 				//params.put("pwd", password.getText().toString());
 				
 				Log.d("params", params.toString());
 				
-				Webservice.post("?method=createuser", params, new JsonHttpResponseHandler(){
+				//PROBLEME WEB SERVICE
+				/*Webservice.post("?method=createuser", params, new JsonHttpResponseHandler(){
 					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 						Log.d("json", response.toString());		
 					}
@@ -55,7 +59,7 @@ public class SignIn extends Activity {
 						toast.show();
 					}
 
-				});
+				});*/
 			}
 
 		});
