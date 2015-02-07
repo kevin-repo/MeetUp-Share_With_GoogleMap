@@ -2,32 +2,147 @@ package com.example.meetupshare;
 
 import java.util.ArrayList;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
 import com.example.meetupshare.adapters.FriendAdapter;
 import com.example.models.User;
+import com.example.webservice.Webservice;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class Contacts extends Activity  {
-	
+
+	//private String mIdUser;
+	private int mPositionItemSelected;
+	private ArrayList<User> mListFriend;
+	private FriendAdapter mAdapter;
+	private Button mAddBtn;
+	private Button mRemoveBtn;
+	private Button mValiderBtn;
+	private String mIdFriendSelected;
+	private User mCurrentUser;
+	private EditText mSearchFriend;
+	private EditText mMailFriend;
+	private ListView mList;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts);
-		
-		final ArrayList<User> listFriend = User.generateListOfFriend();
-		FriendAdapter adapter = new FriendAdapter(listFriend, this);
-		final ListView list = (ListView)findViewById(R.id.liste_contacts);
 
-		list.setAdapter(adapter);
+		mListFriend = User.generateListOfFriend();
+		mAdapter = new FriendAdapter(mListFriend, this);
+		mList = (ListView)findViewById(R.id.liste_contacts);
+		mRemoveBtn = (Button) findViewById(R.id.remove_friend_btn);
+		mValiderBtn = (Button) findViewById(R.id.validate_add_friend_btn);
+		mAddBtn = (Button) findViewById(R.id.add_friend_btn);
+		mSearchFriend = (EditText) findViewById(R.id.recherche_ami);
+		mMailFriend = (EditText) findViewById(R.id.mail_friend);
+
+		mList.setAdapter(mAdapter);
+
+		//Recuperation de l'user courrant
+		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
+
+		//Ecouteur d'événement sur la liste des event
+		mList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				String userName = "Contact " + mListFriend.get(position).getFirstname() + " " +mListFriend.get(position).getLastname() + " sélectionné";
+				Toast toast = Toast.makeText(getApplicationContext(), userName, Toast.LENGTH_SHORT);
+				toast.show();
+				//activation du bouton "remove"
+				mRemoveBtn.setEnabled(true);
+				mPositionItemSelected = position;
+				mIdFriendSelected = Long.toString(mListFriend.get(position).getId());
+			} 
+		});
 	}
-	
-	public void addFriend() {	
-		
+
+	/**
+	 * Affichage du formulaire permettant d'ajouter un ami
+	 * @param view
+	 */
+	public void addFriend(View view) {
+		//formulaire pour ajout d'un ami devient visible
+		mSearchFriend.setVisibility(View.GONE);
+		mList.setVisibility(View.GONE);	
+		mRemoveBtn.setVisibility(View.GONE);
+		mAddBtn.setVisibility(View.GONE);
+		mValiderBtn.setVisibility(View.VISIBLE);
+		mMailFriend.setVisibility(View.VISIBLE);
 	}
-	
-	public void removeFriend() {
-		
+
+
+	public void validateAdd(View view) {
+		//TO DO -> Implementer web service ajout d'un ami
+		/*
+		RequestParams params = new RequestParams();
+		params.put("currentuser", mCurrentUser.getEmail());
+
+		Webservice.post("?method=addfriend", params, new JsonHttpResponseHandler(){
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				//mise a jour de la liste des amis
+				mAdapter.notifyDataSetChanged();
+			}			
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Ajout du contact impossible", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});
+		*/
+		//formulaire pour ajout d'un ami devient invisible
+		mSearchFriend.setVisibility(View.VISIBLE);
+		mList.setVisibility(View.VISIBLE);	
+		mRemoveBtn.setVisibility(View.VISIBLE);
+		mAddBtn.setVisibility(View.VISIBLE);
+		mValiderBtn.setVisibility(View.GONE);
+		mMailFriend.setVisibility(View.GONE);
+	}
+
+	/**
+	 * Suppression d'un ami de la liste des contacts
+	 * @param view
+	 */
+	public void removeFriend(View view) {
+		//TO DO -> Implementer web service suppression d'un ami	
+		/*
+		Webservice.delete("?method=deletefriend&idfriend="+mIdFriendSelected+"&currentuser="+Long.toString(mCurrentUser.getId()), new JsonHttpResponseHandler(){
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				//suppression de l'ami selectionne de la liste friend
+				mListFriend.remove(mPositionItemSelected);
+				//mise a jour de la liste
+				mAdapter.notifyDataSetChanged();
+				//desactivation bouton "remove"
+				mRemoveBtn.setEnabled(false);	
+			}
+
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Suppression du contact impossible", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});
+		 */
+
+		//suppression de l'ami selectionne de la liste friend
+		mListFriend.remove(mPositionItemSelected);
+		//mise a jour de la liste
+		mAdapter.notifyDataSetChanged();
+		//desactivation bouton "remove"
+		mRemoveBtn.setEnabled(false);				
 	}
 }

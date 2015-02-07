@@ -1,8 +1,5 @@
 package com.example.meetupshare;
 
-import org.apache.http.Header;
-import org.json.JSONObject;
-
 import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
@@ -16,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 public class Nouvel_evenement2 extends Activity {
 
@@ -33,7 +33,7 @@ public class Nouvel_evenement2 extends Activity {
 		Event evenement = (Event) getIntent().getExtras().get("newEvent");
 		//Recuperation des informations saisies
 		final EditText adresse = (EditText) findViewById(R.id.adresse);
-		final EditText description = (EditText) findViewById(R.id.description);
+		//final EditText description = (EditText) findViewById(R.id.description);
 		//TO DO -> ajouter amis saisis 
 		
 		RequestParams params = new RequestParams();
@@ -43,11 +43,12 @@ public class Nouvel_evenement2 extends Activity {
 		//params.add("heure", evenement.getHeure());
 		params.add("place", adresse.getText().toString());
 		//params.add("description", adresse.getText().toString());
-		
 		Log.d("params evenement", params.toString());
 		
 		//PROBLEME WEB SERVICE
-		/*Webservice.post("?method=createevent", params, new JsonHttpResponseHandler(){
+		String url = "?method=createevent&title="+evenement.getTitre()+"&organizer=1&place="+adresse.getText().toString();
+		//Webservice.post("?method=createevent", params, new JsonHttpResponseHandler(){
+		Webservice.post(url, params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("json evenement", response.toString());
 				Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
@@ -66,7 +67,7 @@ public class Nouvel_evenement2 extends Activity {
 				toast.show();
 			}
 
-		});*/ 
+		});
 	}
 
 }

@@ -1,11 +1,7 @@
 package com.example.meetupshare;
 
-import org.apache.http.Header;
-import org.json.JSONObject;
 
 import com.example.models.User;
-import com.example.webservice.Webservice;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
@@ -13,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 public class Home extends Activity {
 

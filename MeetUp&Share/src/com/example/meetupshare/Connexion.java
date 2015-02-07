@@ -1,7 +1,5 @@
 package com.example.meetupshare;
 
-import java.io.Serializable;
-
 import org.json.JSONObject;
 
 import android.app.Activity;

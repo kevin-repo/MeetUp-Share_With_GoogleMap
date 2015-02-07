@@ -10,16 +10,17 @@ public class Webservice{
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-		client = new AsyncHttpClient();
 		client.get(getAbsoluteUrl(url), params, responseHandler);
 	}
 
 	public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-		client = new AsyncHttpClient();
 		client.post(getAbsoluteUrl(url), params, responseHandler);
 	}
 
-	//TO DO -> Ajouter méthode delete
+	//Version pour test
+	public static void delete(String url, AsyncHttpResponseHandler responseHandler) {
+		client.delete(getAbsoluteUrl(url), responseHandler);
+	}
 	
 	private static String getAbsoluteUrl(String relativeUrl) {
 		return Url_Connect + relativeUrl;

@@ -29,18 +29,27 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/recherche"
+            android:id="@+id/recherche_ami"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Rechercher un nouveau contact ..."
-            android:ems="10" />
+            android:ems="10"
+            android:enabled="false" />
 
         <ListView
             android:id="@+id/liste_contacts"
             android:layout_width="match_parent"
             android:layout_height="262dp" >
-
         </ListView>
+        
+        <EditText
+	        android:id="@+id/mail_friend"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="50dp"
+	        android:ems="10"
+	        android:hint="mail"
+	        android:visibility="gone" />
 
     </LinearLayout>
 
@@ -50,7 +59,7 @@
         android:layout_weight="0.3" >
 
         <Button
-            android:id="@+id/add"
+            android:id="@+id/add_friend_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -60,15 +69,29 @@
             android:textSize="@dimen/vinght" />
 
         <Button
-            android:id="@+id/remove"
+            android:id="@+id/remove_friend_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:onClick="removeFriend"
             android:text="Remove"
             android:background="#33B5E5"
-            android:textSize="@dimen/vinght" />
+            android:textSize="@dimen/vinght"
+            android:enabled="false" />
 
+        <Button
+            android:id="@+id/validate_add_friend_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:onClick="validateAdd"
+            android:text="Valider"
+            android:background="#33B5E5"
+            android:textSize="@dimen/vinght"
+            android:visibility="gone" />
+              
     </LinearLayout>
 
+    
+    
 </LinearLayout>
