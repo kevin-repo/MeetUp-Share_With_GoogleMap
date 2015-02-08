@@ -2,11 +2,7 @@ package com.example.meetupshare;
 
 
 import org.apache.http.Header;
-
-import com.example.models.User;
-import com.example.webservice.Webservice;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.models.User;
+import com.example.webservice.Webservice;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class Home extends Activity {
 
@@ -58,7 +60,7 @@ public class Home extends Activity {
 	 * @param view
 	 */
 	public void supprimerCompte(View view){
-		String url = "?method=deleteuser&email="+currentUser.getEmail();
+		String url = "user.php?method=deleteuser&email="+currentUser.getEmail();
 		Webservice.delete(url, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -82,5 +84,5 @@ public class Home extends Activity {
 			}			
 		});
 	}
-
+	
 }

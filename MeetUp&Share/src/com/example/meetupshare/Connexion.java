@@ -45,7 +45,7 @@ public class Connexion extends Activity{
 
 		Log.d("params", params.toString());
 
-		Webservice.get("?method=connexionuser", params, new JsonHttpResponseHandler(){
+		Webservice.get("user.php?method=connexionuser", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("connexion_json", response.toString());
 
