@@ -1,14 +1,20 @@
 package com.example.meetupshare;
 
-
-import com.loopj.android.http.RequestParams;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.webservice.Webservice;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+
 
 /**
  * Inscription d'un nouvel utilisateur
@@ -17,42 +23,57 @@ import android.widget.EditText;
  */
 public class SignIn extends Activity {
 
+	private EditText nom, prenom, email, password;
+	private Button validerBtn;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.signin);
-		
-		final EditText nom = (EditText) findViewById(R.id.nomInscription);
-		final EditText prenom = (EditText) findViewById(R.id.prenomInscription);
-		final EditText email = (EditText) findViewById(R.id.emailInscription);
-		//final EditText password = (EditText) findViewById(R.id.passwordInscription);
-		final Button validerBtn = (Button) findViewById(R.id.submitInscription);
 
+		nom = (EditText) findViewById(R.id.nomInscription);
+		prenom = (EditText) findViewById(R.id.prenomInscription);
+		email = (EditText) findViewById(R.id.emailInscription);
+		password = (EditText) findViewById(R.id.passwordInscription);
+		validerBtn = (Button) findViewById(R.id.submitInscription);
+	}
+
+	/**
+	 * Validation de l'inscription d'un nouvel utilisateur
+	 * @param view
+	 */
+	public void validateInscription(View view) {
 		validerBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {					
+			public void onClick(View v) {
 				RequestParams params = new RequestParams();
-				/*params.put("lname", nom.getText().toString());
+				params.put("lname", nom.getText().toString());
 				params.put("fname", prenom.getText().toString());
-				params.put("email", email.getText().toString());*/
-				params.add("lname", nom.getText().toString());
-				params.add("fname", prenom.getText().toString());
-				params.add("email", email.getText().toString());
-				//params.put("pwd", password.getText().toString());
-				
+				params.put("email", email.getText().toString());
+				params.put("pwd", password.getText().toString());
+
 				Log.d("params", params.toString());
-				
-				//PROBLEME WEB SERVICE
-				/*Webservice.post("?method=createuser", params, new JsonHttpResponseHandler(){
-					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-						Log.d("json", response.toString());		
+
+				String url = "?method=createuser&lname="+nom.getText().toString()+"&fname="+prenom.getText().toString()+"&email="+email.getText().toString()+"&pwd="+password.getText().toString();
+				Webservice.post(url, null, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+						// called when response HTTP status is "200 OK"
+						Log.d("onSuccess", "onSuccess");
+						Toast toast = Toast.makeText(getApplicationContext(), "Création réussie", Toast.LENGTH_SHORT);
+						toast.show();
+						//passage a activity connexion
+						Intent intent = new Intent(SignIn.this, Connexion.class);
+						startActivity(intent);
 					}
-					
-					public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-						Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects", Toast.LENGTH_SHORT);
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+						// called when response HTTP status is "4XX" (eg. 401, 403, 404)
+						Log.d("onFailure", "onFailure");
+						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
 						toast.show();
 					}
-
-				});*/
+				});
 			}
 
 		});

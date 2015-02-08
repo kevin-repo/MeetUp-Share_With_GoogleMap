@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,63 +23,53 @@ import org.apache.http.Header;
  *
  */
 public class Connexion extends Activity{
+
+	private EditText email, password;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.connexion);
-
-		final Button connexionBtn = (Button) findViewById(R.id.connexion);
-		final Button inscriptionBtn = (Button) findViewById(R.id.inscription);
-		
-		//Connexion
-		connexionBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				final EditText email = (EditText) findViewById(R.id.editText1);
-				final EditText password = (EditText) findViewById(R.id.editText2);
-
-				RequestParams params = new RequestParams();
-				params.put("email", email.getText().toString());
-				params.put("pwd", password.getText().toString());
-				
-				Log.d("params", params.toString());
-				
-				Webservice.get("?method=connexionuser", params, new JsonHttpResponseHandler(){
-					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-						Log.d("json", response.toString());
-
-						User user = new User();
-						user.setId(Long.parseLong(response.optString("id")));
-						user.setEmail(response.optString("email"));
-						user.setLastname(response.optString("lname"));
-						user.setFirstname(response.optString("fname"));
-						
-						Intent intent = new Intent(Connexion.this, Home.class);
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("currentUser", user);
-						intent.putExtras(bundle);
-						startActivity(intent);
-					}
-					
-					public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-						Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects", Toast.LENGTH_SHORT);
-						toast.show();
-					}
-
-				});
-			}
-		});
-		
-		//Inscription
-		inscriptionBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Click inscription", Toast.LENGTH_SHORT);
-				toast.show();
-				signIn(v);
-			}
-		});
-		
+		email = (EditText) findViewById(R.id.editText1);
+		password = (EditText) findViewById(R.id.editText2);
 	}
-	
+
+	/**
+	 * Methode permettant la connexion d'un utilisateur a son compte
+	 * @param view
+	 */
+	public void connectToAccount(View view) {
+		RequestParams params = new RequestParams();
+		params.put("email", email.getText().toString());
+		params.put("pwd", password.getText().toString());
+
+		Log.d("params", params.toString());
+
+		Webservice.get("?method=connexionuser", params, new JsonHttpResponseHandler(){
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				Log.d("connexion_json", response.toString());
+
+				User user = new User();
+				user.setId(Long.parseLong(response.optString("id")));
+				user.setEmail(response.optString("email"));
+				user.setLastname(response.optString("lname"));
+				user.setFirstname(response.optString("fname"));
+
+				Intent intent = new Intent(Connexion.this, Home.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("currentUser", user);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+
+		});	
+	}
+
 	/**
 	 * Passage sur une autre activity
 	 */

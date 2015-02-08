@@ -51,7 +51,8 @@
         android:layout_gravity="left|bottom"
         android:layout_marginTop="25px"
         android:layout_row="4"
-        android:text="Validez" />
+        android:text="Validez" 
+        android:onClick="validateInscription" />
 
     <EditText
         android:id="@+id/passwordInscription"

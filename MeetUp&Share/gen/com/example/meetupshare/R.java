@@ -43,7 +43,7 @@ public final class R {
         public static final int description=0x7f080011;
         public static final int editText1=0x7f080002;
         public static final int editText2=0x7f080003;
-        public static final int emailInscription=0x7f08002d;
+        public static final int emailInscription=0x7f08002b;
         public static final int expandableListView1=0x7f080027;
         public static final int firstname_friend_list=0x7f080017;
         public static final int heure=0x7f08001b;
@@ -60,7 +60,7 @@ public final class R {
         public static final int next=0x7f080024;
         public static final int nomInscription=0x7f080029;
         public static final int nouvel_evenement=0x7f08001c;
-        public static final int passwordInscription=0x7f08002b;
+        public static final int passwordInscription=0x7f08002d;
         public static final int photos=0x7f080020;
         public static final int prenomInscription=0x7f08002a;
         public static final int recherche_ami=0x7f080007;
