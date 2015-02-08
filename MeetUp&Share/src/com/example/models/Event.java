@@ -3,6 +3,9 @@ package com.example.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Event implements Serializable {
 
 	/**
@@ -20,6 +23,14 @@ public class Event implements Serializable {
 		super();
 		this.id = 0;
 		this.location = "";
+	}
+	
+	public Event(JSONObject listEvent) throws JSONException {
+		super();
+		this.id = listEvent.getInt("id");
+		this.titre = listEvent.getString("title");
+		this.location = listEvent.getString("place");
+		this.date = listEvent.getString("date");
 	}
 	
 	public long getId() {
