@@ -53,7 +53,7 @@ public class SignIn extends Activity {
 
 				Log.d("params", params.toString());
 
-				String url = "user.php?method=createuser&lname="+nom.getText().toString()+"&fname="+prenom.getText().toString()+"&email="+email.getText().toString()+"&pwd="+password.getText().toString();
+				String url = "users.php?method=createuser&lname="+nom.getText().toString()+"&fname="+prenom.getText().toString()+"&email="+email.getText().toString()+"&pwd="+password.getText().toString();
 				Webservice.post(url, null, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers, byte[] response) {

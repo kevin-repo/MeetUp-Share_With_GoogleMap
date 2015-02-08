@@ -60,7 +60,7 @@ public class Home extends Activity {
 	 * @param view
 	 */
 	public void supprimerCompte(View view){
-		String url = "user.php?method=deleteuser&email="+currentUser.getEmail();
+		String url = "users.php?method=deleteuser&email="+currentUser.getEmail();
 		Webservice.delete(url, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
