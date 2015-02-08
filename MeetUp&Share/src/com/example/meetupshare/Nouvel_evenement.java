@@ -46,22 +46,18 @@ public class Nouvel_evenement extends Activity {
 		String heureFormatee = hour + ":" + minute;
 
 		//Controle des donnees du formulaire
-		Log.d("titre", titre.getText().toString());
-		if(titre.getText().toString().equals(null)) {
-			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez renseigner un titre", Toast.LENGTH_SHORT);
-			toast.show();
-		}else {
-			Event evenement = new Event();
-			evenement.setTitre(titre.getText().toString());
-			evenement.setDate(dateFormatee);
-			evenement.setHeure(heureFormatee);
+		//TODO Controle des donnees entrees
 
-			Intent intent = new Intent(Nouvel_evenement.this, Nouvel_evenement2.class);	
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("newEvent", evenement);
-			bundle.putSerializable("currentUser", (User)getIntent().getExtras().get("currentUser"));
-			intent.putExtras(bundle);
-			startActivity(intent);
-		}
+		Event evenement = new Event();
+		evenement.setTitre(titre.getText().toString());
+		evenement.setDate(dateFormatee);
+		evenement.setHeure(heureFormatee);
+
+		Intent intent = new Intent(Nouvel_evenement.this, Nouvel_evenement2.class);	
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("newEvent", evenement);
+		bundle.putSerializable("currentUser", (User)getIntent().getExtras().get("currentUser"));
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 }

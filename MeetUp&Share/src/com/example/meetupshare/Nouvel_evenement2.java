@@ -53,40 +53,33 @@ public class Nouvel_evenement2 extends Activity {
 		Log.d("params evenement", params.toString());
 
 		//Controle des donnees du formulaire
-		Log.d("adresse", adresse.getText().toString());
-		Boolean b = adresse.getText().equals(null);
-		Toast toast = Toast.makeText(getApplicationContext(), "Adresse: "+b, Toast.LENGTH_SHORT);
-		toast.show();
-		if(adresse.getText().toString().equals(null)){
-//			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez renseigner une adresse", Toast.LENGTH_SHORT);
-//			toast.show();
-		}else{
-			String url = "events.php?method=createevent&title="+evenement.getTitre()+"&organizer="+currentUser.getId()+"&place="+adresse.getText().toString();
-			Webservice.post(url, null, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-					// called when response HTTP status is "200 OK"
-					Log.d("Create event", "success");
-					Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
-					toast.show();
+		//TODO Controle des donnees entrees
 
-					//Redirection vers la page principale
-					Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("currentUser", currentUser);
-					intent.putExtras(bundle);
-					startActivity(intent);
-				}
+		String url = "events.php?method=createevent&title="+evenement.getTitre()+"&organizer="+currentUser.getId()+"&place="+adresse.getText().toString();
+		Webservice.post(url, null, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+				// called when response HTTP status is "200 OK"
+				Log.d("Create event", "success");
+				Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
+				toast.show();
 
-				@Override
-				public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-					// called when response HTTP status is "4XX" (eg. 401, 403, 404)
-					Log.d("Create event", "failure");
-					Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
-					toast.show();
-				}
-			});
-		}
+				//Redirection vers la page principale
+				Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("currentUser", currentUser);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+				// called when response HTTP status is "4XX" (eg. 401, 403, 404)
+				Log.d("Create event", "failure");
+				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});
 	}
-
 }
+
