@@ -24,7 +24,7 @@
         android:inputType="textPassword"
         android:hint="password" />
 	
-    <Button
+    <!--  <Button
         android:id="@+id/connexion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,15 @@
         android:background="#33B5E5"
         android:onClick="connectToAccount"
         android:text="Connexion" />
-
+	-->
+	<Button
+        android:id="@+id/connexion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="#33B5E5"
+        android:onClick="connectToAccount"
+        android:text="Connexion" />
     <Button
         android:id="@+id/inscription"
         android:layout_width="match_parent"

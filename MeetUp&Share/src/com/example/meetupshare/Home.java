@@ -1,7 +1,11 @@
 package com.example.meetupshare;
 
 
+import org.apache.http.Header;
+
 import com.example.models.User;
+import com.example.webservice.Webservice;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
@@ -9,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 public class Home extends Activity {
 
@@ -53,25 +58,29 @@ public class Home extends Activity {
 	 * @param view
 	 */
 	public void supprimerCompte(View view){
-		RequestParams params = new RequestParams();
-		params.put("email", currentUser.getEmail());
-
-		Log.d("params", params.toString());
-
-		/*Webservice.post("?method=deleteuser", params, new JsonHttpResponseHandler(){
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("json", response.toString());
+		String url = "?method=deleteuser&email="+currentUser.getEmail();
+		Webservice.delete(url, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				Log.d("Delete account", "success");
 				Toast toast = Toast.makeText(getApplicationContext(), "Compte supprimé", Toast.LENGTH_SHORT);
 				toast.show();
-				//Redirection vers la page d'accueil
-				Intent intent = new Intent(Home.this, Connexion.class);
+				//passage a activity "Connexion"
+				Intent intent = new Intent(getApplicationContext(),Connexion.class);	 
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 	 
 				startActivity(intent);
-			}			
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Suppression impossible", Toast.LENGTH_SHORT);
-				toast.show();
+				
 			}
-		});*/
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				Log.d("Delete account", "failure");
+				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
+				toast.show();
+				
+			}			
+		});
 	}
 
 }

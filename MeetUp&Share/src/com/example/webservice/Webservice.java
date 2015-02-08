@@ -17,7 +17,6 @@ public class Webservice{
 		client.post(getAbsoluteUrl(url), params, responseHandler);
 	}
 
-	//Version pour test
 	public static void delete(String url, AsyncHttpResponseHandler responseHandler) {
 		client.delete(getAbsoluteUrl(url), responseHandler);
 	}

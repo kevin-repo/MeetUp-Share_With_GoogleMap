@@ -58,10 +58,10 @@ public class SignIn extends Activity {
 					@Override
 					public void onSuccess(int statusCode, Header[] headers, byte[] response) {
 						// called when response HTTP status is "200 OK"
-						Log.d("onSuccess", "onSuccess");
+						Log.d("Create account", "success");
 						Toast toast = Toast.makeText(getApplicationContext(), "Création réussie", Toast.LENGTH_SHORT);
 						toast.show();
-						//passage a activity connexion
+						//passage a activity "Connexion"
 						Intent intent = new Intent(SignIn.this, Connexion.class);
 						startActivity(intent);
 					}
@@ -69,7 +69,7 @@ public class SignIn extends Activity {
 					@Override
 					public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 						// called when response HTTP status is "4XX" (eg. 401, 403, 404)
-						Log.d("onFailure", "onFailure");
+						Log.d("Create account", "failure");
 						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
 						toast.show();
 					}

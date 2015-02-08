@@ -98,8 +98,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:onClick="supprimerCompte"
-            android:text="Supprimer compte"
-            android:enabled="false" />
+            android:text="Supprimer compte" />
         
     </LinearLayout>
 
