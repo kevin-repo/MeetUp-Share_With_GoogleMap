@@ -3,6 +3,7 @@ package com.example.meetupshare;
 import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -19,55 +20,73 @@ import org.json.JSONObject;
 
 public class Nouvel_evenement2 extends Activity {
 
-	Intent intent;
+	private Event evenement;
+	private User currentUser;
+	private EditText adresse;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nouvel_evenement2);
-		intent = getIntent();      
+		//Recuperation des informations stockees dans l'intent
+		evenement = (Event) getIntent().getExtras().get("newEvent");
+		currentUser = (User) getIntent().getExtras().get("currentUser");
+		//Recuperation des informations saisies
+		adresse = (EditText) findViewById(R.id.adresse);
 	}
 
-	public void creerEvenement(View view){
-		//Recuperation des informations relative a l'evenement
-		Event evenement = (Event) getIntent().getExtras().get("newEvent");
-		//Recuperation des informations saisies
-		final EditText adresse = (EditText) findViewById(R.id.adresse);
-		//final EditText description = (EditText) findViewById(R.id.description);
-		//TO DO -> ajouter amis saisis 
-		
+	/**
+	 * Methode permettant la creation d'un event
+	 * @param view
+	 */
+	public void creerEvenement(View view){	
+		//TODO -> ajouter amis saisis + description + date + heure 
+
 		RequestParams params = new RequestParams();
 		params.add("title", evenement.getTitre());
-		params.add("organizer", Integer.toString(1));// ???? A MODIFIER
+		params.add("organizer", Integer.toString(1));
 		//params.add("date", evenement.getDate());
 		//params.add("heure", evenement.getHeure());
 		params.add("place", adresse.getText().toString());
 		//params.add("description", adresse.getText().toString());
 		Log.d("params evenement", params.toString());
-		
-		//PROBLEME WEB SERVICE
-		String url = "?method=createevent&title="+evenement.getTitre()+"&organizer=1&place="+adresse.getText().toString();
-		//Webservice.post("?method=createevent", params, new JsonHttpResponseHandler(){
-		Webservice.post(url, params, new JsonHttpResponseHandler(){
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("json evenement", response.toString());
-				Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
-				toast.show();
-				
-				//Redirection vers la page principale
-				Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("currentUser", (User) intent.getExtras().get("currentUser"));
-				intent.putExtras(bundle);
-				startActivity(intent);
-			}
-			
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Création de l'événement impossible ", Toast.LENGTH_SHORT);
-				toast.show();
-			}
 
-		});
+		//Controle des donnees du formulaire
+		Log.d("adresse", adresse.getText().toString());
+		Boolean b = adresse.getText().equals(null);
+		Toast toast = Toast.makeText(getApplicationContext(), "Adresse: "+b, Toast.LENGTH_SHORT);
+		toast.show();
+		if(adresse.getText().toString().equals(null)){
+//			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez renseigner une adresse", Toast.LENGTH_SHORT);
+//			toast.show();
+		}else{
+			String url = "events.php?method=createevent&title="+evenement.getTitre()+"&organizer="+currentUser.getId()+"&place="+adresse.getText().toString();
+			Webservice.post(url, null, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+					// called when response HTTP status is "200 OK"
+					Log.d("Create event", "success");
+					Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
+					toast.show();
+
+					//Redirection vers la page principale
+					Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("currentUser", currentUser);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}
+
+				@Override
+				public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+					// called when response HTTP status is "4XX" (eg. 401, 403, 404)
+					Log.d("Create event", "failure");
+					Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+			});
+		}
 	}
 
 }

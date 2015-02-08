@@ -46,7 +46,6 @@ public final class R {
         public static final int emailInscription=0x7f08002b;
         public static final int expandableListView1=0x7f080027;
         public static final int firstname_friend_list=0x7f080017;
-        public static final int heure=0x7f08001b;
         public static final int heure_event_evenement_layout=0x7f08000f;
         public static final int heure_event_list=0x7f080015;
         public static final int id_friend_list=0x7f080016;
@@ -54,6 +53,7 @@ public final class R {
         public static final int intitule=0x7f080006;
         public static final int lastname_friend_list=0x7f080018;
         public static final int layout=0x7f080025;
+        public static final int lieu=0x7f08001b;
         public static final int listEvent=0x7f080001;
         public static final int liste_contacts=0x7f080008;
         public static final int mail_friend=0x7f080009;
