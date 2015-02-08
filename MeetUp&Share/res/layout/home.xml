@@ -46,12 +46,12 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/heure"
+                android:id="@+id/lieu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:text="Heure"
+                android:text="Lieu"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
