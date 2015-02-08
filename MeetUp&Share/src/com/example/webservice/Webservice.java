@@ -6,7 +6,7 @@ import com.loopj.android.http.RequestParams;
 
 public class Webservice{
 
-	private static final String Url_Connect = "http://romainreyomond.netii.net/users.php";
+	private static final String Url_Connect = "http://romainreyomond.netii.net/";
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
