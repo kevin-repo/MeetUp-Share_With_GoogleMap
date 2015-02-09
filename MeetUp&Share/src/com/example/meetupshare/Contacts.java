@@ -11,6 +11,7 @@ import com.example.meetupshare.adapters.FriendAdapter;
 import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -137,31 +138,30 @@ public class Contacts extends Activity  {
 	 * @param view
 	 */
 	public void removeFriend(View view) {
-		//TO DO -> Implementer web service suppression d'un ami	
-		/*
-		Webservice.delete("?method=deletefriend&idfriend="+mIdFriendSelected+"&currentuser="+Long.toString(mCurrentUser.getId()), new JsonHttpResponseHandler(){
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+		//TO DO -> Implementer web service suppression d'un ami
+		String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelected;
+		Webservice.delete(url, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				Log.d("delete_contact", "success");
+				Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
+				toast.show();
 				//suppression de l'ami selectionne de la liste friend
 				mListFriend.remove(mPositionItemSelected);
 				//mise a jour de la liste
 				mAdapter.notifyDataSetChanged();
 				//desactivation bouton "remove"
-				mRemoveBtn.setEnabled(false);	
+				mRemoveBtn.setEnabled(false);		
 			}
 
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Suppression du contact impossible", Toast.LENGTH_SHORT);
-				toast.show();
-			}
-		});
-		 */
-
-		//suppression de l'ami selectionne de la liste friend
-		mListFriend.remove(mPositionItemSelected);
-		//mise a jour de la liste
-		mAdapter.notifyDataSetChanged();
-		//desactivation bouton "remove"
-		mRemoveBtn.setEnabled(false);				
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				Log.d("delete_contact", "failure");
+				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
+				toast.show();		
+			}			
+		});			
 	}
 
 	/**
