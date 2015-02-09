@@ -28,31 +28,37 @@ public class Calandar extends Activity {
 
 	private User mCurrentUser;
 	private List<Event> mListEvent;
-	
+	private ListView mList;
+	private EventAdapter mAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calandar);
 
+		mList = (ListView)findViewById(R.id.listEvent);
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
+		mListEvent = new ArrayList<Event>();
+		mAdapter = new EventAdapter(mListEvent, this);
+		mList.setAdapter(mAdapter);
 		
-		
+		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
+		String url = "events.php?method=readevents&idu="+mCurrentUser.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+			//Version 1
+			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+				Log.d("event_list", "sucess");
+				populateListEvents(response);
+				showEvents();
+			}
 
-		//V1
-		/*final ArrayList<Event> listEvent = Event.generateListOfEvent();
-		EventAdapter adapter = new EventAdapter(listEvent, this);
-		final ListView list = (ListView)findViewById(R.id.listEvent);
-		*/
-
-		//V2
-		mListEvent = populateEventList();
-		EventAdapter adapter = new EventAdapter(mListEvent, this);
-		final ListView list = (ListView)findViewById(R.id.listEvent);
-		
-		list.setAdapter(adapter);
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("event_list", "failure");
+			}
+		});
 
 		//Ecouteur d'événement sur la liste des event
-		list.setOnItemClickListener(new OnItemClickListener() {
+		mList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {		
 				Toast toast = Toast.makeText(getApplicationContext(), mListEvent.get(position).getTitre(), Toast.LENGTH_SHORT);
@@ -74,49 +80,35 @@ public class Calandar extends Activity {
 		});
 	}
 
-	
-	protected List<Event> populateEventList() {
-		List<Event> result = new ArrayList<Event>();
-		String url = "events.php?method=readevents&idu="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){	
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("event_list", "sucess");
-				/*Log.d("response", response.toString());
-				try {
-					JSONArray array = response.getJSONArray("");
-//					for(int i = 0; i<array.length(); i++){
-//						mListEvent.add(new Event(array.getJSONObject(i)));
-//					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				try {
-					JSONObject o = response.getJSONObject("11");
-					
-					Log.d("title",o.getString("title"));
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				JSONArray array = response.optJSONArray("");
-				Log.d("lenght", Integer.toString(array.length()));
-				for(int i = 0; i<array.length(); i++){
-					try {
-						mListEvent.add(new Event(array.getJSONObject(i)));
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Log.d("event_list", "failure");
-			}
-		});
-		return result;
+	/**
+	 * Permet de remplir la liste des evenements
+	 * @param array
+	 */
+	protected void populateListEvents(JSONArray array){
+		for(int i = 0; i < array.length(); i++){
+			Event e = new Event();
+			try {
+				e.setId(array.getJSONArray(i).optLong(0));
+				e.setLocation(array.getJSONArray(i).optString(1));
+				//TODO Separer date et heure
+				e.setDate(array.getJSONArray(i).optString(2));
+				e.setTitre(array.getJSONArray(i).optString(3));
+				mListEvent.add(e);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}		
+		}
 	}
+
+	/**
+	 * Permet d'afficher les evenements
+	 */
+	protected void showEvents(){
+		//mise a jour
+		mAdapter.setEventList(mListEvent);
+		//notify l'adapteur
+		mAdapter.notifyDataSetChanged();
+	}
+
 }
 

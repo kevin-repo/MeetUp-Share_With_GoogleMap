@@ -60,5 +60,9 @@ public class EventAdapter extends BaseAdapter{
 		
 		return layoutItem;
 	}
+	
+	public void setEventList(List<Event> list) {
+		this.mEventList = list;
+	}
 
 }
