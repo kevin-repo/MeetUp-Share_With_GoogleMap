@@ -50,10 +50,12 @@ public class EventAdapter extends BaseAdapter{
 			layoutItem = (LinearLayout) convertView;
 		} 
 		
+		TextView idEvenement = (TextView)layoutItem.findViewById(R.id.id_event_list);
 		TextView titreEvenement = (TextView)layoutItem.findViewById(R.id.titre_event_list);
 		TextView dateEvenement = (TextView)layoutItem.findViewById(R.id.date_event_list);
 		TextView heureEvenement = (TextView)layoutItem.findViewById(R.id.heure_event_list);
-		    
+		
+		idEvenement.setText(Long.toString(mEventList.get(position).getId()));
 		titreEvenement.setText(mEventList.get(position).getTitre());
 		dateEvenement.setText(mEventList.get(position).getDate());
 		heureEvenement.setText(mEventList.get(position).getHeure());

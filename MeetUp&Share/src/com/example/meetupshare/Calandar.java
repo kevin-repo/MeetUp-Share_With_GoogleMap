@@ -27,6 +27,7 @@ import android.widget.Toast;
 public class Calandar extends Activity {
 
 	private User mCurrentUser;
+	private Event mCurrentEvent;
 	private List<Event> mListEvent;
 	private ListView mList;
 	private EventAdapter mAdapter;
@@ -38,6 +39,7 @@ public class Calandar extends Activity {
 
 		mList = (ListView)findViewById(R.id.listEvent);
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
+		mCurrentEvent = new Event();
 		mListEvent = new ArrayList<Event>();
 		mAdapter = new EventAdapter(mListEvent, this);
 		mList.setAdapter(mAdapter);
@@ -61,18 +63,11 @@ public class Calandar extends Activity {
 		mList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {		
-				Toast toast = Toast.makeText(getApplicationContext(), mListEvent.get(position).getTitre(), Toast.LENGTH_SHORT);
-				toast.show();
-
-				Event currentEvent = new Event();
-				currentEvent.setTitre(mListEvent.get(position).getTitre());
-				currentEvent.setDate(mListEvent.get(position).getDate());
-				currentEvent.setHeure(mListEvent.get(position).getHeure());
-
+				mCurrentEvent.setId(mListEvent.get(position).getId());
 				//Passage à l'activity Evenement
 				Intent intent = new Intent(Calandar.this, Evenement.class);
 				Bundle bundle = new Bundle();
-				bundle.putSerializable("currentEvent", currentEvent);
+				bundle.putSerializable("currentEvent", mCurrentEvent);
 				bundle.putSerializable("currentUser", mCurrentUser);
 				intent.putExtras(bundle);
 				startActivity(intent);			

@@ -42,7 +42,6 @@ public class Nouvel_evenement2 extends Activity {
 	 */
 	public void creerEvenement(View view){	
 		//TODO -> ajouter amis saisis + description + date + heure 
-
 		RequestParams params = new RequestParams();
 		params.add("title", evenement.getTitre());
 		params.add("organizer", Integer.toString(1));
@@ -54,7 +53,6 @@ public class Nouvel_evenement2 extends Activity {
 
 		//Controle des donnees du formulaire
 		//TODO Controle des donnees entrees
-
 		String url = "events.php?method=createevent&title="+evenement.getTitre()+"&organizer="+currentUser.getId()+"&place="+adresse.getText().toString();
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
