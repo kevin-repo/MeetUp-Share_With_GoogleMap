@@ -99,7 +99,7 @@ public class Calandar extends Activity {
 	 * Permet d'afficher les evenements
 	 */
 	protected void showEvents(){
-		//mise a jour
+		//mise a jour de la liste d'evenements
 		mAdapter.setEventList(mListEvent);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();

@@ -3,9 +3,12 @@ package com.example.meetupshare;
 import java.util.ArrayList;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.meetupshare.adapters.FriendAdapter;
+import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -44,7 +47,7 @@ public class Contacts extends Activity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts);
 
-		mListFriend = User.generateListOfFriend();
+		mListFriend = new ArrayList<User>();
 		mAdapter = new FriendAdapter(mListFriend, this);
 		mList = (ListView)findViewById(R.id.liste_contacts);
 		mRemoveBtn = (Button) findViewById(R.id.remove_friend_btn);
@@ -57,6 +60,21 @@ public class Contacts extends Activity  {
 
 		//Recuperation de l'user courrant
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
+
+		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
+		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+			//Version 1
+			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+				Log.d("contact_list", "sucess");
+				populateListFriends(response);
+				showContacts();
+			}
+
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("contact_list", "failure");
+			}
+		});
 
 		//Ecouteur d'événement sur la liste des event
 		mList.setOnItemClickListener(new OnItemClickListener() {
@@ -104,7 +122,7 @@ public class Contacts extends Activity  {
 				toast.show();
 			}
 		});
-		*/
+		 */
 		//formulaire pour ajout d'un ami devient invisible
 		mSearchFriend.setVisibility(View.VISIBLE);
 		mList.setVisibility(View.VISIBLE);	
@@ -144,5 +162,33 @@ public class Contacts extends Activity  {
 		mAdapter.notifyDataSetChanged();
 		//desactivation bouton "remove"
 		mRemoveBtn.setEnabled(false);				
+	}
+
+	/**
+	 * Permet de remplir la liste des contacts
+	 * @param array
+	 */
+	protected void populateListFriends(JSONArray array){
+		for(int i = 0; i < array.length(); i++){
+			User contact = new User();
+			try {
+				contact.setId(array.getJSONArray(i).optLong(0));
+				contact.setFirstname(array.getJSONArray(i).optString(1));
+				contact.setLastname(array.getJSONArray(i).optString(2));
+				mListFriend.add(contact);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}		
+		}
+	}
+
+	/**
+	 * Permet d'afficher les contacts
+	 */
+	protected void showContacts(){
+		//mise a jour de la liste d'amis
+		mAdapter.setFriendList(mListFriend);
+		//notify l'adapteur
+		mAdapter.notifyDataSetChanged();
 	}
 }

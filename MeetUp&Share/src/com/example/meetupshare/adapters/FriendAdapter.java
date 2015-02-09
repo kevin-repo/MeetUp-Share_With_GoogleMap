@@ -3,6 +3,7 @@ package com.example.meetupshare.adapters;
 import java.util.List;
 
 import com.example.meetupshare.R;
+import com.example.models.Event;
 import com.example.models.User;
 
 import android.content.Context;
@@ -50,13 +51,18 @@ public class FriendAdapter extends BaseAdapter{
 			layoutItem = (LinearLayout) convertView;
 		} 
 		
+		TextView id = (TextView)layoutItem.findViewById(R.id.id_friend_list);
 		TextView firstName = (TextView)layoutItem.findViewById(R.id.firstname_friend_list);
 		TextView lastName = (TextView)layoutItem.findViewById(R.id.lastname_friend_list);
-		    
+		
+		id.setText(Long.toString(mFriendList.get(position).getId()));
 		firstName.setText(mFriendList.get(position).getFirstname());
 		lastName.setText(mFriendList.get(position).getLastname());
 		
 		return layoutItem;
 	}
 
+	public void setFriendList(List<User> list) {
+		this.mFriendList = list;
+	}
 }

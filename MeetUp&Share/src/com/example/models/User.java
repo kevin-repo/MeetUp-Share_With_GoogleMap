@@ -53,22 +53,5 @@ public class User implements Serializable{
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-
-	//Permet de tester la liste d'événements
-	public User(long id, String fname, String lname) {
-		super();
-		this.id = id;
-		this.firstname = fname;
-		this.lastname = lname;
-	}
-
-	public static ArrayList<User> generateListOfFriend() {
-		ArrayList<User> listFriend = new ArrayList<User>();
-
-		listFriend.add(new User(0, "Johnny", "Halliday"));
-		listFriend.add(new User(1, "Sebastien", "Patoche"));
-		listFriend.add(new User(2, "Zinedine", "Zidane"));
-
-		return listFriend;
-	}
+	
 }
