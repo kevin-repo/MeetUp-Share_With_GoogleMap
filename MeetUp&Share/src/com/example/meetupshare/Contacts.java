@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 public class Contacts extends Activity  {
 
@@ -78,9 +79,10 @@ public class Contacts extends Activity  {
 		});
 
 		//Ecouteur d'événement sur la liste des event
-		mList.setOnItemClickListener(new OnItemClickListener() {
+		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				String userName = "Contact " + mListFriend.get(position).getFirstname() + " " +mListFriend.get(position).getLastname() + " sélectionné";
 				Toast toast = Toast.makeText(getApplicationContext(), userName, Toast.LENGTH_SHORT);
 				toast.show();
@@ -88,7 +90,8 @@ public class Contacts extends Activity  {
 				mRemoveBtn.setEnabled(true);
 				mPositionItemSelected = position;
 				mIdFriendSelected = Long.toString(mListFriend.get(position).getId());
-			} 
+				return false;
+			}	
 		});
 	}
 
@@ -138,7 +141,6 @@ public class Contacts extends Activity  {
 	 * @param view
 	 */
 	public void removeFriend(View view) {
-		//TO DO -> Implementer web service suppression d'un ami
 		String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelected;
 		Webservice.delete(url, new AsyncHttpResponseHandler() {
 			@Override
@@ -168,7 +170,7 @@ public class Contacts extends Activity  {
 	 * Permet de remplir la liste des contacts
 	 * @param array
 	 */
-	protected void populateListFriends(JSONArray array){
+	public void populateListFriends(JSONArray array){
 		for(int i = 0; i < array.length(); i++){
 			User contact = new User();
 			try {
@@ -185,7 +187,7 @@ public class Contacts extends Activity  {
 	/**
 	 * Permet d'afficher les contacts
 	 */
-	protected void showContacts(){
+	public void showContacts(){
 		//mise a jour de la liste d'amis
 		mAdapter.setFriendList(mListFriend);
 		//notify l'adapteur
