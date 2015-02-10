@@ -64,6 +64,7 @@ public class SignIn extends Activity {
 						//passage a activity "Connexion"
 						Intent intent = new Intent(SignIn.this, Connexion.class);
 						startActivity(intent);
+						finish();
 					}
 
 					@Override

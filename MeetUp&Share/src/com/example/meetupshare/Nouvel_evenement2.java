@@ -1,6 +1,7 @@
 package com.example.meetupshare;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.meetupshare.adapters.FriendAdapter;
 import com.example.models.Event;
@@ -34,6 +35,7 @@ public class Nouvel_evenement2 extends Activity {
 	private ArrayList<User> mListFriend;
 	private FriendAdapter mAdapter;
 	private ListView mList;
+	private List<String> mIdFriendSelectedList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +50,9 @@ public class Nouvel_evenement2 extends Activity {
 		//Recuperation des informations saisies
 		mAdresse = (EditText) findViewById(R.id.adresse);
 
-		
+
 		mList.setAdapter(mAdapter);
-		
+
 		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
 		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
 		Webservice.get(url, null, new JsonHttpResponseHandler(){			
@@ -74,42 +76,44 @@ public class Nouvel_evenement2 extends Activity {
 	 */
 	public void creerEvenement(View view){	
 		//TODO -> ajouter amis saisis + description + date + heure 
-		RequestParams params = new RequestParams();
-		params.add("title", mEvenement.getTitre());
-		params.add("organizer", Integer.toString(1));
-		//params.add("date", evenement.getDate());
-		//params.add("heure", evenement.getHeure());
-		params.add("place", mAdresse.getText().toString());
-		//params.add("description", adresse.getText().toString());
-		Log.d("params evenement", params.toString());
+		mIdFriendSelectedList = mAdapter.getIdCheckedItems();
 
-		//Controle des donnees du formulaire
-		//TODO Controle des donnees entrees
-		String url = "events.php?method=createevent&title="+mEvenement.getTitre()+"&organizer="+mCurrentUser.getId()+"&place="+mAdresse.getText().toString();
-		Webservice.post(url, null, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-				// called when response HTTP status is "200 OK"
-				Log.d("Create event", "success");
-				Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
-				toast.show();
+		//TODO ajouter les positions a la liste pour faciliter suppression
+		//+ changer url + voir pour ajouts événements + ajouter id_participant
+		if(mAdapter.getCountIdCheckedItemsList() != 0){
+			for(int i = 0; i < mIdFriendSelectedList.size(); i++){
+				String url = "events.php?method=createevent&title="+mEvenement.getTitre()+"&organizer="+mCurrentUser.getId()+"&place="+mAdresse.getText().toString();
+				Webservice.delete(url, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						Log.d("Create event", "success");
+						Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
+						toast.show();
+						//Redirection vers la page principale
+						Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("currentUser", mCurrentUser);
+						intent.putExtras(bundle);
+						startActivity(intent);
+						finish(); 
+					}
 
-				//Redirection vers la page principale
-				Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("currentUser", mCurrentUser);
-				intent.putExtras(bundle);
-				startActivity(intent);
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						Log.d("Create event", "failure");
+						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
+						toast.show();		
+					}			
+				});
 			}
+			//vide le contenu de la liste contenant les id et positions des amis a supprimer
+			mAdapter.initializeIdCheckedItems();
+		}else{
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un contact à supprimer", Toast.LENGTH_SHORT);
+			toast.show();
+		}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-				// called when response HTTP status is "4XX" (eg. 401, 403, 404)
-				Log.d("Create event", "failure");
-				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
-				toast.show();
-			}
-		});
 	}
 
 	//TODO Faire classe et y mettre ces fonctions pour eviter repetition de code
@@ -140,8 +144,8 @@ public class Nouvel_evenement2 extends Activity {
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
-	
-	
+
+
 
 }
 

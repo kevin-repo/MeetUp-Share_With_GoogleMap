@@ -178,6 +178,7 @@ public class Contacts extends Activity  {
 		
 	}
 
+	//TODO Mettre dans interface
 	/**
 	 * Permet de remplir la liste des contacts
 	 * @param array
@@ -196,6 +197,7 @@ public class Contacts extends Activity  {
 		}
 	}
 
+	//TODO Mettre dans interface
 	/**
 	 * Permet d'afficher les contacts
 	 */
@@ -206,6 +208,7 @@ public class Contacts extends Activity  {
 		mAdapter.notifyDataSetChanged();
 	}
 	
+	//TODO Mettre dans interface
 	private void removeFriendofListFriend(int position){
 		for(int j = 0; j< mListFriend.size(); j++){
 			if(Long.toString(mListFriend.get(j).getId()) == mIdFriendSelectedList.get(position)){

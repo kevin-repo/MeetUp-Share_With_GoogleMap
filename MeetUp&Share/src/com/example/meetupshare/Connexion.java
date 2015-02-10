@@ -60,6 +60,7 @@ public class Connexion extends Activity{
 				bundle.putSerializable("currentUser", user);
 				intent.putExtras(bundle);
 				startActivity(intent);
+				finish();
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
