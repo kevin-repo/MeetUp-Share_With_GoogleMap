@@ -25,9 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:layout_alignBaseline="@+id/checkBox1"
-        android:layout_alignBottom="@+id/checkBox1"
-        android:layout_toRightOf="@+id/checkBox1"
+        android:layout_alignBaseline="@+id/friend_list_checkBox"
+        android:layout_alignBottom="@+id/friend_list_checkBox"
+        android:layout_toRightOf="@+id/friend_list_checkBox"
         android:text="First name" />
 
     <TextView

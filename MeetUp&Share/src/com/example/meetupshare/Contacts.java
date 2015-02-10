@@ -53,6 +53,7 @@ public class Contacts extends Activity  {
 	private EditText mSearchFriend;
 	private EditText mMailFriend;
 	private ListView mList;
+	private List<String> mIdFriendSelectedList;
 
 
 	@Override
@@ -139,26 +140,23 @@ public class Contacts extends Activity  {
 	 * @param view
 	 */
 	public void removeFriend(View view) {
-		List<String> idFriendSelected = mAdapter.getIdCheckedItems();
+		mIdFriendSelectedList = mAdapter.getIdCheckedItems();
 
 		//TODO ajouter les positions a la liste pour faciliter suppression
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
-			for(int i = 0; i < idFriendSelected.size(); i++){
-				final int position = mAdapter.getmPositionItemsChecked().get(i);
-				String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + idFriendSelected.get(i);
+			for(int i = 0; i < mIdFriendSelectedList.size(); i++){
+				final int position = i;
+				String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelectedList.get(i);
 				Webservice.delete(url, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						Log.d("delete_contact", "success");
 						Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
 						toast.show();
-						//suppression de l'ami selectionne de la liste friend
-						mListFriend.remove(position);
+						//suppression de l'ami selectionne de la liste friend					
+						removeFriendofListFriend(position);																		
 						//mise a jour de la liste
-						mAdapter.notifyDataSetChanged();
-						//vide le contenu de la liste contenant les id et positions des amis a supprimer
-						mAdapter.initializeIdCheckedItems();
-						mAdapter.initializemPositionItemsChecked();
+						mAdapter.notifyDataSetChanged();			
 					}
 
 					@Override
@@ -170,6 +168,9 @@ public class Contacts extends Activity  {
 					}			
 				});
 			}
+			//vide le contenu de la liste contenant les id et positions des amis a supprimer
+			mAdapter.initializeIdCheckedItems();
+			mAdapter.initializemPositionItemsChecked();
 		}else{
 			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un contact à supprimer", Toast.LENGTH_SHORT);
 			toast.show();
@@ -203,5 +204,13 @@ public class Contacts extends Activity  {
 		mAdapter.setFriendList(mListFriend);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
+	}
+	
+	private void removeFriendofListFriend(int position){
+		for(int j = 0; j< mListFriend.size(); j++){
+			if(Long.toString(mListFriend.get(j).getId()) == mIdFriendSelectedList.get(position)){
+				mListFriend.remove(j);
+			}
+		}
 	}
 }

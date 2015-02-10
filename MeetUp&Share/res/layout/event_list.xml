@@ -2,39 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/id_event_list"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/event_list_checkBox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Id" 
-        android:visibility="gone"/>
-    
-    <TextView
-        android:id="@+id/titre_event_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Titre" />
+        android:layout_alignParentLeft="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/date_event_list"
+            android:id="@+id/id_event_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Date" />
+            android:text="Id"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/heure_event_list"
+            android:id="@+id/titre_event_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Heure" />
+            android:text="Titre" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/date_event_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Date" />
+
+            <TextView
+                android:id="@+id/heure_event_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Heure" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

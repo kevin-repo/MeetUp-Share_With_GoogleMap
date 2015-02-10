@@ -63,10 +63,8 @@
             android:onClick="removeEvent"
             android:text="Remove"
             android:background="#33B5E5"
-            android:textSize="@dimen/vinght"
-            android:enabled="false" />
-
-              
+            android:textSize="@dimen/vinght"/>
+          
     </LinearLayout>
 	
 </LinearLayout>
