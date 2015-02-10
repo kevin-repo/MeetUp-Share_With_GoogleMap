@@ -112,6 +112,13 @@ public class Home extends Activity {
 	}
 
 	/**
+	 * Permet de récupérer les informations sur le prochain evenement
+	 */
+	public void getNextEvent(){
+		
+	}
+	
+	/**
 	 * Suppression du compte de l'utilisateur 
 	 * @param view
 	 */

@@ -8,7 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="0.1" 
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
 
         <LinearLayout
 	        android:layout_width="match_parent"
@@ -67,7 +70,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="0.2"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
 
         <TextView
             android:id="@+id/titre_event_evenement_layout"
@@ -91,7 +96,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:layout_weight="0.3" >
+        android:layout_weight="0.3" 
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <TextView
             android:id="@+id/description"
@@ -102,6 +109,31 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp" >
+        
+        <TextView
+            android:id="@+id/participants_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Participants"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <ListView
+            android:id="@+id/liste_participants"
+            android:layout_width="match_parent"
+            android:layout_height="262dp">
+        </ListView>
+        
+    </LinearLayout>
+    
+    
+    
     <Button
         android:id="@+id/button2"
         android:layout_width="92dp"

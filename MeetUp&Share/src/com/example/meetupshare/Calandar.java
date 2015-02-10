@@ -71,9 +71,9 @@ public class Calandar extends Activity {
 		});
 
 		//Ecouteur d'événement sur la liste des event
-		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+		mList.setOnItemClickListener(new OnItemClickListener () {
 			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
+			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				mCurrentEvent.setId(mListEvent.get(position).getId());
 				//Passage à l'activity Evenement
@@ -82,9 +82,8 @@ public class Calandar extends Activity {
 				bundle.putSerializable("currentEvent", mCurrentEvent);
 				bundle.putSerializable("currentUser", mCurrentUser);
 				intent.putExtras(bundle);
-				startActivity(intent);
-				return false;
-			}	
+				startActivity(intent);	
+			}			
 		});
 	}
 
