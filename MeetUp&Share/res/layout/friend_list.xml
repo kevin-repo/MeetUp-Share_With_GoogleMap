@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
+    <CheckBox
+        android:id="@+id/friend_list_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+    
     <TextView
         android:id="@+id/id_friend_list"
         android:layout_width="match_parent"
@@ -17,6 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
+        android:layout_alignBaseline="@+id/checkBox1"
+        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_toRightOf="@+id/checkBox1"
         android:text="First name" />
 
     <TextView

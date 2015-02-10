@@ -72,6 +72,18 @@ public class Calandar extends Activity {
 		mList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {		
+				String eventName = "Evénement " + mListEvent.get(position).getTitre() + " sélectionné";
+				Log.d("event_selected", eventName);
+				//activation du bouton "remove"
+				mRemoveBtn.setEnabled(true);
+				mPositionItemSelected = position;
+				mIdEventSelected = Long.toString(mListEvent.get(position).getId());
+			} 
+		});
+		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				mCurrentEvent.setId(mListEvent.get(position).getId());
 				//Passage à l'activity Evenement
 				Intent intent = new Intent(Calandar.this, Evenement.class);
@@ -79,21 +91,7 @@ public class Calandar extends Activity {
 				bundle.putSerializable("currentEvent", mCurrentEvent);
 				bundle.putSerializable("currentUser", mCurrentUser);
 				intent.putExtras(bundle);
-				startActivity(intent);			
-			} 
-		});
-		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				String eventName = "Evénement " + mListEvent.get(position).getTitre() + " sélectionné";
-				Toast toast = Toast.makeText(getApplicationContext(), eventName, Toast.LENGTH_SHORT);
-				toast.show();
-				Log.d("event_selected", eventName);
-				//activation du bouton "remove"
-				mRemoveBtn.setEnabled(true);
-				mPositionItemSelected = position;
-				mIdEventSelected = Long.toString(mListEvent.get(position).getId());
+				startActivity(intent);
 				return false;
 			}	
 		});

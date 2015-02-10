@@ -1,6 +1,7 @@
 package com.example.meetupshare;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -20,14 +21,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Contacts extends Activity  {
 
@@ -44,13 +54,14 @@ public class Contacts extends Activity  {
 	private EditText mMailFriend;
 	private ListView mList;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts);
 
 		mListFriend = new ArrayList<User>();
-		mAdapter = new FriendAdapter(mListFriend, this);
+		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListFriend);
 		mList = (ListView)findViewById(R.id.liste_contacts);
 		mRemoveBtn = (Button) findViewById(R.id.remove_friend_btn);
 		mValiderBtn = (Button) findViewById(R.id.validate_add_friend_btn);
@@ -59,6 +70,7 @@ public class Contacts extends Activity  {
 		mMailFriend = (EditText) findViewById(R.id.mail_friend);
 
 		mList.setAdapter(mAdapter);
+		//mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		//Recuperation de l'user courrant
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
@@ -77,23 +89,9 @@ public class Contacts extends Activity  {
 				Log.d("contact_list", "failure");
 			}
 		});
-
-		//Ecouteur d'événement sur la liste des event
-		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				String userName = "Contact " + mListFriend.get(position).getFirstname() + " " +mListFriend.get(position).getLastname() + " sélectionné";
-				Toast toast = Toast.makeText(getApplicationContext(), userName, Toast.LENGTH_SHORT);
-				toast.show();
-				//activation du bouton "remove"
-				mRemoveBtn.setEnabled(true);
-				mPositionItemSelected = position;
-				mIdFriendSelected = Long.toString(mListFriend.get(position).getId());
-				return false;
-			}	
-		});
 	}
+
+
 
 	/**
 	 * Affichage du formulaire permettant d'ajouter un ami
@@ -109,7 +107,7 @@ public class Contacts extends Activity  {
 		mMailFriend.setVisibility(View.VISIBLE);
 	}
 
-
+	//TODO
 	public void validateAdd(View view) {
 		//TO DO -> Implementer web service ajout d'un ami
 		/*
@@ -141,29 +139,42 @@ public class Contacts extends Activity  {
 	 * @param view
 	 */
 	public void removeFriend(View view) {
-		String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelected;
-		Webservice.delete(url, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				Log.d("delete_contact", "success");
-				Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
-				toast.show();
-				//suppression de l'ami selectionne de la liste friend
-				mListFriend.remove(mPositionItemSelected);
-				//mise a jour de la liste
-				mAdapter.notifyDataSetChanged();
-				//desactivation bouton "remove"
-				mRemoveBtn.setEnabled(false);		
-			}
+		List<String> idFriendSelected = mAdapter.getIdCheckedItems();
 
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
-				Log.d("delete_contact", "failure");
-				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
-				toast.show();		
-			}			
-		});			
+		//TODO ajouter les positions a la liste pour faciliter suppression
+		if(mAdapter.getCountIdCheckedItemsList() != 0){
+			for(int i = 0; i < idFriendSelected.size(); i++){
+				final int position = mAdapter.getmPositionItemsChecked().get(i);
+				String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + idFriendSelected.get(i);
+				Webservice.delete(url, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						Log.d("delete_contact", "success");
+						Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
+						toast.show();
+						//suppression de l'ami selectionne de la liste friend
+						mListFriend.remove(position);
+						//mise a jour de la liste
+						mAdapter.notifyDataSetChanged();
+						//vide le contenu de la liste contenant les id et positions des amis a supprimer
+						mAdapter.initializeIdCheckedItems();
+						mAdapter.initializemPositionItemsChecked();
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						Log.d("delete_contact", "failure");
+						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
+						toast.show();		
+					}			
+				});
+			}
+		}else{
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un contact à supprimer", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		
 	}
 
 	/**

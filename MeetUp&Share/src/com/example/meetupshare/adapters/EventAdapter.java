@@ -41,28 +41,35 @@ public class EventAdapter extends BaseAdapter{
 		return position;
 	}
 
+	private class ViewHolder {
+		TextView idEvenement;
+		TextView titreEvenement;
+		TextView dateEvenement;
+		TextView heureEvenement;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LinearLayout layoutItem;
+		final ViewHolder holder;
 		if (convertView == null) {
-			layoutItem = (LinearLayout) mInflater.inflate(R.layout.event_list, parent, false);
+			holder = new ViewHolder();
+			convertView = mInflater.inflate(R.layout.event_list, null);
+			holder.idEvenement = (TextView)convertView.findViewById(R.id.id_event_list);
+			holder.titreEvenement = (TextView)convertView.findViewById(R.id.titre_event_list);
+			holder.dateEvenement = (TextView)convertView.findViewById(R.id.date_event_list);
+			holder.heureEvenement = (TextView)convertView.findViewById(R.id.heure_event_list);
+			convertView.setTag(holder);
 		} else {
-			layoutItem = (LinearLayout) convertView;
-		} 
-		
-		TextView idEvenement = (TextView)layoutItem.findViewById(R.id.id_event_list);
-		TextView titreEvenement = (TextView)layoutItem.findViewById(R.id.titre_event_list);
-		TextView dateEvenement = (TextView)layoutItem.findViewById(R.id.date_event_list);
-		TextView heureEvenement = (TextView)layoutItem.findViewById(R.id.heure_event_list);
-		
-		idEvenement.setText(Long.toString(mEventList.get(position).getId()));
-		titreEvenement.setText(mEventList.get(position).getTitre());
-		dateEvenement.setText(mEventList.get(position).getDate());
-		heureEvenement.setText(mEventList.get(position).getHeure());
-		
-		return layoutItem;
+			holder = (ViewHolder) convertView.getTag();
+		}
+		holder.idEvenement.setText(Long.toString(mEventList.get(position).getId()));
+		holder.titreEvenement.setText(mEventList.get(position).getTitre());
+		holder.dateEvenement.setText(mEventList.get(position).getDate());
+		holder.heureEvenement.setText(mEventList.get(position).getHeure());
+
+		return convertView;
 	}
-	
+
 	public void setEventList(List<Event> list) {
 		this.mEventList = list;
 	}

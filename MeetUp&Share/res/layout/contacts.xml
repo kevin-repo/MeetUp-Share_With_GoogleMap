@@ -39,7 +39,7 @@
         <ListView
             android:id="@+id/liste_contacts"
             android:layout_width="match_parent"
-            android:layout_height="262dp" >
+            android:layout_height="262dp">
         </ListView>
         
         <EditText
@@ -76,8 +76,7 @@
             android:onClick="removeFriend"
             android:text="Remove"
             android:background="#33B5E5"
-            android:textSize="@dimen/vinght"
-            android:enabled="false" />
+            android:textSize="@dimen/vinght"/>
 
         <Button
             android:id="@+id/validate_add_friend_btn"
