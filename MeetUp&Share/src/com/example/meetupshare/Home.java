@@ -83,6 +83,15 @@ public class Home extends Activity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
+	
+	public void optionCompte(View view){	 
+		Intent intent = new Intent(Home.this, Options.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("currentUser", currentUser);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
+
 
 	/**
 	 * Redirection vers activity "FriendRequest"
@@ -188,33 +197,6 @@ public class Home extends Activity {
 		});
 	}
 
-	/**
-	 * Suppression du compte de l'utilisateur 
-	 * @param view
-	 */
-	public void supprimerCompte(View view){
-		String url = "users.php?method=deleteuser&email="+currentUser.getEmail();
-		Webservice.delete(url, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				Log.d("Delete account", "success");
-				Toast toast = Toast.makeText(getApplicationContext(), "Compte supprimé", Toast.LENGTH_SHORT);
-				toast.show();
-				//passage a activity "Connexion"
-				Intent intent = new Intent(getApplicationContext(),Connexion.class);	 
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 	 
-				startActivity(intent);
-			}
 
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
-				Log.d("Delete account", "failure");
-				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
-				toast.show();
-
-			}			
-		});
-	}
 
 }

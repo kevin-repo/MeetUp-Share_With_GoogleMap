@@ -173,12 +173,12 @@
             android:text="Contacts" />
 
         <Button
-            android:id="@+id/supprimerCompte"
+            android:id="@+id/options"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:onClick="supprimerCompte"
-            android:text="Supprimer compte" />
+            android:onClick="optionCompte"
+            android:text="Options" />
     </LinearLayout>
 
     <Button
