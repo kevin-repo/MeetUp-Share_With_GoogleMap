@@ -139,6 +139,15 @@ public class Home extends Activity {
 		startActivity(intent);
 	}
 	
+	public void seePictures (View view){
+		Intent intent = new Intent(Home.this, SeePics.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("currentUser", currentUser);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
+	
+	
 	/**
 	 * Permet de récupérer les demandes d'amis
 	 */

@@ -47,7 +47,8 @@ public class Connexion extends Activity{
 
 		Webservice.get("users.php?method=connexionuser", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("connexion_json", "success");
+				Log.d("connexion_user", "success");
+				Log.d("", ""+response.optString("connexion"));
 				if(response.optString("connexion").equals("true")){
 					User user = new User();
 					user.setId(Long.parseLong(response.optString("id")));
@@ -68,7 +69,7 @@ public class Connexion extends Activity{
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Log.d("connexion_json", "failure");
+				Log.d("connexion_user", "failure");
 			}
 
 		});	

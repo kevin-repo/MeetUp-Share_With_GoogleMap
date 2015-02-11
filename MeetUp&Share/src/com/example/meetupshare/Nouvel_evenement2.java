@@ -13,12 +13,14 @@ import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,11 +35,12 @@ public class Nouvel_evenement2 extends Activity {
 
 	private Event mEvenement;
 	private User mCurrentUser;
-	private EditText mAdresse;
+	private EditText mAdresse, mLink, mDescription;
 	private ArrayList<User> mListFriend;
 	private FriendAdapter mAdapter;
 	private ListView mList;
 	private List<String> mIdFriendSelectedList;
+	private Event mCurrentEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +52,17 @@ public class Nouvel_evenement2 extends Activity {
 		//Recuperation des informations stockees dans l'intent
 		mEvenement = (Event) getIntent().getExtras().get("newEvent");
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
+		mCurrentEvent = new Event();
 		//Recuperation des informations saisies
 		mAdresse = (EditText) findViewById(R.id.adresse);
-
+		mLink = (EditText) findViewById(R.id.url);
+		mDescription = (EditText) findViewById(R.id.description);
 
 		mList.setAdapter(mAdapter);
 
-		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
-		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
-			//Version 1
-			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-				Log.d("contact_list_event", "sucess");
-				populateListFriends(response);
-				showContacts();
-			}
-
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Log.d("contact_list_event", "failure");
-			}
-		});
-
+		init();
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -90,52 +82,109 @@ public class Nouvel_evenement2 extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Initialisation de l'activity
+	 */
+	public void init(){
+		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+			//Version 1
+			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+				Log.d("contact_list_event", "sucess");
+				populateListFriends(response);
+				showContacts();
+			}
+
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("contact_list_event", "failure");
+			}
+		});
+	}
 
 	/**
 	 * Methode permettant la creation d'un event
 	 * @param view
 	 */
-	public void creerEvenement(View view){	
-		//TODO -> ajouter amis saisis + description + date + heure 
-		mIdFriendSelectedList = mAdapter.getIdCheckedItems();
+	public void creerEvenement(View view){			
+		String url = "events.php?method=createevent&title="+mEvenement.getTitre()+"&organizer="+mCurrentUser.getId()+"&place="+mAdresse.getText().toString()+"&description="+mDescription.getText().toString()+"&link="+mLink.getText().toString();
+		Webservice.post(url, null, new JsonHttpResponseHandler() {
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				Log.d("create_event", "success");
+				Log.d("response", ""+response.optString("id_event"));
+				
+				mCurrentEvent.setId(Long.parseLong(response.optString("id_event")));	
+				associateOrganizer();
+				associateParticipants();
+				
+				Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
+				toast.show();
+				//Redirection vers la page principale
+				Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("currentUser", mCurrentUser);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+			}
 
-		//TODO ajouter les positions a la liste pour faciliter suppression
-		//+ changer url + voir pour ajouts événements + ajouter id_participant
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("create_event", "failure");
+				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});			
+	}
+
+	/**
+	 * Ajouter l'organisateur de l'event a l'event
+	 */
+	public void associateOrganizer(){
+		String url = "events.php?method=addorganizeratevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
+		Webservice.post(url, null, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				Log.d("associate_organizer_event", "success");
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				Log.d("associate_organizer_event", "failure");		
+			}			
+		});	
+	}
+	
+	
+	/**
+	 * Creation participant
+	 */
+	public void associateParticipants(){
+		mIdFriendSelectedList = mAdapter.getIdCheckedItems();
+		
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
 			for(int i = 0; i < mIdFriendSelectedList.size(); i++){
-				String url = "events.php?method=createevent&title="+mEvenement.getTitre()+"&organizer="+mCurrentUser.getId()+"&place="+mAdresse.getText().toString();
-				Webservice.delete(url, new AsyncHttpResponseHandler() {
+				//Association des participants a l'evenement
+				String url = "events.php?method=addparticipant&idu="+mIdFriendSelectedList.get(i)+"&event="+mCurrentEvent.getId();
+				Webservice.post(url, null, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						Log.d("Create event", "success");
-						Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
-						toast.show();
-						//Redirection vers la page principale
-						Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("currentUser", mCurrentUser);
-						intent.putExtras(bundle);
-						startActivity(intent);
-						finish(); 
+						Log.d("associate_participant_event", "success");
 					}
 
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						Log.d("Create event", "failure");
-						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
-						toast.show();		
+						Log.d("associate_participant_event", "failure");	
 					}			
-				});
+				});		
 			}
 			//vide le contenu de la liste contenant les id et positions des amis a supprimer
 			mAdapter.initializeIdCheckedItems();
-		}else{
-			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un contact à supprimer", Toast.LENGTH_SHORT);
-			toast.show();
 		}
-
 	}
+
+
+
 
 	//TODO Faire classe et y mettre ces fonctions pour eviter repetition de code
 	/**

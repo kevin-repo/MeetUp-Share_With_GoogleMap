@@ -75,7 +75,7 @@ public class Contacts extends Activity  {
 
 		//Recuperation de l'user courrant
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
-
+		Log.d("currentuser",""+mCurrentUser.getFirstname());
 		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
 		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
 		Webservice.get(url, null, new JsonHttpResponseHandler(){			

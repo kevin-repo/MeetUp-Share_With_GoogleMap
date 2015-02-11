@@ -41,6 +41,7 @@ public class Calandar extends Activity {
 	private String mIdEventSelected;
 	private int mPositionItemSelected;
 	private List<String> mIdEventSelectedList;
+	private boolean mIsResponsableEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,9 @@ public class Calandar extends Activity {
 		mList = (ListView)findViewById(R.id.listEvent);
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 		mCurrentEvent = new Event();
+		mIsResponsableEvent = false;
 
-		mAdapter = new EventAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListEvent);
+		mAdapter = new EventAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListEvent, false);
 		mList.setAdapter(mAdapter);
 
 		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
@@ -88,8 +90,8 @@ public class Calandar extends Activity {
 			}			
 		});
 	}
-	
-	
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -110,11 +112,11 @@ public class Calandar extends Activity {
 	}
 
 
-//	protected void onResume() {
-//		super.onResume();
-//		this.onCreate(null);
-//	}
-	
+	//	protected void onResume() {
+	//		super.onResume();
+	//		this.onCreate(null);
+	//	}
+
 	/**
 	 * Permet de remplir la liste des evenements
 	 * @param array
@@ -162,6 +164,57 @@ public class Calandar extends Activity {
 	 * Suppression d'un event de la liste des evenements
 	 * @param view
 	 */
+	/*public void removeEvent(View view){
+		mIdEventSelectedList = mAdapter.getIdCheckedItems();
+
+		//TODO ajouter les positions a la liste pour faciliter suppression
+		if(mAdapter.getCountIdCheckedItemsList() != 0){
+			for(int i = 0; i < mIdEventSelectedList.size(); i++){
+				final int position = i;
+
+				//test si l'user est responsable de l'event
+				isResponsableEvent(mIdEventSelectedList.get(i));
+				//si user responsable de l'event alors suppression possible
+				if(mIsResponsableEvent){
+					Log.d("responsable?", "oui");
+					String url = "events.php?method=deleteevent&event=" + mIdEventSelectedList.get(i);
+					Webservice.delete(url, new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+							Log.d("delete_event", "success");
+							Toast toast = Toast.makeText(getApplicationContext(), "Evenement supprimé", Toast.LENGTH_SHORT);
+							toast.show();
+							//suppression de l'evenement selectionne de la liste event
+							removeEventofListEvent(position);
+							//mise a jour de la liste
+							mAdapter.notifyDataSetChanged();
+						}
+
+						@Override
+						public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+								Throwable arg3) {
+							Log.d("delete_event", "failure");
+							Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
+							toast.show();		
+						}			
+					});
+				}else {
+					Log.d("responsable?", "non");
+				}
+			}
+			//vide le contenu de la liste contenant les id et positions des amis a supprimer
+			mAdapter.initializeIdCheckedItems();
+			mAdapter.initializemPositionItemsChecked();
+		}else{
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un événement à supprimer", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}*/
+
+	/**
+	 * Suppression d'un event de la liste des evenements
+	 * @param view
+	 */
 	public void removeEvent(View view){
 		mIdEventSelectedList = mAdapter.getIdCheckedItems();
 
@@ -169,6 +222,7 @@ public class Calandar extends Activity {
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
 			for(int i = 0; i < mIdEventSelectedList.size(); i++){
 				final int position = i;
+
 				String url = "events.php?method=deleteevent&event=" + mIdEventSelectedList.get(i);
 				Webservice.delete(url, new AsyncHttpResponseHandler() {
 					@Override
@@ -199,13 +253,34 @@ public class Calandar extends Activity {
 			toast.show();
 		}
 	}
-	
+
 	private void removeEventofListEvent(int position){
 		for(int j = 0; j< mListEvent.size(); j++){
 			if(Long.toString(mListEvent.get(j).getId()) == mIdEventSelectedList.get(position)){
 				mListEvent.remove(j);
 			}
 		}
+	}
+
+	public void isResponsableEvent(String id){
+		String url = "events.php?method=readcurrent&id="+id;
+		Webservice.get(url, null, new JsonHttpResponseHandler(){
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				Log.d("is_reponsable_event", "success");
+				if(response.optLong("id_u") == mCurrentUser.getId()){
+					Log.d("is_reponsable", "true");
+					mIsResponsableEvent = true;
+				}else{
+					Log.d("is_reponsable", "false");
+					mIsResponsableEvent = false;
+				}
+			}
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("is_reponsable_event", "failure");
+				mIsResponsableEvent = false;
+			}
+		});	
+
 	}
 
 }

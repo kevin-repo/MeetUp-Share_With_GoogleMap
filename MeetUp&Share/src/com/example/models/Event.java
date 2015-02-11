@@ -18,6 +18,7 @@ public class Event implements Serializable {
 	private String date;
 	private String heure;
 	private String description;
+	private String url;
 	
 	public Event() {
 		super();
@@ -79,6 +80,14 @@ public class Event implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

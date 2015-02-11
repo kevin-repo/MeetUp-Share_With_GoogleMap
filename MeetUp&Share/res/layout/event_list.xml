@@ -23,6 +23,13 @@
             android:layout_height="wrap_content"
             android:text="Id"
             android:visibility="gone" />
+        
+        <TextView
+            android:id="@+id/url_event_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Url"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/titre_event_list"

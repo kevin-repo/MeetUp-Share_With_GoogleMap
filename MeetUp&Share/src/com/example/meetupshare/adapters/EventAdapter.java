@@ -26,14 +26,16 @@ public class EventAdapter extends ArrayAdapter<Event>{
 	private List<String> mIdCheckedItems;
 	private List<Integer> mPositionItemsChecked;
 	private Integer mPosition;
+	private boolean mHideCheckBox;
 
-	public EventAdapter(Context context, int ressourceId, List<Event> list) {
+	public EventAdapter(Context context, int ressourceId, List<Event> list, boolean hideCheckbox) {
 		super(context, ressourceId);
 		mEventList = list;
 		mContext = context;
 		mInflater = LayoutInflater.from(mContext);
 		mIdCheckedItems = new ArrayList<String>();
 		mPositionItemsChecked = new ArrayList<Integer>();
+		mHideCheckBox = hideCheckbox;
 	}
 
 	@Override
@@ -56,6 +58,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
 		TextView titreEvenement;
 		TextView dateEvenement;
 		TextView heureEvenement;
+		TextView urlEvenement;
 		CheckBox checkbox;
 	}
 
@@ -70,6 +73,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
 			holder.titreEvenement = (TextView)convertView.findViewById(R.id.titre_event_list);
 			holder.dateEvenement = (TextView)convertView.findViewById(R.id.date_event_list);
 			holder.heureEvenement = (TextView)convertView.findViewById(R.id.heure_event_list);
+			holder.urlEvenement = (TextView)convertView.findViewById(R.id.url_event_list);
 			holder.checkbox = (CheckBox)convertView.findViewById(R.id.event_list_checkBox);
 
 			holder.checkbox.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +89,10 @@ public class EventAdapter extends ArrayAdapter<Event>{
 					}
 				}
 			});
+			
+			if(mHideCheckBox){
+				holder.checkbox.setVisibility(View.GONE);
+			}
 
 			convertView.setTag(holder);
 		} else {
@@ -94,6 +102,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
 		holder.titreEvenement.setText(mEventList.get(position).getTitre());
 		holder.dateEvenement.setText(mEventList.get(position).getDate());
 		holder.heureEvenement.setText(mEventList.get(position).getHeure());
+		holder.urlEvenement.setText(mEventList.get(position).getUrl());
 		holder.checkbox.setChecked(false);
 
 		return convertView;

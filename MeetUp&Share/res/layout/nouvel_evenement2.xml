@@ -8,10 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" 
         android:layout_weight="0.1"
-        >
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/intitule"
@@ -20,41 +19,44 @@
             android:gravity="center_horizontal"
             android:text="Nouvel Evènement"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:layout_weight="0.1">
+        android:layout_weight="0.1"
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/adresse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10" 
+            android:ems="10"
             android:hint="Addresse" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:layout_weight="0.4">
+        android:layout_weight="0.4"
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Description"
             android:inputType="textMultiLine" >
-
-            <requestFocus />
         </EditText>
-
+        
+        <EditText
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10" 
+            android:hint="Url pour stockage photos" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,17 +69,15 @@
             android:layout_width="match_parent"
             android:layout_height="202dp" >
         </ListView>
-
     </LinearLayout>
 
     <Button
         android:id="@+id/validate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Validate" 
+        android:layout_weight="0.1"
         android:background="#33B5E5"
         android:onClick="creerEvenement"
-        android:layout_weight="0.1"
-        />
+        android:text="Validate" />
 
 </LinearLayout>

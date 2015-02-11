@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/intitule"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:text="Nouvel évènenement"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -30,7 +30,7 @@
         <EditText
             android:id="@+id/titre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.1"
             android:ems="10"
             android:inputType="textMultiLine"
