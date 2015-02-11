@@ -60,4 +60,6 @@ public class Nouvel_evenement extends Activity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
+	
 }
+

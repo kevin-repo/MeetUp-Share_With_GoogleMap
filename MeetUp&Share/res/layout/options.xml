@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+ <Button
+     android:id="@+id/supprimer"
+     android:layout_width="wrap_content"
+     android:layout_height="175px"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentRight="true"
+     android:layout_alignParentTop="true"
+     android:layout_weight="0.5"
+     android:onClick="supprimerCompte"
+     android:text="Supprimer compte" />
+
+ <Button
+     android:id="@+id/modifiermdp"
+     android:layout_width="wrap_content"
+     android:layout_height="175px"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentRight="true"
+     android:layout_below="@+id/supprimer"
+     android:layout_weight="0.5"
+     android:onClick="modifierMdp"
+     android:text="Modifier mot de passe" />
+
+</RelativeLayout>
