@@ -47,25 +47,28 @@ public class Connexion extends Activity{
 
 		Webservice.get("users.php?method=connexionuser", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("connexion_json", response.toString());
+				Log.d("connexion_json", "success");
+				if(response.optString("connexion").equals("true")){
+					User user = new User();
+					user.setId(Long.parseLong(response.optString("id")));
+					user.setEmail(response.optString("email"));
+					user.setLastname(response.optString("lname"));
+					user.setFirstname(response.optString("fname"));
 
-				User user = new User();
-				user.setId(Long.parseLong(response.optString("id")));
-				user.setEmail(response.optString("email"));
-				user.setLastname(response.optString("lname"));
-				user.setFirstname(response.optString("fname"));
-
-				Intent intent = new Intent(Connexion.this, Home.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("currentUser", user);
-				intent.putExtras(bundle);
-				startActivity(intent);
-				finish();
+					Intent intent = new Intent(Connexion.this, Home.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("currentUser", user);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					finish();
+				}else{
+					Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects", Toast.LENGTH_SHORT);
+					toast.show();
+				}
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Identifiants incorrects", Toast.LENGTH_SHORT);
-				toast.show();
+				Log.d("connexion_json", "failure");
 			}
 
 		});	

@@ -111,9 +111,6 @@ public class Contacts extends Activity  {
 		return super.onOptionsItemSelected(item);
 	}
 
-
-
-
 	/**
 	 * Affichage du formulaire permettant d'ajouter un ami
 	 * @param view
@@ -128,24 +125,25 @@ public class Contacts extends Activity  {
 		mMailFriend.setVisibility(View.VISIBLE);
 	}
 
-	//TODO
+	/**
+	 * Validation de l'envoi d'une demande d'ami
+	 * @param view
+	 */
 	public void validateAdd(View view) {
-		//TO DO -> Implementer web service ajout d'un ami
-		/*
-		RequestParams params = new RequestParams();
-		params.put("currentuser", mCurrentUser.getEmail());
-
-		Webservice.post("?method=addfriend", params, new JsonHttpResponseHandler(){
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				//mise a jour de la liste des amis
-				mAdapter.notifyDataSetChanged();
-			}			
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Ajout du contact impossible", Toast.LENGTH_SHORT);
+		String url = "users.php?method=addfriend&idcurrent="+mCurrentUser.getId()+"&email="+mMailFriend.getText().toString();
+		Webservice.post(url, null, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				Log.d("add_friend", "success");
+				Toast toast = Toast.makeText(getApplicationContext(), "Demande d'ajout envoyé", Toast.LENGTH_SHORT);
 				toast.show();
+			}	
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				Log.d("add_friend", "failure");		
 			}
 		});
-		 */
+
 		//formulaire pour ajout d'un ami devient invisible
 		mSearchFriend.setVisibility(View.VISIBLE);
 		mList.setVisibility(View.VISIBLE);	
