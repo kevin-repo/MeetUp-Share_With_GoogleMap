@@ -13,31 +13,63 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/invitation_friend_layout"
+            android:id="@+id/invitation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:orientation="horizontal"
             android:visibility="gone" >
 
-            <ImageView
-                android:id="@+id/friend_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/friends"
-                android:onClick="friendRequests" />
+            <LinearLayout
+                android:id="@+id/invitation_friend_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
-            <TextView
-                android:id="@+id/friend_counter"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignBaseline="@+id/friend_icon"
-                android:layout_alignBottom="@+id/friend_icon"
-                android:layout_toRightOf="@+id/friend_icon"
-                android:layout_weight="0.3"
-                android:text="Compteur"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/friend_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:onClick="friendRequests"
+                    android:src="@drawable/friends" />
+
+                <TextView
+                    android:id="@+id/friend_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Compteur"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/invitation_event_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/event_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:onClick="eventRequests"
+                    android:src="@drawable/event" />
+
+                <TextView
+                    android:id="@+id/event_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Compteur"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -51,7 +83,28 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/titre"
+            android:id="@+id/id_next_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Id"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/null_next_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Aucun prochain événement"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="gone" />
+"
+
+        <TextView
+            android:id="@+id/titre_next_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,7 +118,7 @@
             android:layout_weight="0.4" >
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/date_next_event"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -74,7 +127,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/lieu"
+                android:id="@+id/lieu_next_event"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

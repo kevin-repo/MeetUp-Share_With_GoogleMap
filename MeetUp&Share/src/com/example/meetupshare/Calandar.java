@@ -60,7 +60,7 @@ public class Calandar extends Activity {
 		Webservice.get(url, null, new JsonHttpResponseHandler(){			
 			//Version 1
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-				Log.d("event_list", "sucess");
+				Log.d("event_list", "success");
 				populateListEvents(response);
 				showEvents();
 			}
@@ -86,7 +86,13 @@ public class Calandar extends Activity {
 			}			
 		});
 	}
+	
 
+//	protected void onResume() {
+//		super.onResume();
+//		this.onCreate(null);
+//	}
+	
 	/**
 	 * Permet de remplir la liste des evenements
 	 * @param array

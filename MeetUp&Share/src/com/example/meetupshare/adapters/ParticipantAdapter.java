@@ -69,6 +69,11 @@ public class ParticipantAdapter extends ArrayAdapter<User>{
 	public void setParticipantList(List<User> list) {
 		this.mParticipantList = list;
 	}
+	
+	public void add(User object) {
+		mParticipantList.add(object);
+		notifyDataSetChanged();
+	}
 
 	
 }
