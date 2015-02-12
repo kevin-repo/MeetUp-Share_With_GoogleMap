@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 
 		case R.id.home:
-			Intent intent = new Intent(this, Home.class);
+			Intent intent = new Intent(this.getApplicationContext(), Home.class);
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("currentUser", currentUser);
 			intent.putExtras(bundle);
@@ -73,6 +73,13 @@ public class MainActivity extends Activity {
 			bundle5.putSerializable("currentUser", currentUser);
 			intent5.putExtras(bundle5);
 			startActivity(intent5);
+		case R.id.deconnect:
+			Intent intent6 = new Intent(this, Connexion.class);
+			Bundle bundle6 = new Bundle();
+			bundle6.putSerializable("currentUser", currentUser);
+			intent6.putExtras(bundle6);
+			startActivity(intent6);
+			finish();
 			return true;
 			
 
