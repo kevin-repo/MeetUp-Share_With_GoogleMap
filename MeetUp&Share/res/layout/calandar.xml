@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/walpaper">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:text="Calendar"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+             android:textColor="#FFFFFF"/>
       
     </LinearLayout>
 
@@ -29,7 +31,9 @@
         <ListView android:id="@+id/listEvent" 
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:listSelector="@android:color/darker_gray">
+			android:listSelector="@android:color/darker_gray"
+			 android:textColor="#FFFFFF"
+			>
 		</ListView>
 		
     </LinearLayout>
@@ -51,9 +55,10 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:onClick="addEvent"
-            android:background="#33B5E5"
+           
             android:text="Add"
-            android:textSize="@dimen/vinght" />
+            android:textSize="@dimen/vinght" 
+             android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/remove_event_btn"
@@ -62,8 +67,9 @@
             android:layout_weight="0.5"
             android:onClick="removeEvent"
             android:text="Remove"
-            android:background="#33B5E5"
-            android:textSize="@dimen/vinght"/>
+           
+            android:textSize="@dimen/vinght"
+             android:textColor="#FFFFFF"/>
           
     </LinearLayout>
 	
