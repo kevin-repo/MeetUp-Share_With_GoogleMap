@@ -183,7 +183,6 @@ public class Home extends MainActivity {
 				mIdNextEvent.setText(response.optString("id"));
 				if(!mIdNextEvent.getText().toString().equals("null")){
 					mTitleNextEvent.setText(ajouterEspace(response.optString("title")));
-					Log.d("date", response.optString("date"));
 					mDateNextEvent.setText(deleteHour(response.optString("date")));
 					mPlaceNextEvent.setText(ajouterEspace(response.optString("place")));
 				}else{

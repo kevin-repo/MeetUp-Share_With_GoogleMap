@@ -107,9 +107,9 @@ public class Calandar extends MainActivity {
 			Event e = new Event();
 			try {
 				e.setId(array.getJSONArray(i).optLong(0));
-				e.setLocation(array.getJSONArray(i).optString(1));
+				e.setLocation(ajouterEspace(array.getJSONArray(i).optString(1)));
 				e.setDate(deleteHour(array.getJSONArray(i).optString(2)));
-				e.setTitre(array.getJSONArray(i).optString(3));
+				e.setTitre(ajouterEspace(array.getJSONArray(i).optString(3)));
 				e.setHeure(array.getJSONArray(i).optString(4));
 				mListEvent.add(e);
 			} catch (JSONException e1) {
@@ -262,6 +262,12 @@ public class Calandar extends MainActivity {
 			}
 		});	
 
+	}
+	
+	public String ajouterEspace(String s){
+		String res;
+		res = s.replace("_", " ");
+		return res;
 	}
 	
 	public String deleteHour(String s){

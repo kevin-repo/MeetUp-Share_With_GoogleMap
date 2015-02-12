@@ -97,19 +97,12 @@ public class Nouvel_evenement2 extends MainActivity {
 		String placeSansEspace = supprimerEspace(mAdresse.getText().toString());
 		String descriptionSansEspace = supprimerEspace(mDescription.getText().toString());
 		
-		//heure formatée
-		String date1 = "03-24-2013";
 		String date2 = mEvenement.getDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateFormate2 = null;
         try
         {
-            Date dateFormate = simpleDateFormat.parse(date1);
-            Log.d("sdf", ""+simpleDateFormat.format(dateFormate));
-            System.out.println("date : "+simpleDateFormat.format(dateFormate));
             dateFormate2 = simpleDateFormat.parse(date2);
-            Log.d("sdf2", ""+simpleDateFormat.format(dateFormate2));
-            System.out.println("date : "+simpleDateFormat.format(dateFormate2));
         }
         catch (ParseException ex)
         {
@@ -117,6 +110,7 @@ public class Nouvel_evenement2 extends MainActivity {
         }
 		
 		String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString()+"&date="+simpleDateFormat.format(dateFormate2);
+		Log.d("url", url);
 		Webservice.post(url, null, new JsonHttpResponseHandler() {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("create_event", "success");
@@ -227,7 +221,7 @@ public class Nouvel_evenement2 extends MainActivity {
 
 	public String supprimerEspace(String s){
 		String res;
-		res = s.replace(" ", "%");
+		res = s.replace(" ", "_");
 		return res;
 	}
 	

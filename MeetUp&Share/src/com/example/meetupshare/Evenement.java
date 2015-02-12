@@ -50,16 +50,16 @@ public class Evenement extends MainActivity {
 		mParticipateEventBtn = (Button) findViewById(R.id.participate_event_btn);
 		mRefuseEventBtn = (Button) findViewById(R.id.refuse_event_btn);
 		mDescription = (TextView) findViewById(R.id.description);
-		
+
 		mCurrentEvent = (Event) getIntent().getExtras().get("currentEvent");
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
-		
+
 		mListParticipant = new ArrayList<User>();
 		mAdapter = new ParticipantAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListParticipant);
 		mList = (ListView)findViewById(R.id.liste_participants);
 
 		mList.setAdapter(mAdapter);
-		
+
 		//Recuperation des informations de l'evenement
 		String url = "events.php?method=readcurrent&id="+mCurrentEvent.getId();
 		Webservice.get(url, null, new JsonHttpResponseHandler(){
@@ -94,7 +94,7 @@ public class Evenement extends MainActivity {
 				Log.d("participant_list", "failure");
 			}
 		});
-		
+
 		String url3 = "events.php?method=readparticipation&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
 		Webservice.get(url3, null, new JsonHttpResponseHandler(){			
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -133,7 +133,7 @@ public class Evenement extends MainActivity {
 			}
 		});
 	}
-	
+
 	/**
 	 * Current user participe a l'evenement
 	 */
@@ -152,14 +152,14 @@ public class Evenement extends MainActivity {
 				user.setLastname(mCurrentUser.getLastname());
 				mAdapter.add(user);
 			}
-			
+
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				Log.d("participate_event", "failure");		
 			}
 		});
 	}
-	
+
 	/**
 	 * Current user ne participe pas a l'evenement
 	 */
@@ -171,23 +171,35 @@ public class Evenement extends MainActivity {
 				Log.d("refuse_event", "sucess");
 				Toast toast = Toast.makeText(getApplicationContext(), "Evénement supprimé de la liste" , Toast.LENGTH_SHORT);
 				toast.show();
-				//Passage à l'activity Calendar
-				Intent intent = new Intent(Evenement.this, Calandar.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("currentEvent", mCurrentEvent);
-				bundle.putSerializable("currentUser", mCurrentUser);
-				intent.putExtras(bundle);
-				startActivity(intent);
-				finish();
+
+				//Passage a activity EventRequest
+				if(EventRequest.getInstance() != null){
+					Intent intent = new Intent(Evenement.this, EventRequest.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("currentEvent", mCurrentEvent);
+					bundle.putSerializable("currentUser", mCurrentUser);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					finish();	
+				}else{
+					//Passage à l'activity Calendar
+					Intent intent = new Intent(Evenement.this, Calandar.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("currentEvent", mCurrentEvent);
+					bundle.putSerializable("currentUser", mCurrentUser);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					finish();
+				}
 			}
-			
+
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				Log.d("refuse_event", "failure");		
 			}
 		});
 	}
-	
+
 	//TODO Mettre dans interface
 	/**
 	 * Permet de remplir la liste des participants
@@ -218,13 +230,13 @@ public class Evenement extends MainActivity {
 		mAdapter.notifyDataSetChanged();
 	}
 
-	
+
 	public String ajouterEspace(String s){
 		String res;
-		res = s.replace("%", " ");
+		res = s.replace("_", " ");
 		return res;
 	}
-	
+
 	public String deleteHour(String s){
 		String res;
 
@@ -232,5 +244,5 @@ public class Evenement extends MainActivity {
 		res = s.substring(0, i);
 		return res;
 	}
-	
+
 }

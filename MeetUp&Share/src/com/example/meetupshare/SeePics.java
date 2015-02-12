@@ -110,7 +110,7 @@ public class SeePics extends MainActivity{
 
 	public String ajouterEspace(String s){
 		String res;
-		res = s.replace("%", " ");
+		res = s.replace("_", " ");
 		return res;
 	}
 	
