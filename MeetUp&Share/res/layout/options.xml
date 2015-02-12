@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+     android:background="@drawable/walpaper">
 
  <Button
      android:id="@+id/supprimer"
@@ -12,7 +13,8 @@
      android:layout_alignParentTop="true"
      android:layout_weight="0.5"
      android:onClick="supprimerCompte"
-     android:text="Supprimer compte" />
+     android:text="Supprimer compte" 
+     android:textColor="#FFFFFF" />
 
  <Button
      android:id="@+id/modifiermdp"
@@ -23,6 +25,7 @@
      android:layout_below="@+id/supprimer"
      android:layout_weight="0.5"
      android:onClick="modifierMdp"
-     android:text="Modifier mot de passe" />
+     android:text="Modifier mot de passe"
+     android:textColor="#FFFFFF"  />
 
 </RelativeLayout>
