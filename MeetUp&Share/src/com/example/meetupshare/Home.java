@@ -190,9 +190,9 @@ public class Home extends MainActivity {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("next_event", "success");
 				mIdNextEvent.setText(response.optString("id"));
-				mTitleNextEvent.setText(response.optString("title"));
+				mTitleNextEvent.setText(ajouterEspace(response.optString("title")));
 				mDateNextEvent.setText(response.optString("date"));
-				mPlaceNextEvent.setText(response.optString("place"));
+				mPlaceNextEvent.setText(ajouterEspace(response.optString("place")));
 				if(mIdNextEvent.getText().toString().equals("null")){
 					//aucun prochain evenement
 					mTitleNextEvent.setVisibility(View.GONE);
@@ -208,6 +208,10 @@ public class Home extends MainActivity {
 		});
 	}
 
-
+	public String ajouterEspace(String s){
+		String res;
+		res = s.replace("%", " ");
+		return res;
+	}
 
 }

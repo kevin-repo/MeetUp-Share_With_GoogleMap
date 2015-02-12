@@ -73,6 +73,7 @@ public class MainActivity extends Activity {
 			bundle5.putSerializable("currentUser", currentUser);
 			intent5.putExtras(bundle5);
 			startActivity(intent5);
+			return true;
 		case R.id.deconnect:
 			Intent intent6 = new Intent(this, Connexion.class);
 			Bundle bundle6 = new Bundle();
@@ -81,7 +82,8 @@ public class MainActivity extends Activity {
 			startActivity(intent6);
 			finish();
 			return true;
-			
+		case R.id.refresh:
+			return true;	
 
 
 

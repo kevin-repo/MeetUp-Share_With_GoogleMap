@@ -31,7 +31,7 @@ import android.widget.Toast;
 public class Evenement extends MainActivity {
 
 	private Event mCurrentEvent;
-	private TextView mDate, mHeure, mTitre;
+	private TextView mDate, mHeure, mTitre, mDescription;
 	private ArrayList<User> mListParticipant;
 	private ParticipantAdapter mAdapter;
 	private ListView mList;
@@ -49,6 +49,7 @@ public class Evenement extends MainActivity {
 		mTitre = (TextView) findViewById(R.id.titre_event_evenement_layout);
 		mParticipateEventBtn = (Button) findViewById(R.id.participate_event_btn);
 		mRefuseEventBtn = (Button) findViewById(R.id.refuse_event_btn);
+		mDescription = (TextView) findViewById(R.id.description);
 		
 		mCurrentEvent = (Event) getIntent().getExtras().get("currentEvent");
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
@@ -68,7 +69,8 @@ public class Evenement extends MainActivity {
 				//TODO Séparer date et heure + afficher organisateur de la soirée
 				mDate.setText(response.optString("date"));
 				mHeure.setText(response.optString("hh:mm"));
-				mTitre.setText(response.optString("title"));
+				mTitre.setText(ajouterEspace(response.optString("title")));
+				mDescription.setText(ajouterEspace(response.optString("description")));
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
@@ -217,4 +219,11 @@ public class Evenement extends MainActivity {
 		mAdapter.notifyDataSetChanged();
 	}
 
+	
+	public String ajouterEspace(String s){
+		String res;
+		res = s.replace("%", " ");
+		return res;
+	}
+	
 }

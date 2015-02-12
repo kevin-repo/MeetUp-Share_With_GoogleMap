@@ -44,7 +44,7 @@ public final class R {
         public static final int date_event_evenement_layout=0x7f08000f;
         public static final int date_event_list=0x7f08001c;
         public static final int date_next_event=0x7f08002f;
-        public static final int deconnect=0x7f080050;
+        public static final int deconnect=0x7f080051;
         public static final int demande_ami=0x7f080022;
         public static final int description=0x7f080013;
         public static final int editText1=0x7f080004;
@@ -94,6 +94,7 @@ public final class R {
         public static final int photos=0x7f080035;
         public static final int prenomInscription=0x7f080048;
         public static final int recherche_ami=0x7f080009;
+        public static final int refresh=0x7f080050;
         public static final int refuse_event_btn=0x7f080017;
         public static final int remove_event_btn=0x7f080003;
         public static final int remove_friend_btn=0x7f08000d;

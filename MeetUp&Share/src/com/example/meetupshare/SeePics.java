@@ -87,10 +87,10 @@ public class SeePics extends MainActivity{
 			Event e = new Event();
 			try {
 				e.setId(array.getJSONArray(i).optLong(0));
-				e.setLocation(array.getJSONArray(i).optString(1));
+				e.setLocation(ajouterEspace(array.getJSONArray(i).optString(1)));
 				//TODO Separer date et heure
 				e.setDate(array.getJSONArray(i).optString(2));
-				e.setTitre(array.getJSONArray(i).optString(3));
+				e.setTitre(ajouterEspace(array.getJSONArray(i).optString(3)));
 				e.setUrl(array.getJSONArray(i).optString(4));
 				mListEvent.add(e);
 			} catch (JSONException e1) {
@@ -109,4 +109,10 @@ public class SeePics extends MainActivity{
 		mAdapter.notifyDataSetChanged();
 	}
 
+	public String ajouterEspace(String s){
+		String res;
+		res = s.replace("%", " ");
+		return res;
+	}
+	
 }

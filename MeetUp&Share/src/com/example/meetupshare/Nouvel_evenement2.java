@@ -87,8 +87,11 @@ public class Nouvel_evenement2 extends MainActivity {
 	 * Methode permettant la creation d'un event
 	 * @param view
 	 */
-	public void creerEvenement(View view){			
-		String url = "events.php?method=createevent&title="+mEvenement.getTitre()+"&organizer="+mCurrentUser.getId()+"&place="+mAdresse.getText().toString()+"&description="+mDescription.getText().toString()+"&link="+mLink.getText().toString();
+	public void creerEvenement(View view){
+		String titreSansEspace = supprimerEspace(mEvenement.getTitre());
+		String placeSansEspace = supprimerEspace(mAdresse.getText().toString());
+		String descriptionSansEspace = supprimerEspace(mDescription.getText().toString());
+		String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString();
 		Webservice.post(url, null, new JsonHttpResponseHandler() {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("create_event", "success");
@@ -197,7 +200,11 @@ public class Nouvel_evenement2 extends MainActivity {
 		mAdapter.notifyDataSetChanged();
 	}
 
-
+	public String supprimerEspace(String s){
+		String res;
+		res = s.replace(" ", "%");
+		return res;
+	}
 
 }
 
