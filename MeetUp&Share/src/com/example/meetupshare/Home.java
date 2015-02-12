@@ -86,15 +86,6 @@ public class Home extends MainActivity {
 		startActivity(intent);
 	}
 	
-	public void optionCompte(View view){	 
-		Intent intent = new Intent(Home.this, Options.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
-		intent.putExtras(bundle);
-		startActivity(intent);
-	}
-
-
 	/**
 	 * Redirection vers activity "FriendRequest"
 	 * @param view
