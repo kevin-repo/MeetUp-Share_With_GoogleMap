@@ -126,7 +126,7 @@
             <TextView
                 android:id="@+id/date_next_event"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:text="Date"
@@ -136,12 +136,12 @@
             <TextView
                 android:id="@+id/lieu_next_event"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:text="Lieu"
                 android:textAppearance="?android:attr/textAppearanceLarge" 
-                 android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </LinearLayout>
 

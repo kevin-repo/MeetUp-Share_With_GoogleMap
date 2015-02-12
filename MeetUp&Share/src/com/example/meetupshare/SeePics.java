@@ -88,8 +88,7 @@ public class SeePics extends MainActivity{
 			try {
 				e.setId(array.getJSONArray(i).optLong(0));
 				e.setLocation(ajouterEspace(array.getJSONArray(i).optString(1)));
-				//TODO Separer date et heure
-				e.setDate(array.getJSONArray(i).optString(2));
+				e.setDate(deleteHour(array.getJSONArray(i).optString(2)));
 				e.setTitre(ajouterEspace(array.getJSONArray(i).optString(3)));
 				e.setUrl(array.getJSONArray(i).optString(4));
 				mListEvent.add(e);
@@ -112,6 +111,14 @@ public class SeePics extends MainActivity{
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("%", " ");
+		return res;
+	}
+	
+	public String deleteHour(String s){
+		String res;
+		
+		int i = s.indexOf(" ");
+		res = s.substring(0, i);
 		return res;
 	}
 	

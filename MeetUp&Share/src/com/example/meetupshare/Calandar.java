@@ -108,8 +108,7 @@ public class Calandar extends MainActivity {
 			try {
 				e.setId(array.getJSONArray(i).optLong(0));
 				e.setLocation(array.getJSONArray(i).optString(1));
-				//TODO Separer date et heure
-				e.setDate(array.getJSONArray(i).optString(2));
+				e.setDate(deleteHour(array.getJSONArray(i).optString(2)));
 				e.setTitre(array.getJSONArray(i).optString(3));
 				e.setHeure(array.getJSONArray(i).optString(4));
 				mListEvent.add(e);
@@ -263,6 +262,14 @@ public class Calandar extends MainActivity {
 			}
 		});	
 
+	}
+	
+	public String deleteHour(String s){
+		String res;
+		
+		int i = s.indexOf(" ");
+		res = s.substring(0, i);
+		return res;
 	}
 
 }

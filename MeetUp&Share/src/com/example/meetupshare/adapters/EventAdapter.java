@@ -59,6 +59,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
 		TextView dateEvenement;
 		TextView heureEvenement;
 		TextView urlEvenement;
+		TextView lieuEvenement;
 		CheckBox checkbox;
 	}
 
@@ -75,6 +76,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
 			holder.heureEvenement = (TextView)convertView.findViewById(R.id.heure_event_list);
 			holder.urlEvenement = (TextView)convertView.findViewById(R.id.url_event_list);
 			holder.checkbox = (CheckBox)convertView.findViewById(R.id.event_list_checkBox);
+			holder.lieuEvenement = (TextView)convertView.findViewById(R.id.place_event_list);
 
 			holder.checkbox.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
@@ -103,6 +105,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
 		holder.dateEvenement.setText(mEventList.get(position).getDate());
 		holder.heureEvenement.setText(mEventList.get(position).getHeure());
 		holder.urlEvenement.setText(mEventList.get(position).getUrl());
+		holder.lieuEvenement.setText(mEventList.get(position).getLocation());
 		holder.checkbox.setChecked(false);
 
 		return convertView;

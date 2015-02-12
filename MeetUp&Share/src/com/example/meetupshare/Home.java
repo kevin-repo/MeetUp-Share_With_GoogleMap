@@ -182,7 +182,7 @@ public class Home extends MainActivity {
 				Log.d("next_event", "success");
 				mIdNextEvent.setText(response.optString("id"));
 				mTitleNextEvent.setText(ajouterEspace(response.optString("title")));
-				mDateNextEvent.setText(response.optString("date"));
+				mDateNextEvent.setText(deleteHour(response.optString("date")));
 				mPlaceNextEvent.setText(ajouterEspace(response.optString("place")));
 				if(mIdNextEvent.getText().toString().equals("null")){
 					//aucun prochain evenement
@@ -202,6 +202,14 @@ public class Home extends MainActivity {
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("%", " ");
+		return res;
+	}
+	
+	public String deleteHour(String s){
+		String res;
+		
+		int i = s.indexOf(" ");
+		res = s.substring(0, i);
 		return res;
 	}
 
