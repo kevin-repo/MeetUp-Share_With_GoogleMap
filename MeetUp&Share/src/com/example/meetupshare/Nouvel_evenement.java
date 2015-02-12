@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class Nouvel_evenement extends Activity {
+public class Nouvel_evenement extends MainActivity {
 
 	private EditText titre;
 	private DatePicker date;

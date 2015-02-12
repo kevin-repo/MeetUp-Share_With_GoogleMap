@@ -24,7 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class SeePics extends Activity{
+public class SeePics extends MainActivity{
 
 	private ArrayList<Event> mListEvent;
 	private ListView mList;

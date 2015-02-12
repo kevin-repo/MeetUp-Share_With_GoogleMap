@@ -16,7 +16,7 @@ import com.example.webservice.Webservice;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 
-public class Options extends Activity {
+public class Options extends MainActivity {
 	User currentUser;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

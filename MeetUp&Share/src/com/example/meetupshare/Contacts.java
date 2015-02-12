@@ -39,7 +39,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class Contacts extends Activity  {
+public class Contacts extends MainActivity  {
 
 	//private String mIdUser;
 	private int mPositionItemSelected;
@@ -92,25 +92,6 @@ public class Contacts extends Activity  {
 		});
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.options, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	/**
 	 * Affichage du formulaire permettant d'ajouter un ami
 	 * @param view
@@ -130,7 +111,7 @@ public class Contacts extends Activity  {
 	 * @param view
 	 */
 	public void validateAdd(View view) {
-		String url = "users.php?method=addfriend&idcurrent="+mCurrentUser.getId()+"&email="+mMailFriend.getText().toString();
+		String url = "users.php?method=addfriend&idcurrent="+mCurrentUser.getId()+"&emailfriend="+mMailFriend.getText().toString();
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {

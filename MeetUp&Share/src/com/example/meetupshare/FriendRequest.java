@@ -22,7 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class FriendRequest extends Activity{
+public class FriendRequest extends MainActivity{
 
 	private ListView mList;
 	private ArrayList<User> mListFriendRequest;
