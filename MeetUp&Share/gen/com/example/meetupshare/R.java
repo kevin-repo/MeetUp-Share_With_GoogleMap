@@ -26,22 +26,25 @@ public final class R {
         public static final int event=0x7f020000;
         public static final int friends=0x7f020001;
         public static final int ic_launcher=0x7f020002;
+        public static final int walpaper=0x7f020003;
     }
     public static final class id {
         public static final int HeureEvenement=0x7f080039;
         public static final int LinearLayout1=0x7f080037;
         public static final int a=0x7f080010;
-        public static final int action_settings=0x7f08004c;
         public static final int add_event_btn=0x7f080002;
         public static final int add_friend_btn=0x7f08000c;
         public static final int adresse=0x7f08003c;
+        public static final int calandar=0x7f08004e;
         public static final int calandrier=0x7f080032;
         public static final int connexion=0x7f080006;
+        public static final int contact=0x7f08004f;
         public static final int contacts=0x7f080033;
         public static final int dateEvenement=0x7f080038;
         public static final int date_event_evenement_layout=0x7f08000f;
         public static final int date_event_list=0x7f08001c;
         public static final int date_next_event=0x7f08002f;
+        public static final int deconnect=0x7f080050;
         public static final int demande_ami=0x7f080022;
         public static final int description=0x7f080013;
         public static final int editText1=0x7f080004;
@@ -58,6 +61,7 @@ public final class R {
         public static final int friend_list_checkBox=0x7f08001e;
         public static final int heure_event_evenement_layout=0x7f080011;
         public static final int heure_event_list=0x7f08001d;
+        public static final int home=0x7f08004c;
         public static final int id_event_list=0x7f080019;
         public static final int id_friend_list=0x7f08001f;
         public static final int id_next_event=0x7f08002c;
@@ -78,6 +82,7 @@ public final class R {
         public static final int liste_participants=0x7f080015;
         public static final int mail_friend=0x7f08000b;
         public static final int modifiermdp=0x7f080041;
+        public static final int newevent=0x7f08004d;
         public static final int next=0x7f08003a;
         public static final int nomInscription=0x7f080047;
         public static final int nouvel_evenement=0x7f080031;
@@ -125,7 +130,6 @@ public final class R {
     }
     public static final class menu {
         public static final int main=0x7f070000;
-        public static final int options=0x7f070001;
     }
     public static final class string {
         public static final int action_settings=0x7f050002;
