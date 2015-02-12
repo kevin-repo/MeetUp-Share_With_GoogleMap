@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/walpaper">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Nouvel évènenement"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -34,7 +36,8 @@
             android:layout_weight="0.1"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:hint="Titre" >
+            android:hint="Titre" 
+            android:textColor="#FFFFFF" >
 
             <requestFocus />
         </EditText>
@@ -52,7 +55,8 @@
             android:id="@+id/dateEvenement"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:calendarViewShown="false" />
+            android:calendarViewShown="false" 
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -65,7 +69,8 @@
         <TimePicker
             android:id="@+id/HeureEvenement"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"  />
     </LinearLayout>
     
     <LinearLayout
@@ -79,9 +84,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:background="#33B5E5"
+          
             android:onClick="nouvel_evenement2"
-            android:text="Next" />
+            android:text="Next" 
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
