@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Modifier les paraméres du compte"
+        android:text="Modifier les paramètres du compte"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
@@ -25,7 +25,7 @@
         android:layout_toLeftOf="@+id/button1"
         android:ems="10"
         android:hint="Modifier le nom"
-       android:textColor="#FFFFFF"
+       	android:textColor="#FFFFFF"
         >
 
         <requestFocus />
@@ -89,7 +89,7 @@
         android:text="OK" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/modifmdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -105,9 +105,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText3"
-        android:layout_alignTop="@+id/editText3"
-        android:layout_toRightOf="@+id/editText3"
+        android:layout_alignBottom="@+id/modifmdp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/modifmdp"
         android:onClick="modifierMdp"
         android:text="OK" />
 
