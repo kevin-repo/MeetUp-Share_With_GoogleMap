@@ -56,6 +56,7 @@ public class Nouvel_evenement extends MainActivity {
 		bundle.putSerializable("currentUser", (User)getIntent().getExtras().get("currentUser"));
 		intent.putExtras(bundle);
 		startActivity(intent);
+		finish();
 	}
 	
 }
