@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/walpaper">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_event_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Invitations non confirmées"
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+             android:textColor="#FFFFFF"/>
+      
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp" 
+        android:layout_weight="0.5">
+    
+        <ListView android:id="@+id/event_list_request" 
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:listSelector="@android:color/darker_gray"
+			android:textColor="#FFFFFF"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
+			>
+		</ListView>
+		
+    </LinearLayout>
+	
+</LinearLayout>
+

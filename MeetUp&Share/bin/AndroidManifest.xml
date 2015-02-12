@@ -64,6 +64,10 @@
             android:name=".SeePics"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".EventRequest"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

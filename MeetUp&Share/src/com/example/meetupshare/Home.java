@@ -103,7 +103,7 @@ public class Home extends MainActivity {
 	 * @param view
 	 */
 	public void eventRequests (View view){
-		Intent intent = new Intent(Home.this, Calandar.class);
+		Intent intent = new Intent(Home.this, EventRequest.class);
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("currentUser", currentUser);
 		intent.putExtras(bundle);

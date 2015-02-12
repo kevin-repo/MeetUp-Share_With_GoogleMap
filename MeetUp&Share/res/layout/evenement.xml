@@ -43,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/a"
@@ -61,7 +62,7 @@
                 android:layout_weight="0.5"
                 android:text="Heure"
                 android:textAppearance="?android:attr/textAppearanceLarge" 
-                 android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 

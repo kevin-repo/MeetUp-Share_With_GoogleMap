@@ -66,7 +66,7 @@ public class Evenement extends MainActivity {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("read_event", "success");
 
-				mDate.setText(response.optString("date"));
+				mDate.setText(deleteHour(response.optString("date")));
 				mHeure.setText(response.optString("hour"));
 				mTitre.setText(ajouterEspace(response.optString("title")));
 				mDescription.setText(ajouterEspace(response.optString("description")));
@@ -222,6 +222,14 @@ public class Evenement extends MainActivity {
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("%", " ");
+		return res;
+	}
+	
+	public String deleteHour(String s){
+		String res;
+
+		int i = s.indexOf(" ");
+		res = s.substring(0, i);
 		return res;
 	}
 	
