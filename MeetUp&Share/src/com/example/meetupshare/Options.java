@@ -22,12 +22,25 @@ public class Options extends MainActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.options);
-		
+
 		//Recuperation des informations relatives a l'user
 		if(getIntent() != null) {
 			currentUser = (User)getIntent().getExtras().get("currentUser");
 		}
 	}
+
+	public void modifierNom(View view){
+
+	}
+
+	public void modifierPrenom(View view){
+
+	}
+
+	public void modifierMdp(View view){
+
+	}
+
 
 
 	/**
