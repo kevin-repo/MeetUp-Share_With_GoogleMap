@@ -2,7 +2,8 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="1" >
+    android:columnCount="1"
+    android:background="@drawable/walpaper" >
 
     <TextView
         android:id="@+id/textView1"
@@ -11,7 +12,8 @@
         android:layout_marginTop="25px"
         android:gravity="center"
         android:text="Sign In MeetUp and Share"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF"  />
 
     <EditText
         android:id="@+id/nomInscription"
@@ -20,7 +22,8 @@
         android:layout_marginTop="25px"
         android:ems="10"
         android:hint="Nom"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"  />
 
     <EditText
         android:id="@+id/prenomInscription"
@@ -29,7 +32,8 @@
         android:layout_marginTop="25px"
         android:ems="10"
         android:hint="Prénom"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"  />
 
     <EditText
         android:id="@+id/emailInscription"
@@ -41,7 +45,8 @@
         android:layout_row="3"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress" 
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/submitInscription"
@@ -52,7 +57,8 @@
         android:layout_marginTop="25px"
         android:layout_row="4"
         android:text="Validez" 
-        android:onClick="validateInscription" />
+        android:onClick="validateInscription" 
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/passwordInscription"
@@ -64,6 +70,7 @@
         android:layout_row="4"
         android:ems="10"
         android:hint="Mot de passe"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName" 
+        android:textColor="#FFFFFF" />
 
 </GridLayout>
