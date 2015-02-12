@@ -3,7 +3,8 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+      android:background="@drawable/walpaper">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Nouvel Evènement"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+             android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -32,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Addresse" />
+            android:hint="Addresse" 
+             android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,7 +50,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Description"
-            android:inputType="textMultiLine" >
+            android:inputType="textMultiLine" 
+             android:textColor="#FFFFFF" >
         </EditText>
         
         <EditText
@@ -56,7 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ems="10" 
-            android:hint="Url pour stockage photos" />
+            android:hint="Url pour stockage photos" 
+             android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +72,8 @@
         <ListView
             android:id="@+id/liste_contacts_event"
             android:layout_width="match_parent"
-            android:layout_height="202dp" >
+            android:layout_height="202dp" 
+             android:textColor="#FFFFFF" >
         </ListView>
     </LinearLayout>
 
@@ -76,8 +82,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
-        android:background="#33B5E5"
+        
         android:onClick="creerEvenement"
-        android:text="Validate" />
+        android:text="Validate"
+         android:textColor="#FFFFFF"  />
 
 </LinearLayout>
