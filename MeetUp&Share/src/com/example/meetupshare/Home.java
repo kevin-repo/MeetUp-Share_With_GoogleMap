@@ -55,7 +55,7 @@ public class Home extends MainActivity {
 		getCountEventRequests();
 
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -85,7 +85,7 @@ public class Home extends MainActivity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * Redirection vers activity "FriendRequest"
 	 * @param view
@@ -109,7 +109,7 @@ public class Home extends MainActivity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
-	
+
 	public void seePictures (View view){
 		Intent intent = new Intent(Home.this, SeePics.class);
 		Bundle bundle = new Bundle();
@@ -117,8 +117,8 @@ public class Home extends MainActivity {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
-	
-	
+
+
 	/**
 	 * Permet de récupérer les demandes d'amis
 	 */
@@ -153,7 +153,7 @@ public class Home extends MainActivity {
 		Webservice.get(url, null, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("event_request", "success");
-				
+
 				try {
 					if(response.getInt("count") > 0){
 						mLayoutInvitation.setVisibility(View.VISIBLE); //affichage du layout
@@ -170,7 +170,7 @@ public class Home extends MainActivity {
 			}
 		});
 	}
-	
+
 	/**
 	 * Permet de récupérer les informations sur le prochain evenement
 	 */
@@ -181,16 +181,19 @@ public class Home extends MainActivity {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("next_event", "success");
 				mIdNextEvent.setText(response.optString("id"));
-				mTitleNextEvent.setText(ajouterEspace(response.optString("title")));
-				mDateNextEvent.setText(deleteHour(response.optString("date")));
-				mPlaceNextEvent.setText(ajouterEspace(response.optString("place")));
-				if(mIdNextEvent.getText().toString().equals("null")){
+				if(!mIdNextEvent.getText().toString().equals("null")){
+					mTitleNextEvent.setText(ajouterEspace(response.optString("title")));
+					Log.d("date", response.optString("date"));
+					mDateNextEvent.setText(deleteHour(response.optString("date")));
+					mPlaceNextEvent.setText(ajouterEspace(response.optString("place")));
+				}else{
 					//aucun prochain evenement
 					mTitleNextEvent.setVisibility(View.GONE);
 					mDateNextEvent.setVisibility(View.GONE);
 					mPlaceNextEvent.setVisibility(View.GONE);
 					mNullNextEvent.setVisibility(View.VISIBLE);
 				}
+
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
@@ -204,10 +207,10 @@ public class Home extends MainActivity {
 		res = s.replace("%", " ");
 		return res;
 	}
-	
+
 	public String deleteHour(String s){
 		String res;
-		
+
 		int i = s.indexOf(" ");
 		res = s.substring(0, i);
 		return res;
