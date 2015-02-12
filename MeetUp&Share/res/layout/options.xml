@@ -94,7 +94,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="72dp"
         android:text="Supprimer compte" 
-        android:onClick="supprimerCompte"/>
+        android:onClick="supprimerCompte"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/textView2"
