@@ -202,28 +202,43 @@ public class Calandar extends MainActivity {
 		//TODO ajouter les positions a la liste pour faciliter suppression
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
 			for(int i = 0; i < mIdEventSelectedList.size(); i++){
-				final int position = i;
 
-				String url = "events.php?method=deleteevent&event=" + mIdEventSelectedList.get(i);
-				Webservice.delete(url, new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						Log.d("delete_event", "success");
-						Toast toast = Toast.makeText(getApplicationContext(), "Evenement supprimé", Toast.LENGTH_SHORT);
-						toast.show();
-						//suppression de l'evenement selectionne de la liste event
-						removeEventofListEvent(position);
-						//mise a jour de la liste
-						mAdapter.notifyDataSetChanged();
+				final int position = i;
+				final String url1 = "events.php?method=readcurrent&id=" + mIdEventSelectedList.get(i);
+				final String url = "events.php?method=deleteevent&event=" + mIdEventSelectedList.get(i);
+				Webservice.get(url1, null, new JsonHttpResponseHandler(){
+					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+						Log.d("readevent", "success");
+						User user = new User();
+						user.setId(Long.parseLong(response.optString("id_u")));
+						if (mCurrentUser.getId()==user.getId()){
+							Webservice.delete(url, new AsyncHttpResponseHandler() {
+								@Override
+								public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+									Log.d("delete_event", "success");
+									Toast toast = Toast.makeText(getApplicationContext(), "Evenement supprimé", Toast.LENGTH_SHORT);
+									toast.show();
+									//suppression de l'evenement selectionne de la liste event
+									removeEventofListEvent(position);
+									//mise a jour de la liste
+									mAdapter.notifyDataSetChanged();
+								}
+
+								@Override
+								public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+										Throwable arg3) {
+									Log.d("delete_event", "failure");
+									Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
+									toast.show();		
+								}			
+							});
+						}
 					}
 
-					@Override
-					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-							Throwable arg3) {
-						Log.d("delete_event", "failure");
-						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
-						toast.show();		
-					}			
+					public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+						Log.d("connexion_user", "failure");
+					}
+
 				});
 			}
 			//vide le contenu de la liste contenant les id et positions des amis a supprimer
@@ -263,16 +278,16 @@ public class Calandar extends MainActivity {
 		});	
 
 	}
-	
+
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("_", " ");
 		return res;
 	}
-	
+
 	public String deleteHour(String s){
 		String res;
-		
+
 		int i = s.indexOf(" ");
 		res = s.substring(0, i);
 		return res;
