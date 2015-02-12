@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/walpaper">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:text="Demandes d'amis"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -31,7 +33,8 @@
         <ListView
             android:id="@+id/liste_friend_request"
             android:layout_width="match_parent"
-            android:layout_height="262dp">
+            android:layout_height="262dp"
+            android:textColor="#FFFFFF" >
         </ListView>
         
     </LinearLayout>
@@ -47,9 +50,10 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:onClick="validateFriendRequest"
-            android:background="#33B5E5"
+           
             android:text="Valider"
-            android:textSize="@dimen/vinght" />
+            android:textSize="@dimen/vinght"
+            android:textColor="#FFFFFF"  />
             
     </LinearLayout>
 
