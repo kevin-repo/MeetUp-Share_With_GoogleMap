@@ -32,5 +32,9 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="Options"/>
-
+     <item
+        android:id="@+id/deconnect"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Déconnexion"/>
 </menu>
