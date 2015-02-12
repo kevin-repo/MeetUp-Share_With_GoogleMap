@@ -145,57 +145,6 @@ public class Calandar extends MainActivity {
 	 * Suppression d'un event de la liste des evenements
 	 * @param view
 	 */
-	/*public void removeEvent(View view){
-		mIdEventSelectedList = mAdapter.getIdCheckedItems();
-
-		//TODO ajouter les positions a la liste pour faciliter suppression
-		if(mAdapter.getCountIdCheckedItemsList() != 0){
-			for(int i = 0; i < mIdEventSelectedList.size(); i++){
-				final int position = i;
-
-				//test si l'user est responsable de l'event
-				isResponsableEvent(mIdEventSelectedList.get(i));
-				//si user responsable de l'event alors suppression possible
-				if(mIsResponsableEvent){
-					Log.d("responsable?", "oui");
-					String url = "events.php?method=deleteevent&event=" + mIdEventSelectedList.get(i);
-					Webservice.delete(url, new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-							Log.d("delete_event", "success");
-							Toast toast = Toast.makeText(getApplicationContext(), "Evenement supprimé", Toast.LENGTH_SHORT);
-							toast.show();
-							//suppression de l'evenement selectionne de la liste event
-							removeEventofListEvent(position);
-							//mise a jour de la liste
-							mAdapter.notifyDataSetChanged();
-						}
-
-						@Override
-						public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-								Throwable arg3) {
-							Log.d("delete_event", "failure");
-							Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
-							toast.show();		
-						}			
-					});
-				}else {
-					Log.d("responsable?", "non");
-				}
-			}
-			//vide le contenu de la liste contenant les id et positions des amis a supprimer
-			mAdapter.initializeIdCheckedItems();
-			mAdapter.initializemPositionItemsChecked();
-		}else{
-			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un événement à supprimer", Toast.LENGTH_SHORT);
-			toast.show();
-		}
-	}*/
-
-	/**
-	 * Suppression d'un event de la liste des evenements
-	 * @param view
-	 */
 	public void removeEvent(View view){
 		mIdEventSelectedList = mAdapter.getIdCheckedItems();
 

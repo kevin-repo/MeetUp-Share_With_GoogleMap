@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" 
-    android:background="@drawable/walpaper">
+    android:orientation="horizontal" >
 
     <CheckBox
         android:id="@+id/event_list_checkBox"
@@ -24,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Id"
             android:visibility="gone" />
-        
+
         <TextView
             android:id="@+id/url_event_list"
             android:layout_width="match_parent"
@@ -36,8 +35,7 @@
             android:id="@+id/titre_event_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titre"
-            android:textColor="#FFFFFF" />
+            android:text="Titre" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,23 +47,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Date" 
-                android:textColor="#FFFFFF"/>
+                android:text="Date" />
 
             <TextView
                 android:id="@+id/heure_event_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Heure"
-                android:visibility="gone" />
-            <TextView
+                android:text="Heure" 
+                android:visibility = "gone"/>
+             <TextView
                 android:id="@+id/place_event_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Lieu"
-                android:textColor="#FFFFFF"/>
+                android:text="Date" />
         </LinearLayout>
     </LinearLayout>
 
