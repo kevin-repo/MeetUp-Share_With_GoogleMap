@@ -32,29 +32,6 @@
     </EditText>
 
     <Button
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/editText2"
-        android:text="OK"
-        android:onClick="modifierPrenom" />
-
-    <Button
-        android:id="@+id/button3"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText3"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/editText3"
-        android:text="OK" 
-        android:onClick="modifierMdp"/>
-
-    <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,27 +66,49 @@
         android:onClick="modifierNom"/>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/modifprenom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/modifnom"
         android:layout_below="@+id/modifnom"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Modifier le prénom"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/modifprenom"
+        android:layout_alignTop="@+id/modifprenom"
+        android:layout_toRightOf="@+id/modifnom"
+        android:onClick="modifierPrenom"
+        android:text="OK" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="32dp"
+        android:layout_alignRight="@+id/modifprenom"
+        android:layout_below="@+id/modifprenom"
+        android:layout_marginTop="22dp"
         android:ems="10"
         android:hint="Modifier le mot de passe"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignTop="@+id/editText3"
+        android:layout_toRightOf="@+id/editText3"
+        android:onClick="modifierMdp"
+        android:text="OK" />
 
 </RelativeLayout>
