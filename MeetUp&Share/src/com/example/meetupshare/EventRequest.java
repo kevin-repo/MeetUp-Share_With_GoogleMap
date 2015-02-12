@@ -31,14 +31,14 @@ public class EventRequest extends MainActivity{
 	private User mCurrentUser;
 	private Event mCurrentEvent;
 	private EventAdapter mAdapter;
-	private JSONArray mIdEventSelectedList;
-
+	private static EventRequest EventRequestActivity;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_request);
-
+		EventRequestActivity = this;
 		mListEvent = new ArrayList<Event>();
 		mList = (ListView)findViewById(R.id.event_list_request);
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
@@ -46,7 +46,13 @@ public class EventRequest extends MainActivity{
 
 		mAdapter = new EventAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListEvent, true);
 		mList.setAdapter(mAdapter);
+	}
 
+	public static EventRequest getInstance(){
+        return EventRequestActivity;
+	}
+	
+	public void init(){
 		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
 		String url = "events.php?method=readeventrequests&idu="+mCurrentUser.getId();
 		Webservice.get(url, null, new JsonHttpResponseHandler(){			
@@ -80,13 +86,6 @@ public class EventRequest extends MainActivity{
 		});
 	}
 
-
-
-	//	protected void onResume() {
-	//		super.onResume();
-	//		this.onCreate(null);
-	//	}
-
 	/**
 	 * Permet de remplir la liste des evenements
 	 * @param array
@@ -96,9 +95,9 @@ public class EventRequest extends MainActivity{
 			Event e = new Event();
 			try {
 				e.setId(array.getJSONArray(i).optLong(0));
-				e.setLocation(array.getJSONArray(i).optString(1));
+				e.setLocation(ajouterEspace(array.getJSONArray(i).optString(1)));
 				e.setDate(deleteHour(array.getJSONArray(i).optString(2)));
-				e.setTitre(array.getJSONArray(i).optString(3));
+				e.setTitre(ajouterEspace(array.getJSONArray(i).optString(3)));
 				e.setHeure(array.getJSONArray(i).optString(4));
 				mListEvent.add(e);
 			} catch (JSONException e1) {
@@ -117,19 +116,17 @@ public class EventRequest extends MainActivity{
 		mAdapter.notifyDataSetChanged();
 	}
 
-	/*private void removeEventofListEvent(int position){
-		for(int j = 0; j< mListEvent.size(); j++){
-			if(Long.toString(mListEvent.get(j).getId()) == mIdEventSelectedList.get(position)){
-				mListEvent.remove(j);
-			}
-		}
-	}*/
-
 	public String deleteHour(String s){
 		String res;
 
 		int i = s.indexOf(" ");
 		res = s.substring(0, i);
+		return res;
+	}
+	
+	public String ajouterEspace(String s){
+		String res;
+		res = s.replace("_", " ");
 		return res;
 	}
 }
