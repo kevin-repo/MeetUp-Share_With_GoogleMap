@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+      android:background="@drawable/walpaper" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:text="Evènenement du"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge" 
+                 android:textColor="#FFFFFF"/>
 
             <TextView
                 android:id="@+id/date_event_evenement_layout"
@@ -33,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:text="Date"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge" 
+                 android:textColor="#FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
@@ -48,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="A"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/heure_event_evenement_layout"
@@ -56,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text="Heure"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge" 
+                 android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -76,7 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.60"
             android:text="Titre"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+             android:textColor="#FFFFFF" />
 
  
     </LinearLayout>
@@ -93,7 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Description"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+             android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -109,7 +116,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Participants"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+             android:textColor="#FFFFFF" />
 
         <ListView
             android:id="@+id/liste_participants"
@@ -127,19 +135,21 @@
             android:id="@+id/participate_event_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#33B5E5"
+          
             android:layout_weight="0.5"
             android:onClick="participateEvent"
-            android:text="Participer" />
+            android:text="Participer" 
+             android:textColor="#FFFFFF"/>
         
         <Button
             android:id="@+id/refuse_event_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#33B5E5"
+           
             android:layout_weight="0.5"
             android:onClick="refuseEvent"
-            android:text="Ne pas participer" />
+            android:text="Ne pas participer" 
+             android:textColor="#FFFFFF"/>
         
     </LinearLayout>
 
