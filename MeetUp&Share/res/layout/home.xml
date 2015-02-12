@@ -182,15 +182,6 @@
             android:onClick="contacts"
             android:text="Contacts" 
              android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/options"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:onClick="optionCompte"
-            android:text="Options"
-             android:textColor="#FFFFFF"  />
     </LinearLayout>
 
     <Button
