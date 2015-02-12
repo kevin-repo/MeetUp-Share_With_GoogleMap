@@ -1,6 +1,11 @@
 package com.example.meetupshare;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.example.meetupshare.adapters.FriendAdapter;
@@ -91,7 +96,27 @@ public class Nouvel_evenement2 extends MainActivity {
 		String titreSansEspace = supprimerEspace(mEvenement.getTitre());
 		String placeSansEspace = supprimerEspace(mAdresse.getText().toString());
 		String descriptionSansEspace = supprimerEspace(mDescription.getText().toString());
-		String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString();
+		
+		//heure formatée
+		String date1 = "03-24-2013";
+		String date2 = mEvenement.getDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateFormate2 = null;
+        try
+        {
+            Date dateFormate = simpleDateFormat.parse(date1);
+            Log.d("sdf", ""+simpleDateFormat.format(dateFormate));
+            System.out.println("date : "+simpleDateFormat.format(dateFormate));
+            dateFormate2 = simpleDateFormat.parse(date2);
+            Log.d("sdf2", ""+simpleDateFormat.format(dateFormate2));
+            System.out.println("date : "+simpleDateFormat.format(dateFormate2));
+        }
+        catch (ParseException ex)
+        {
+            System.out.println("Exception "+ex);
+        }
+		
+		String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString()+"&date="+simpleDateFormat.format(dateFormate2);
 		Webservice.post(url, null, new JsonHttpResponseHandler() {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("create_event", "success");
@@ -117,7 +142,7 @@ public class Nouvel_evenement2 extends MainActivity {
 				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
 				toast.show();
 			}
-		});			
+		});	
 	}
 
 	/**
@@ -205,6 +230,6 @@ public class Nouvel_evenement2 extends MainActivity {
 		res = s.replace(" ", "%");
 		return res;
 	}
-
+	
 }
 

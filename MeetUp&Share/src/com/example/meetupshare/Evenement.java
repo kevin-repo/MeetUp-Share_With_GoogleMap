@@ -66,9 +66,8 @@ public class Evenement extends MainActivity {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("read_event", "success");
 
-				//TODO Séparer date et heure + afficher organisateur de la soirée
 				mDate.setText(response.optString("date"));
-				mHeure.setText(response.optString("hh:mm"));
+				mHeure.setText(response.optString("hour"));
 				mTitre.setText(ajouterEspace(response.optString("title")));
 				mDescription.setText(ajouterEspace(response.optString("description")));
 			}

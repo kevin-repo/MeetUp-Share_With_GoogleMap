@@ -36,18 +36,15 @@ public class Nouvel_evenement extends MainActivity {
 	public void nouvel_evenement2(View view){
 		//Traitement pour la recuperation d'une date au format string
 		int jour = date.getDayOfMonth();
-		int mois = date.getMonth(); //TO DO -> pb récupération numéro du mois
+		int mois = date.getMonth()+1;
 		int annee = date.getYear();
-		String dateFormatee = jour + "/" + mois + "/" + annee;
-
+		String dateFormatee = annee + "-" + mois + "-" + jour;
+		
 		//Traitement pour la recuperation de l'heure au format string
 		int minute = heure.getCurrentMinute();
 		int hour = heure.getCurrentHour();
 		String heureFormatee = hour + ":" + minute;
-
-		//Controle des donnees du formulaire
-		//TODO Controle des donnees entrees
-
+		
 		Event evenement = new Event();
 		evenement.setTitre(titre.getText().toString());
 		evenement.setDate(dateFormatee);
