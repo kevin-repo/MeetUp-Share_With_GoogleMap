@@ -93,7 +93,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="72dp"
-        android:text="Supprimer compte" />
+        android:text="Supprimer compte" 
+        android:onClick="supprimerCompte"/>
 
     <TextView
         android:id="@+id/textView2"
