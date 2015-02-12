@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@drawable/walpaper">
+    android:background="@drawable/walpaper"
+    android:orientation="vertical" >
 
     <EditText
         android:id="@+id/editText1"
@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="mail" >
+        android:hint="mail"
+        android:textColor="#FFFFFF" >
 
         <requestFocus />
     </EditText>
@@ -22,26 +23,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
+        android:hint="password"
         android:inputType="textPassword"
-        android:hint="password" />
-	
+        android:textColor="#FFFFFF" />
+
     <Button
         android:id="@+id/connexion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
         android:layout_marginTop="200dp"
-        android:background="#33B5E5"
+        android:background="@drawable/boutton"
         android:onClick="connectToAccount"
-        android:text="Connexion" />
+        android:text="Connexion"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/inscription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="37dp"
         android:layout_gravity="fill_vertical"
-        android:background="#33B5E5"
         android:layout_marginTop="20dp"
+        android:background="@drawable/boutton"
+        android:onClick="signIn"
         android:text="Inscription"
-        android:onClick="signIn" />
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
