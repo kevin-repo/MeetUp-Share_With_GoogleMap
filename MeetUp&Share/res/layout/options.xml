@@ -4,28 +4,105 @@
     android:layout_height="fill_parent" 
      android:background="@drawable/walpaper">
 
- <Button
-     android:id="@+id/supprimer"
-     android:layout_width="wrap_content"
-     android:layout_height="175px"
-     android:layout_alignParentLeft="true"
-     android:layout_alignParentRight="true"
-     android:layout_alignParentTop="true"
-     android:layout_weight="0.5"
-     android:onClick="supprimerCompte"
-     android:text="Supprimer compte" 
-     android:textColor="#FFFFFF" />
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Modifier les paraméres du compte"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
- <Button
-     android:id="@+id/modifiermdp"
-     android:layout_width="wrap_content"
-     android:layout_height="175px"
-     android:layout_alignParentLeft="true"
-     android:layout_alignParentRight="true"
-     android:layout_below="@+id/supprimer"
-     android:layout_weight="0.5"
-     android:onClick="modifierMdp"
-     android:text="Modifier mot de passe"
-     android:textColor="#FFFFFF"  />
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="24dp"
+        android:layout_toLeftOf="@+id/button1"
+        android:ems="10"
+        android:hint="Modifier le nom"
+       android:textColor="#FFFFFF" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editText1"
+        android:text="OK" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Modifier le prénom"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editText2"
+        android:text="OK" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="28dp"
+        android:layout_toLeftOf="@+id/button3"
+        android:ems="10"
+        android:hint="Modifier le mot de passe"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editText3"
+        android:text="OK" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="72dp"
+        android:text="Supprimer compte" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/button4"
+        android:layout_marginTop="46dp"
+        android:text="Attention: toute suppression est définitive" 
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>
