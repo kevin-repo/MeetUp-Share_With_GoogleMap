@@ -5,26 +5,27 @@ import java.util.ArrayList;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.meetupshare.adapters.EventAdapter;
 import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-public class EventRequest extends MainActivity{
+/**
+ * Liste des demandes d'invitations a des evenements
+ *
+ */
+public class EventRequest extends MainActivity implements ListOfItems{
 
 	private ArrayList<Event> mListEvent;
 	private ListView mList;
@@ -46,17 +47,24 @@ public class EventRequest extends MainActivity{
 
 		mAdapter = new EventAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListEvent, true);
 		mList.setAdapter(mAdapter);
+		
+		init();
 	}
 
 	public static EventRequest getInstance(){
         return EventRequestActivity;
 	}
 	
-	public void init(){
-		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
-		String url = "events.php?method=readeventrequests&idu="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
-			//Version 1
+	/**
+	 * Initialisation de la liste des evenements
+	 */
+	private void init(){
+		RequestParams params = new RequestParams();
+		params.put("idu", mCurrentUser.getId());
+		
+		String file = Webservice.eventsMethod();
+		
+		Webservice.get(file+"?method=readeventrequests", params, new JsonHttpResponseHandler(){			
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("event_list", "success");
 				populateList(response);
@@ -90,7 +98,7 @@ public class EventRequest extends MainActivity{
 	 * Permet de remplir la liste des evenements
 	 * @param array
 	 */
-	protected void populateList(JSONArray array){
+	public void populateList(JSONArray array){
 		for(int i = 0; i < array.length(); i++){
 			Event e = new Event();
 			try {
@@ -109,13 +117,15 @@ public class EventRequest extends MainActivity{
 	/**
 	 * Permet d'afficher les evenements
 	 */
-	protected void show(){
+	public void show(){
 		//mise a jour de la liste d'evenements
 		mAdapter.setEventList(mListEvent);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
 
+	public void removeItemOfList(int i) {}
+	
 	public String deleteHour(String s){
 		String res;
 
@@ -129,4 +139,6 @@ public class EventRequest extends MainActivity{
 		res = s.replace("_", " ");
 		return res;
 	}
+
+	
 }

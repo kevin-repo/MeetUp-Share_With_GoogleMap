@@ -31,7 +31,6 @@
         <ListView android:id="@+id/event_list_request" 
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:listSelector="@android:color/darker_gray"
 			android:textColor="#FFFFFF"
 			android:paddingLeft="10dp"
 			android:paddingRight="10dp"

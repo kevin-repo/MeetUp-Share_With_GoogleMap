@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+/**
+ * Adapteur pour la liste des amis
+ *
+ */
 public class FriendAdapter extends ArrayAdapter<User>{
 
 	private List<User> mFriendList;	    	
@@ -25,8 +28,9 @@ public class FriendAdapter extends ArrayAdapter<User>{
 	private SparseBooleanArray mSelectedItemsIds;
 	private List<String> mIdCheckedItems;
 	private List<Integer> mPositionItemsChecked;
+	private boolean mHideCheckBox;
 
-	public FriendAdapter(Context context, int ressourceId, List<User> list) {
+	public FriendAdapter(Context context, int ressourceId, List<User> list, boolean hideCheckbox) {
 		super(context, ressourceId);
 		mFriendList = list;
 		mContext = context;
@@ -34,6 +38,7 @@ public class FriendAdapter extends ArrayAdapter<User>{
 		mSelectedItemsIds = new SparseBooleanArray();
 		mIdCheckedItems = new ArrayList<String>();
 		mPositionItemsChecked = new ArrayList<Integer>();
+		mHideCheckBox = hideCheckbox;
 	}
 
 	@Override
@@ -82,6 +87,10 @@ public class FriendAdapter extends ArrayAdapter<User>{
 			        }
 			      }
 			    });
+			
+			if(mHideCheckBox){
+				holder.checkbox.setVisibility(View.GONE);
+			}
 			
 			convertView.setTag(holder);
 		} else {

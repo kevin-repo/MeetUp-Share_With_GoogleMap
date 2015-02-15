@@ -5,25 +5,25 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.models.User;
 import com.example.webservice.Webservice;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
+/**
+ * Fenetre d'accueil de l'application
+ *
+ */
 public class Home extends MainActivity {
 
-	User currentUser;
+	private User mCurrentUser;
 	private LinearLayout mLayoutInvitation, mLayoutInvitationFriends, mLayoutInvitationEvents;
 	private TextView mCptFriendRequests, mCptEventRequests, mIdNextEvent, mTitleNextEvent, mDateNextEvent, mPlaceNextEvent, mNullNextEvent;
 
@@ -45,7 +45,7 @@ public class Home extends MainActivity {
 
 		//Recuperation des informations relatives a l'user
 		if(getIntent() != null) {
-			currentUser = (User)getIntent().getExtras().get("currentUser");
+			mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 		}
 		//recuperation du prochain evenement
 		getNextEvent();		
@@ -62,26 +62,38 @@ public class Home extends MainActivity {
 		this.onCreate(null);
 	}
 
+	/**
+	 * Redirection vers activity "Contacts"
+	 * @param view
+	 */
 	public void contacts(View view){	 
 		Intent intent = new Intent(Home.this, Contacts.class);
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
+		bundle.putSerializable("currentUser", mCurrentUser);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 
+	/**
+	 * Redirection vers activity "Calandar"
+	 * @param view
+	 */
 	public void calandar(View view){	 
 		Intent intent = new Intent(Home.this, Calandar.class);
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
+		bundle.putSerializable("currentUser", mCurrentUser);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 
+	/**
+	 * Redirection vers activity "Nouvel_evenement"
+	 * @param view
+	 */
 	public void nouvel_evenement(View view){	 
 		Intent intent = new Intent(Home.this, Nouvel_evenement.class);
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
+		bundle.putSerializable("currentUser", mCurrentUser);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
@@ -93,38 +105,45 @@ public class Home extends MainActivity {
 	public void friendRequests (View view){
 		Intent intent = new Intent(Home.this, FriendRequest.class);
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
+		bundle.putSerializable("currentUser", mCurrentUser);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 
 	/**
-	 * Redirection vers activity "Calendar"
+	 * Redirection vers activity "EventRequest"
 	 * @param view
 	 */
 	public void eventRequests (View view){
 		Intent intent = new Intent(Home.this, EventRequest.class);
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
+		bundle.putSerializable("currentUser", mCurrentUser);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 
+	/**
+	 * Redirection vers activity "SeePics"
+	 * @param view
+	 */
 	public void seePictures (View view){
 		Intent intent = new Intent(Home.this, SeePics.class);
 		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", currentUser);
+		bundle.putSerializable("currentUser", mCurrentUser);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
-
 
 	/**
 	 * Permet de récupérer les demandes d'amis
 	 */
 	public void getCountFriendRequests(){
-		String url = "users.php?method=friendrequestcount&idcurrent="+currentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){
+		RequestParams params = new RequestParams();
+		params.put("idcurrent", mCurrentUser.getId());
+		
+		String file = Webservice.usersMethod();
+	
+		Webservice.get(file+"?method=friendrequestcount", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("friend_request", "success");
 
@@ -149,11 +168,14 @@ public class Home extends MainActivity {
 	 * Permet de récupérer les invitations non confirmées a des evenements
 	 */
 	public void getCountEventRequests(){
-		String url = "events.php?method=eventrequestcount&idu="+currentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){
+		RequestParams params = new RequestParams();
+		params.put("idu", mCurrentUser.getId());
+		
+		String file = Webservice.eventsMethod();
+		
+		Webservice.get(file+"?method=eventrequestcount", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("event_request", "success");
-
 				try {
 					if(response.getInt("count") > 0){
 						mLayoutInvitation.setVisibility(View.VISIBLE); //affichage du layout
@@ -175,9 +197,12 @@ public class Home extends MainActivity {
 	 * Permet de récupérer les informations sur le prochain evenement
 	 */
 	public void getNextEvent(){
-		//TODO recuperer prochain evenement non ulterieur a la date du jour (modifier requete)
-		String url = "events.php?method=nextevent&idu="+currentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){
+		RequestParams params = new RequestParams();
+		params.put("idu", mCurrentUser.getId());
+		
+		String file = Webservice.eventsMethod();
+		
+		Webservice.get(file+"?method=nextevent", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("next_event", "success");
 				mIdNextEvent.setText(response.optString("id"));
@@ -192,7 +217,6 @@ public class Home extends MainActivity {
 					mPlaceNextEvent.setVisibility(View.GONE);
 					mNullNextEvent.setVisibility(View.VISIBLE);
 				}
-
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {

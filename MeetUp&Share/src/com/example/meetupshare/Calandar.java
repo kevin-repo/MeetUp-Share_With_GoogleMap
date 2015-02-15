@@ -14,34 +14,29 @@ import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class Calandar extends MainActivity {
+/**
+ * Liste des evenements
+ *
+ */
+public class Calandar extends MainActivity implements ListOfItems{
 
 	private User mCurrentUser;
 	private Event mCurrentEvent;
 	private List<Event> mListEvent;
 	private ListView mList;
 	private EventAdapter mAdapter;
-	private Button mAddBtn;
-	private Button mRemoveBtn;
-	private String mIdEventSelected;
-	private int mPositionItemSelected;
 	private List<String> mIdEventSelectedList;
-	private boolean mIsResponsableEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,31 +44,37 @@ public class Calandar extends MainActivity {
 		setContentView(R.layout.calandar);
 
 		mListEvent = new ArrayList<Event>();
-		mAddBtn = (Button)findViewById(R.id.add_event_btn);
-		mRemoveBtn = (Button)findViewById(R.id.remove_event_btn);
 		mList = (ListView)findViewById(R.id.listEvent);
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 		mCurrentEvent = new Event();
-		mIsResponsableEvent = false;
 
 		mAdapter = new EventAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListEvent, false);
 		mList.setAdapter(mAdapter);
 
-		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
-		String url = "events.php?method=readevents&idu="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
-			//Version 1
+		init();
+	}
+
+	/**
+	 * Initialisation de la liste des evenements
+	 */
+	private void init(){
+		RequestParams params = new RequestParams();
+		params.put("idu", mCurrentUser.getId());
+		
+		String file = Webservice.eventsMethod();
+		
+		Webservice.get(file+"?method=readevents", params, new JsonHttpResponseHandler(){			
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("event_list", "success");
-				populateListEvents(response);
-				showEvents();
+				populateList(response);
+				show();
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("event_list", "failure");
 			}
 		});
-
+		
 		//Ecouteur d'événement sur la liste des event
 		mList.setOnItemClickListener(new OnItemClickListener () {
 			@Override
@@ -91,18 +92,11 @@ public class Calandar extends MainActivity {
 		});
 	}
 
-
-
-	//	protected void onResume() {
-	//		super.onResume();
-	//		this.onCreate(null);
-	//	}
-
 	/**
 	 * Permet de remplir la liste des evenements
 	 * @param array
 	 */
-	protected void populateListEvents(JSONArray array){
+	public void populateList(JSONArray array){
 		for(int i = 0; i < array.length(); i++){
 			Event e = new Event();
 			try {
@@ -121,7 +115,7 @@ public class Calandar extends MainActivity {
 	/**
 	 * Permet d'afficher les evenements
 	 */
-	protected void showEvents(){
+	public void show(){
 		//mise a jour de la liste d'evenements
 		mAdapter.setEventList(mListEvent);
 		//notify l'adapteur
@@ -168,7 +162,7 @@ public class Calandar extends MainActivity {
 									Toast toast = Toast.makeText(getApplicationContext(), "Evenement supprimé", Toast.LENGTH_SHORT);
 									toast.show();
 									//suppression de l'evenement selectionne de la liste event
-									removeEventofListEvent(position);
+									removeItemOfList(position);
 									//mise a jour de la liste
 									mAdapter.notifyDataSetChanged();
 								}
@@ -199,41 +193,34 @@ public class Calandar extends MainActivity {
 		}
 	}
 
-	private void removeEventofListEvent(int position){
+	/**
+	 * Permet de supprimer l'element se trouvant a la position i de la liste des evenements
+	 * @param i Position de l'item dans la liste des evenements
+	 */
+	public void removeItemOfList(int i){
 		for(int j = 0; j< mListEvent.size(); j++){
-			if(Long.toString(mListEvent.get(j).getId()) == mIdEventSelectedList.get(position)){
+			if(Long.toString(mListEvent.get(j).getId()) == mIdEventSelectedList.get(i)){
 				mListEvent.remove(j);
 			}
 		}
 	}
 
-	public void isResponsableEvent(String id){
-		String url = "events.php?method=readcurrent&id="+id;
-		Webservice.get(url, null, new JsonHttpResponseHandler(){
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("is_reponsable_event", "success");
-				if(response.optLong("id_u") == mCurrentUser.getId()){
-					Log.d("is_reponsable", "true");
-					mIsResponsableEvent = true;
-				}else{
-					Log.d("is_reponsable", "false");
-					mIsResponsableEvent = false;
-				}
-			}
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Log.d("is_reponsable_event", "failure");
-				mIsResponsableEvent = false;
-			}
-		});	
-
-	}
-
+	/**
+	 * Permet de remplacer "_" par un espace afin d'ameliorer l'affichage
+	 * @param s
+	 * @return
+	 */
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("_", " ");
 		return res;
 	}
 
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public String deleteHour(String s){
 		String res;
 

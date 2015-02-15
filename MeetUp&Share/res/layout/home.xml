@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="Compteur"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold" />
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="Compteur"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold" />
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
         </LinearLayout>
 

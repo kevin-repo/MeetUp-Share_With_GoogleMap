@@ -20,17 +20,19 @@ import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-public class Contacts extends MainActivity  {
+/**
+ * Liste des contacts
+ *
+ */
+public class Contacts extends MainActivity  implements ListOfItems{
 
-	//private String mIdUser;
-	private int mPositionItemSelected;
 	private ArrayList<User> mListFriend;
 	private FriendAdapter mAdapter;
 	private Button mAddBtn;
 	private Button mRemoveBtn;
 	private Button mValiderBtn;
-	private String mIdFriendSelected;
 	private User mCurrentUser;
 	private EditText mSearchFriend;
 	private EditText mMailFriend;
@@ -44,7 +46,7 @@ public class Contacts extends MainActivity  {
 		setContentView(R.layout.contacts);
 
 		mListFriend = new ArrayList<User>();
-		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListFriend);
+		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListFriend, false);
 		mList = (ListView)findViewById(R.id.liste_contacts);
 		mRemoveBtn = (Button) findViewById(R.id.remove_friend_btn);
 		mValiderBtn = (Button) findViewById(R.id.validate_add_friend_btn);
@@ -53,19 +55,28 @@ public class Contacts extends MainActivity  {
 		mMailFriend = (EditText) findViewById(R.id.mail_friend);
 
 		mList.setAdapter(mAdapter);
-		//mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		//Recuperation de l'user courrant
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 		Log.d("currentuser",""+mCurrentUser.getFirstname());
-		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
-		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
-			//Version 1
+
+		init();
+	}
+
+	/**
+	 * Initialisation de la liste des contacts
+	 */
+	private void init(){
+		RequestParams params = new RequestParams();
+		params.put("idcurrent", mCurrentUser.getId());
+		
+		String file = Webservice.usersMethod();
+		
+		Webservice.get(file+"?method=readfriends", params, new JsonHttpResponseHandler(){			
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("contact_list", "sucess");
-				populateListFriends(response);
-				showContacts();
+				populateList(response);
+				show();
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
@@ -73,7 +84,7 @@ public class Contacts extends MainActivity  {
 			}
 		});
 	}
-	
+
 	/**
 	 * Affichage du formulaire permettant d'ajouter un ami
 	 * @param view
@@ -92,8 +103,9 @@ public class Contacts extends MainActivity  {
 	 * Validation de l'envoi d'une demande d'ami
 	 * @param view
 	 */
-	public void validateAdd(View view) {
-		String url = "users.php?method=addfriend&idcurrent="+mCurrentUser.getId()+"&emailfriend="+mMailFriend.getText().toString();
+	public void validateAdd(View view) {	
+		String file = Webservice.usersMethod();
+		String url = file+"?method=addfriend&idcurrent="+mCurrentUser.getId()+"&emailfriend="+mMailFriend.getText().toString();
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -135,7 +147,7 @@ public class Contacts extends MainActivity  {
 						Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
 						toast.show();
 						//suppression de l'ami selectionne de la liste friend					
-						removeFriendofListFriend(position);																		
+						removeItemOfList(position);																		
 						//mise a jour de la liste
 						mAdapter.notifyDataSetChanged();			
 					}
@@ -156,15 +168,14 @@ public class Contacts extends MainActivity  {
 			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un contact à supprimer", Toast.LENGTH_SHORT);
 			toast.show();
 		}
-		
+
 	}
 
-	//TODO Mettre dans interface
 	/**
 	 * Permet de remplir la liste des contacts
 	 * @param array
 	 */
-	public void populateListFriends(JSONArray array){
+	public void populateList(JSONArray array){
 		for(int i = 0; i < array.length(); i++){
 			User contact = new User();
 			try {
@@ -178,21 +189,23 @@ public class Contacts extends MainActivity  {
 		}
 	}
 
-	//TODO Mettre dans interface
 	/**
 	 * Permet d'afficher les contacts
 	 */
-	public void showContacts(){
+	public void show(){
 		//mise a jour de la liste d'amis
 		mAdapter.setFriendList(mListFriend);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
-	
-	//TODO Mettre dans interface
-	private void removeFriendofListFriend(int position){
+
+	/**
+	 * Permet de supprimer l'element se trouvant a la position i de la liste des contacts
+	 * @param i
+	 */
+	public void removeItemOfList(int i){
 		for(int j = 0; j< mListFriend.size(); j++){
-			if(Long.toString(mListFriend.get(j).getId()) == mIdFriendSelectedList.get(position)){
+			if(Long.toString(mListFriend.get(j).getId()) == mIdFriendSelectedList.get(i)){
 				mListFriend.remove(j);
 			}
 		}

@@ -24,14 +24,14 @@ import org.apache.http.Header;
  */
 public class Connexion extends Activity{
 
-	private EditText email, password;
+	private EditText mEmail, mPassword;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.connexion);
-		email = (EditText) findViewById(R.id.editText1);
-		password = (EditText) findViewById(R.id.editText2);
+		mEmail = (EditText) findViewById(R.id.editText1);
+		mPassword = (EditText) findViewById(R.id.editText2);
 	}
 
 	/**
@@ -40,12 +40,12 @@ public class Connexion extends Activity{
 	 */
 	public void connectToAccount(View view) {
 		RequestParams params = new RequestParams();
-		params.put("email", email.getText().toString());
-		params.put("pwd", password.getText().toString());
-
-		Log.d("params", params.toString());
-
-		Webservice.get("users.php?method=connexionuser", params, new JsonHttpResponseHandler(){
+		params.put("email", mEmail.getText().toString());
+		params.put("pwd", mPassword.getText().toString());
+		
+		String file = Webservice.usersMethod();
+		
+		Webservice.get(file+"?method=connexionuser", params, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("connexion_user", "success");
 				Log.d("", ""+response.optString("connexion"));
@@ -67,16 +67,17 @@ public class Connexion extends Activity{
 					toast.show();
 				}
 			}
-
+			
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("connexion_user", "failure");
 			}
-
+			
 		});	
 	}
 
 	/**
-	 * Passage sur une autre activity
+	 * Passage activity pour l'inscription de l'user
+	 * @param view
 	 */
 	public void signIn(View view){
 		Intent intent = new Intent(Connexion.this, SignIn.class);

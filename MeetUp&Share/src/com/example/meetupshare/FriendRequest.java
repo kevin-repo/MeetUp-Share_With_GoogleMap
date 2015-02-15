@@ -13,15 +13,18 @@ import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
+/**
+ * Liste des demandes d'amis
+ *
+ */
 public class FriendRequest extends MainActivity{
 
 	private ListView mList;
@@ -36,17 +39,27 @@ public class FriendRequest extends MainActivity{
 		setContentView(R.layout.friend_request_list);
 
 		mListFriendRequest = new ArrayList<User>();
-		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListFriendRequest);
+		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListFriendRequest, false);
 		mList = (ListView)findViewById(R.id.liste_friend_request);
 
 		mList.setAdapter(mAdapter);
 
 		//Recuperation de l'user courrant
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
+		
+		init();
+	}
 
-		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
-		String url = "users.php?method=friendrequests&idcurrent="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+	/**
+	 * Initialisation de la liste des demandes d'amis
+	 */
+	private void init(){
+		RequestParams params = new RequestParams();
+		params.put("idcurrent", mCurrentUser.getId());
+		
+		String file = Webservice.eventsMethod();
+	
+		Webservice.get(file+"?method=friendrequests", params, new JsonHttpResponseHandler(){			
 			//Version 1
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("friend_request_list", "sucess");
@@ -101,9 +114,6 @@ public class FriendRequest extends MainActivity{
 		}
 	}
 
-
-
-	//TODO Mettre dans interface
 	/**
 	 * Permet de remplir la liste des contacts
 	 * @param array
@@ -122,7 +132,6 @@ public class FriendRequest extends MainActivity{
 		}
 	}
 
-	//TODO Mettre dans interface
 	/**
 	 * Permet d'afficher les contacts
 	 */
@@ -132,12 +141,15 @@ public class FriendRequest extends MainActivity{
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
-	
-	//TODO Mettre dans interface
-	private void removeElementOfList(int position){
-		for(int i = 0; i < mListFriendRequest.size(); i++){
-			if(Long.toString(mListFriendRequest.get(i).getId()) == mIdFriendSelectedList.get(position)){
-				mListFriendRequest.remove(i);
+
+	/**
+	 * Supprimer un element de la liste des demandes d'amis
+	 * @param position
+	 */
+	private void removeElementOfList(int i){
+		for(int j = 0; j < mListFriendRequest.size(); j++){
+			if(Long.toString(mListFriendRequest.get(j).getId()) == mIdFriendSelectedList.get(i)){
+				mListFriendRequest.remove(j);
 			}
 		}
 	}

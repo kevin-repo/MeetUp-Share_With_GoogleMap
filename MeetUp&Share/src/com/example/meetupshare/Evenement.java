@@ -8,35 +8,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.meetupshare.adapters.FriendAdapter;
-import com.example.meetupshare.adapters.ParticipantAdapter;
 import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import android.R.bool;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Evenement extends MainActivity {
+/**
+ * Informations sur l'evenement selectionne
+ *
+ */
+public class Evenement extends MainActivity implements ListOfItems{
 
 	private Event mCurrentEvent;
 	private TextView mDate, mHeure, mTitre, mDescription;
 	private ArrayList<User> mListParticipant;
-	private ParticipantAdapter mAdapter;
+	private FriendAdapter mAdapter;
 	private ListView mList;
 	private User mCurrentUser;
-	private Button mParticipateEventBtn, mRefuseEventBtn;
+	private Button mParticipateEventBtn;
 
 
 	@Override
@@ -48,20 +48,28 @@ public class Evenement extends MainActivity {
 		mHeure = (TextView) findViewById(R.id.heure_event_evenement_layout);
 		mTitre = (TextView) findViewById(R.id.titre_event_evenement_layout);
 		mParticipateEventBtn = (Button) findViewById(R.id.participate_event_btn);
-		mRefuseEventBtn = (Button) findViewById(R.id.refuse_event_btn);
 		mDescription = (TextView) findViewById(R.id.description);
 
 		mCurrentEvent = (Event) getIntent().getExtras().get("currentEvent");
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
 
 		mListParticipant = new ArrayList<User>();
-		mAdapter = new ParticipantAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListParticipant);
+		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListParticipant, true);
 		mList = (ListView)findViewById(R.id.liste_participants);
 
 		mList.setAdapter(mAdapter);
 
-		//Recuperation des informations de l'evenement
-		String url = "events.php?method=readcurrent&id="+mCurrentEvent.getId();
+		init();
+		initParticipantList();
+		isParticipate();
+	}
+
+	/**
+	 * Initialisation des informations de l'evenement
+	 */
+	private void init(){	
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=readcurrent&id="+mCurrentEvent.getId();
 		Webservice.get(url, null, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("read_event", "success");
@@ -79,11 +87,15 @@ public class Evenement extends MainActivity {
 			}
 
 		});	
+	}
 
-		//TODO Ameliorer encodage chaine json de retour + modifier onSuccess
-		String url2 = "events.php?method=readeventparticipants&event="+mCurrentEvent.getId();
-		Webservice.get(url2, null, new JsonHttpResponseHandler(){			
-			//Version 1
+	/**
+	 * Initialisation de la liste des participants
+	 */
+	private void initParticipantList(){
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=readeventparticipants&event="+mCurrentEvent.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("participant_list", "success");
 				populateList(response);
@@ -94,30 +106,15 @@ public class Evenement extends MainActivity {
 				Log.d("participant_list", "failure");
 			}
 		});
-
-		String url3 = "events.php?method=readparticipation&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
-		Webservice.get(url3, null, new JsonHttpResponseHandler(){			
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("is_participate", "sucess");
-				try {
-					if(response.getInt("participate") == 1){ //user participe a event
-						mParticipateEventBtn.setVisibility(View.GONE);
-					}		
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Log.d("is_participate", "failure");
-			}
-		});
-
 	}
 
-
+	/**
+	 * Initialisation du bouton participer ou ne pas participer
+	 */
 	public void isParticipate(){
-		String url2 = "events.php?method=readparticipation&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
-		Webservice.get(url2, null, new JsonHttpResponseHandler(){			
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=readparticipation&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("is_participate", "sucess");
 				try {
@@ -138,7 +135,8 @@ public class Evenement extends MainActivity {
 	 * Current user participe a l'evenement
 	 */
 	public void participateEvent(View view){
-		String url = "events.php?method=participateevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=participateevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();	
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {	
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -164,7 +162,8 @@ public class Evenement extends MainActivity {
 	 * Current user ne participe pas a l'evenement
 	 */
 	public void refuseEvent(View view){
-		String url = "events.php?method=refuseparticipateevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=refuseparticipateevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();	
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {	
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -200,7 +199,6 @@ public class Evenement extends MainActivity {
 		});
 	}
 
-	//TODO Mettre dans interface
 	/**
 	 * Permet de remplir la liste des participants
 	 * @param array
@@ -219,17 +217,17 @@ public class Evenement extends MainActivity {
 		}
 	}
 
-	//TODO Mettre dans interface
 	/**
 	 * Permet d'afficher les participants
 	 */
 	public void show(){
 		//mise a jour de la liste d'amis
-		mAdapter.setParticipantList(mListParticipant);
+		mAdapter.setFriendList(mListParticipant);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
 
+	public void removeItemOfList(int i) {}
 
 	public String ajouterEspace(String s){
 		String res;
@@ -244,5 +242,7 @@ public class Evenement extends MainActivity {
 		res = s.substring(0, i);
 		return res;
 	}
+
+	
 
 }

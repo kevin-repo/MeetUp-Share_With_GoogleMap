@@ -1,7 +1,5 @@
 package com.example.meetupshare;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,17 +14,10 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,23 +27,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Nouvel_evenement2 extends MainActivity {
+/**
+ * Creation d'un nouvel evenement 2
+ *
+ */
+public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 
-	private Event mEvenement;
+	private Event mEvenement, mCurrentEvent;
 	private User mCurrentUser;
 	private EditText mAdresse, mLink, mDescription;
 	private ArrayList<User> mListFriend;
 	private FriendAdapter mAdapter;
 	private ListView mList;
 	private List<String> mIdFriendSelectedList;
-	private Event mCurrentEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nouvel_evenement2);
 		mListFriend = new ArrayList<User>();
-		mAdapter = new FriendAdapter(this, R.layout.friend_list, mListFriend);
+		mAdapter = new FriendAdapter(this, R.layout.friend_list, mListFriend, false);
 		mList = (ListView)findViewById(R.id.liste_contacts_event);
 		//Recuperation des informations stockees dans l'intent
 		mEvenement = (Event) getIntent().getExtras().get("newEvent");
@@ -73,13 +67,17 @@ public class Nouvel_evenement2 extends MainActivity {
 	 * Initialisation de l'activity
 	 */
 	public void init(){
-		String url = "users.php?method=readfriends&idcurrent="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+		RequestParams params = new RequestParams();
+		params.put("idcurrent", mCurrentUser.getId());
+		
+		String file = Webservice.usersMethod();
+		
+		Webservice.get(file+"?method=readfriends", params, new JsonHttpResponseHandler(){			
 			//Version 1
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("contact_list_event", "sucess");
-				populateListFriends(response);
-				showContacts();
+				populateList(response);
+				show();
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
@@ -100,15 +98,13 @@ public class Nouvel_evenement2 extends MainActivity {
 		String date2 = mEvenement.getDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateFormate2 = null;
-        try
-        {
+        try {
             dateFormate2 = simpleDateFormat.parse(date2);
-        }
-        catch (ParseException ex)
-        {
+        }catch (ParseException ex) {
             System.out.println("Exception "+ex);
         }
-		
+
+        
 		String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString()+"&date="+simpleDateFormat.format(dateFormate2);
 		Log.d("url", url);
 		Webservice.post(url, null, new JsonHttpResponseHandler() {
@@ -143,7 +139,8 @@ public class Nouvel_evenement2 extends MainActivity {
 	 * Ajouter l'organisateur de l'event a l'event
 	 */
 	public void associateOrganizer(){
-		String url = "events.php?method=addorganizeratevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=addorganizeratevent&idu="+mCurrentUser.getId()+"&event="+mCurrentEvent.getId();
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -187,15 +184,11 @@ public class Nouvel_evenement2 extends MainActivity {
 		}
 	}
 
-
-
-
-	//TODO Faire classe et y mettre ces fonctions pour eviter repetition de code
 	/**
 	 * Permet de remplir la liste des contacts
 	 * @param array
 	 */
-	public void populateListFriends(JSONArray array){
+	public void populateList(JSONArray array){
 		for(int i = 0; i < array.length(); i++){
 			User contact = new User();
 			try {
@@ -212,18 +205,23 @@ public class Nouvel_evenement2 extends MainActivity {
 	/**
 	 * Permet d'afficher les contacts
 	 */
-	public void showContacts(){
+	public void show(){
 		//mise a jour de la liste d'amis
 		mAdapter.setFriendList(mListFriend);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
 
+	public void removeItemOfList(int i) {}
+
 	public String supprimerEspace(String s){
 		String res;
 		res = s.replace(" ", "_");
 		return res;
 	}
+
+
+	
 	
 }
 

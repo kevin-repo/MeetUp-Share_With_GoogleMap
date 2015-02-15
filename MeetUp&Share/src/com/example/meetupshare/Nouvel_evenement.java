@@ -3,16 +3,17 @@ package com.example.meetupshare;
 import com.example.models.Event;
 import com.example.models.User;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
+/**
+ * Creation d'un nouvel evenement
+ *
+ */
 public class Nouvel_evenement extends MainActivity {
 
 	private EditText titre;

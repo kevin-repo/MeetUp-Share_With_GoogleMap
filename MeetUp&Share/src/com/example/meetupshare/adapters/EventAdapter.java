@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.example.meetupshare.R;
 import com.example.models.Event;
-import com.example.models.User;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Adapteur pour la liste des evenements
+ *
+ */
 public class EventAdapter extends ArrayAdapter<Event>{
 
 	private List<Event> mEventList;	    	

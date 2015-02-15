@@ -18,30 +18,34 @@ import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-
+/**
+ * Parametres du compte de l'user
+ *
+ */
 public class Options extends MainActivity {
-	User currentUser;
-	private EditText nom, prenom, password;
 	
+	private User mCurrentUser;
+	private EditText mNom, mPrenom, mPassword;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.options);
 
-		nom = (EditText) findViewById(R.id.modifnom);
-		prenom = (EditText) findViewById(R.id.modifprenom);
-		password = (EditText) findViewById(R.id.modifmdp);
+		mNom = (EditText) findViewById(R.id.modifnom);
+		mPrenom = (EditText) findViewById(R.id.modifprenom);
+		mPassword = (EditText) findViewById(R.id.modifmdp);
 
 		//Recuperation des informations relatives a l'user
 		if(getIntent() != null) {
-			currentUser = (User)getIntent().getExtras().get("currentUser");
+			mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 		}
 	}
 
 	public void modifierNom(View view){
-		Log.d("eeeee",String.valueOf(currentUser.getId()) );
+		Log.d("eeeee",String.valueOf(mCurrentUser.getId()) );
 		
 	//	String url = "users.php?method=updatelname&idcurrent="+currentUser.getId()+"&lname="+nom.getText().toString()+"";
 		/*
@@ -68,15 +72,13 @@ public class Options extends MainActivity {
 	public void modifierMdp(View view){
 
 	}
-
-
 	
 	/**
 	 * Suppression du compte de l'utilisateur 
 	 * @param view
 	 */
 	public void supprimerCompte(View view){
-		String url = "users.php?method=deleteuser&email="+currentUser.getEmail();
+		String url = "users.php?method=deleteuser&email="+mCurrentUser.getEmail();
 		Webservice.delete(url, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -99,4 +101,5 @@ public class Options extends MainActivity {
 			}			
 		});
 	}
+	
 }

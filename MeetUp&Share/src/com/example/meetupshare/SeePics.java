@@ -11,20 +11,22 @@ import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class SeePics extends MainActivity{
+/**
+ * Liste des evenements dont on peut voir les photos
+ *
+ */
+public class SeePics extends MainActivity implements ListOfItems{
 
 	private ArrayList<Event> mListEvent;
 	private ListView mList;
@@ -49,12 +51,16 @@ public class SeePics extends MainActivity{
 
 	
 	/**
-	 * Initialisation de l'activity
+	 * Initialisation de la liste des evenements
 	 */
 	public void init(){
+		RequestParams params = new RequestParams();
+		params.put("idu", mCurrentUser.getId());
+		
+		String file = Webservice.eventsMethod();
+		
 		//Recuperation de la liste d'event passés
-		String url = "events.php?method=readeventsgone&idu="+mCurrentUser.getId();
-		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+		Webservice.get(file+"?method=readeventsgone", params, new JsonHttpResponseHandler(){			
 			//Version 1
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("event_gone_list", "success");
@@ -82,7 +88,7 @@ public class SeePics extends MainActivity{
 	 * Permet de remplir la liste des evenements
 	 * @param array
 	 */
-	protected void populateList(JSONArray array){
+	public void populateList(JSONArray array){
 		for(int i = 0; i < array.length(); i++){
 			Event e = new Event();
 			try {
@@ -101,13 +107,15 @@ public class SeePics extends MainActivity{
 	/**
 	 * Permet d'afficher les evenements
 	 */
-	protected void show(){
+	public void show(){
 		//mise a jour de la liste d'evenements
 		mAdapter.setEventList(mListEvent);
 		//notify l'adapteur
 		mAdapter.notifyDataSetChanged();
 	}
 
+	public void removeItemOfList(int i) {}
+	
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("_", " ");

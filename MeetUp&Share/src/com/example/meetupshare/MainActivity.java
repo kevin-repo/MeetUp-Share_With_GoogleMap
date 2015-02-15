@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
-
+/**
+ * Menu
+ *
+ */
 public class MainActivity extends Activity {
 
 	User currentUser;
@@ -18,14 +20,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -33,8 +31,6 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-
-
 		case R.id.options:
 			Intent intent1 = new Intent(this, Options.class);
 			Bundle bundle1 = new Bundle();
@@ -55,17 +51,9 @@ public class MainActivity extends Activity {
 			startActivity(intent);
 			finish();
 			return true;	
-
-
-
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-
-
-
-
 
 }
