@@ -25,10 +25,10 @@ import com.loopj.android.http.RequestParams;
  *
  */
 public class Options extends MainActivity {
-	
+
 	private User mCurrentUser;
 	private EditText mNom, mPrenom, mPassword;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,11 +44,13 @@ public class Options extends MainActivity {
 		}
 	}
 
+	
+	
+	
 	public void modifierNom(View view){
-		Log.d("eeeee",String.valueOf(mCurrentUser.getId()) );
-		
-	//	String url = "users.php?method=updatelname&idcurrent="+currentUser.getId()+"&lname="+nom.getText().toString()+"";
-		/*
+		//String url = "users.php?method=updatelname&idcurrent="+currentUser.getId()+"&lname="+mNom.getText().toString()+"";
+		String url = "users.php?method=updatelname&idcurrent=1&lname="+mNom.getText().toString()+"";
+	
 			Webservice.post(url, null, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -58,11 +60,11 @@ public class Options extends MainActivity {
 				}	
 				@Override
 				public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-					Log.d("add_friend", "Moddification impossible");	
+					Log.d("add_friend", "La modification a échouée");	
 					Toast toast = Toast.makeText(getApplicationContext(), "Modification imposible", Toast.LENGTH_SHORT);
 					toast.show();
 				}
-			});*/
+			});
 	}
 
 	public void modifierPrenom(View view){
@@ -72,7 +74,7 @@ public class Options extends MainActivity {
 	public void modifierMdp(View view){
 
 	}
-	
+
 	/**
 	 * Suppression du compte de l'utilisateur 
 	 * @param view
@@ -101,5 +103,5 @@ public class Options extends MainActivity {
 			}			
 		});
 	}
-	
+
 }
