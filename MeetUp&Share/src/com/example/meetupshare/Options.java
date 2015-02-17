@@ -48,7 +48,6 @@ public class Options extends MainActivity {
 	
 	
 	public void modifierNom(View view){
-		//String url = "users.php?method=updatelname&idcurrent="+currentUser.getId()+"&lname="+mNom.getText().toString()+"";
 		String url = "users.php?method=updatelname&idcurrent=1&lname="+mNom.getText().toString()+"";
 	
 			Webservice.post(url, null, new AsyncHttpResponseHandler() {
@@ -60,7 +59,7 @@ public class Options extends MainActivity {
 				}	
 				@Override
 				public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-					Log.d("add_friend", "La modification a échouée");	
+					Log.d("ko", "La modification a échouée");	
 					Toast toast = Toast.makeText(getApplicationContext(), "Modification imposible", Toast.LENGTH_SHORT);
 					toast.show();
 				}
@@ -68,10 +67,42 @@ public class Options extends MainActivity {
 	}
 
 	public void modifierPrenom(View view){
+				String url = "users.php?method=updatefname&idcurrent=1&lname="+mPrenom.getText().toString()+"";
+			
+					Webservice.post(url, null, new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+							Log.d("Modification prénom", "Modification effectuée");
+							Toast toast = Toast.makeText(getApplicationContext(), "Modification effectuée", Toast.LENGTH_SHORT);
+							toast.show();
+						}	
+						@Override
+						public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+							Log.d("ko", "La modification a échouée");	
+							Toast toast = Toast.makeText(getApplicationContext(), "Modification imposible", Toast.LENGTH_SHORT);
+							toast.show();
+						}
+					});
 
 	}
 
 	public void modifierMdp(View view){
+		String url = "users.php?method=?method=updatepwd&idcurrent=1&lname="+mPassword.getText().toString()+"";
+		
+		Webservice.post(url, null, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				Log.d("Modification m", "Modification effectuée");
+				Toast toast = Toast.makeText(getApplicationContext(), "Modification effectuée", Toast.LENGTH_SHORT);
+				toast.show();
+			}	
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				Log.d("ko", "La modification a échouée");	
+				Toast toast = Toast.makeText(getApplicationContext(), "Modification imposible", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});
 
 	}
 
