@@ -28,13 +28,15 @@
         android:layout_alignBottom="@+id/friend_list_checkBox"
         android:layout_toRightOf="@+id/friend_list_checkBox"
         android:layout_weight="0.5"
-        android:text="First name" />
+        android:text="First name"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/lastname_friend_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:text="Last name" />
+        android:text="Last name"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

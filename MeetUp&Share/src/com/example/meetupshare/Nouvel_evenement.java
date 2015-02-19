@@ -1,14 +1,21 @@
 package com.example.meetupshare;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import com.example.models.Event;
 import com.example.models.User;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 /**
  * Creation d'un nouvel evenement
@@ -42,23 +49,50 @@ public class Nouvel_evenement extends MainActivity {
 		String dateFormatee = annee + "-" + mois + "-" + jour;
 		
 		//Traitement pour la recuperation de l'heure au format string
-		int minute = heure.getCurrentMinute();
-		int hour = heure.getCurrentHour();
-		String heureFormatee = hour + ":" + minute;
+		//TODO Regler le probleme d'implementation de l'heure avec la base de donnees
+//		int minute = heure.getCurrentMinute();
+//		int hour = heure.getCurrentHour();
+//		String heureFormatee = hour + ":" + minute;
+			
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateTime = null;
+        try {
+            dateTime = simpleDateFormat.parse(dateFormatee);
+        }catch (ParseException ex) {
+            System.out.println("Exception "+ex);
+        }
+        dateTime.setHours(1);
+        dateTime.setMinutes(0);
+        dateTime.setSeconds(0);
+        
+		//Recuperation de la date du jour
+        Date dateTimeToday = new Date();
+		dateTimeToday.setHours(0);
+		dateTimeToday.setMinutes(0);
+		dateTimeToday.setSeconds(0);
 		
-		Event evenement = new Event();
-		evenement.setTitre(titre.getText().toString());
-		evenement.setDate(dateFormatee);
-		evenement.setHeure(heureFormatee);
+		//Test sur la validite de la date (date de l'evenement inferieur a la date du jour)
+		if(dateTimeToday.compareTo(dateTime) > 0){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir une date postérieur à la date du jour", Toast.LENGTH_SHORT);
+			toast.show();
+		} else if(titre.getText().toString().equals("")){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir un titre", Toast.LENGTH_SHORT);
+			toast.show();
+		} else {
+			Event evenement = new Event();
+			evenement.setTitre(titre.getText().toString());
+			evenement.setDate(dateFormatee);
+			//evenement.setHeure(heureFormatee);
 
-		Intent intent = new Intent(Nouvel_evenement.this, Nouvel_evenement2.class);	
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("newEvent", evenement);
-		bundle.putSerializable("currentUser", (User)getIntent().getExtras().get("currentUser"));
-		intent.putExtras(bundle);
-		startActivity(intent);
-		finish();
+			Intent intent = new Intent(Nouvel_evenement.this, Nouvel_evenement2.class);	
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("newEvent", evenement);
+			bundle.putSerializable("currentUser", (User)getIntent().getExtras().get("currentUser"));
+			intent.putExtras(bundle);
+			startActivity(intent);
+			finish();
+		}
 	}
-	
+
 }
 

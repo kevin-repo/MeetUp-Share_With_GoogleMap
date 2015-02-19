@@ -66,7 +66,6 @@ public class FriendAdapter extends ArrayAdapter<User>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
-		final Integer p = position;
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.friend_list, null);
@@ -79,11 +78,10 @@ public class FriendAdapter extends ArrayAdapter<User>{
 			      public void onClick(View v) {
 			        if(((CheckBox) v).isChecked()){
 			        	//ajout au conteneur des contacts coches
-			        	Log.d("checked", holder.id.getText().toString());
 			        	mIdCheckedItems.add(holder.id.getText().toString());
-			        	mPositionItemsChecked.add(p);
 			        }else{
-			        	Log.d("checked", "decoche");
+			        	//suppression au conteneur des contacts coches
+			        	mIdCheckedItems.remove(holder.id.getText().toString());
 			        }
 			      }
 			    });
@@ -147,7 +145,6 @@ public class FriendAdapter extends ArrayAdapter<User>{
 	
 	public void initializemPositionItemsChecked(){
 		this.mPositionItemsChecked = new ArrayList<Integer>();
-	}
-
-
+	}	
+	
 }

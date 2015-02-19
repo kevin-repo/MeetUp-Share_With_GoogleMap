@@ -69,9 +69,9 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 	public void init(){
 		RequestParams params = new RequestParams();
 		params.put("idcurrent", mCurrentUser.getId());
-		
+
 		String file = Webservice.usersMethod();
-		
+
 		Webservice.get(file+"?method=readfriends", params, new JsonHttpResponseHandler(){			
 			//Version 1
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -94,45 +94,50 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 		String titreSansEspace = supprimerEspace(mEvenement.getTitre());
 		String placeSansEspace = supprimerEspace(mAdresse.getText().toString());
 		String descriptionSansEspace = supprimerEspace(mDescription.getText().toString());
-		
-		String date2 = mEvenement.getDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateFormate2 = null;
-        try {
-            dateFormate2 = simpleDateFormat.parse(date2);
-        }catch (ParseException ex) {
-            System.out.println("Exception "+ex);
-        }
 
-        
-		String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString()+"&date="+simpleDateFormat.format(dateFormate2);
-		Log.d("url", url);
-		Webservice.post(url, null, new JsonHttpResponseHandler() {
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				Log.d("create_event", "success");
-				Log.d("response", ""+response.optString("id_event"));
-				
-				mCurrentEvent.setId(Long.parseLong(response.optString("id_event")));	
-				associateOrganizer();
-				associateParticipants();
-				
-				Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
-				toast.show();
-				//Redirection vers la page principale
-				Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("currentUser", mCurrentUser);
-				intent.putExtras(bundle);
-				startActivity(intent);
-				finish();
-			}
+		String dateEvent = mEvenement.getDate();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateTime = null;
+		try {
+			dateTime = simpleDateFormat.parse(dateEvent);
+		}catch (ParseException ex) {
+			System.out.println("Exception "+ex);
+		}
 
-			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
-				Log.d("create_event", "failure");
-				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
-				toast.show();
-			}
-		});	
+		//Test sur les parametres entres
+		if(mAdresse.getText().toString().equals("")){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir une adresse", Toast.LENGTH_SHORT);
+			toast.show();
+		} else {
+			String url = "events.php?method=createevent&title="+titreSansEspace+"&organizer="+mCurrentUser.getId()+"&place="+placeSansEspace+"&description="+descriptionSansEspace+"&link="+mLink.getText().toString()+"&date="+simpleDateFormat.format(dateTime);
+			Log.d("url", url);
+			Webservice.post(url, null, new JsonHttpResponseHandler() {
+				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+					Log.d("create_event", "success");
+					Log.d("response", ""+response.optString("id_event"));
+
+					mCurrentEvent.setId(Long.parseLong(response.optString("id_event")));	
+					associateOrganizer();
+					associateParticipants();
+
+					Toast toast = Toast.makeText(getApplicationContext(), "Evénement créé" , Toast.LENGTH_SHORT);
+					toast.show();
+					//Redirection vers la page principale
+					Intent intent = new Intent(Nouvel_evenement2.this, Home.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("currentUser", mCurrentUser);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					finish();
+				}
+
+				public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+					Log.d("create_event", "failure");
+					Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+			});
+		}
 	}
 
 	/**
@@ -154,14 +159,14 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 			}			
 		});	
 	}
-	
-	
+
+
 	/**
 	 * Creation participant
 	 */
 	public void associateParticipants(){
 		mIdFriendSelectedList = mAdapter.getIdCheckedItems();
-		
+
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
 			for(int i = 0; i < mIdFriendSelectedList.size(); i++){
 				//Association des participants a l'evenement
@@ -221,7 +226,7 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 	}
 
 
-	
-	
+
+
 }
 

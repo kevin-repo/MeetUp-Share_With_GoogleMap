@@ -39,10 +39,8 @@ public class MainActivity extends Activity {
 			startActivity(intent1);
 			return true;
 		case R.id.deconnect:
-			Intent intent6 = new Intent(this, Connexion.class);
-			Bundle bundle6 = new Bundle();
-			bundle6.putSerializable("currentUser", currentUser);
-			intent6.putExtras(bundle6);
+			Intent intent6 = new Intent(this , Connexion.class);
+			intent6.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); 
 			startActivity(intent6);
 			finish();
 			return true;

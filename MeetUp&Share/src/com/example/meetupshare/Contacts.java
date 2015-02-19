@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,15 +32,11 @@ public class Contacts extends MainActivity  implements ListOfItems{
 
 	private ArrayList<User> mListFriend;
 	private FriendAdapter mAdapter;
-	private Button mAddBtn;
-	private Button mRemoveBtn;
-	private Button mValiderBtn;
+	private Button mAddBtn, mRemoveBtn, mValiderBtn;
 	private User mCurrentUser;
-	private EditText mSearchFriend;
-	private EditText mMailFriend;
+	private EditText mSearchFriend, mMailFriend;
 	private ListView mList;
 	private List<String> mIdFriendSelectedList;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class Contacts extends MainActivity  implements ListOfItems{
 		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 		Log.d("currentuser",""+mCurrentUser.getFirstname());
 
-		init();
+		init();	
 	}
 
 	/**
@@ -83,6 +81,7 @@ public class Contacts extends MainActivity  implements ListOfItems{
 				Log.d("contact_list", "failure");
 			}
 		});
+		
 	}
 
 	/**
@@ -110,7 +109,7 @@ public class Contacts extends MainActivity  implements ListOfItems{
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				Log.d("add_friend", "success");
-				Toast toast = Toast.makeText(getApplicationContext(), "Demande d'ajout envoyé", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(getApplicationContext(), "Demande d'ajout envoyée", Toast.LENGTH_SHORT);
 				toast.show();
 			}	
 			@Override
@@ -134,12 +133,12 @@ public class Contacts extends MainActivity  implements ListOfItems{
 	 */
 	public void removeFriend(View view) {
 		mIdFriendSelectedList = mAdapter.getIdCheckedItems();
-
+		
 		//TODO ajouter les positions a la liste pour faciliter suppression
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
 			for(int i = 0; i < mIdFriendSelectedList.size(); i++){
 				final int position = i;
-				String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelectedList.get(i);
+				/*String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelectedList.get(i);
 				Webservice.delete(url, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -147,7 +146,7 @@ public class Contacts extends MainActivity  implements ListOfItems{
 						Toast toast = Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT);
 						toast.show();
 						//suppression de l'ami selectionne de la liste friend					
-						removeItemOfList(position);																		
+						removeItemOfList(position);
 						//mise a jour de la liste
 						mAdapter.notifyDataSetChanged();			
 					}
@@ -159,7 +158,11 @@ public class Contacts extends MainActivity  implements ListOfItems{
 						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
 						toast.show();		
 					}			
-				});
+				});*/
+				//suppression de l'ami selectionne de la liste friend
+				removeItemOfList(i);		
+				//mise a jour de la liste
+				mAdapter.notifyDataSetChanged();
 			}
 			//vide le contenu de la liste contenant les id et positions des amis a supprimer
 			mAdapter.initializeIdCheckedItems();
@@ -210,4 +213,5 @@ public class Contacts extends MainActivity  implements ListOfItems{
 			}
 		}
 	}
+	
 }

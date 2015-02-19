@@ -39,34 +39,51 @@ public class SignIn extends Activity {
 	 * @param view
 	 */
 	public void validateInscription(View view) {
-		RequestParams params = new RequestParams();
-		params.put("lname", mNom.getText().toString());
-		params.put("fname", mPrenom.getText().toString());
-		params.put("email", mEmail.getText().toString());
-		params.put("pwd", mPassword.getText().toString());
+		//Test sur les parametres entres
+		if(mNom.getText().toString().equals("")){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir un nom", Toast.LENGTH_SHORT);
+			toast.show();
+		} else if(mPrenom.getText().toString().equals("")){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir un prénom", Toast.LENGTH_SHORT);
+			toast.show();
+		} else if(mEmail.getText().toString().equals("")){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir un email", Toast.LENGTH_SHORT);
+			toast.show();
+		} else if(mPassword.getText().toString().equals("")){
+			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez saisir un mot de passe", Toast.LENGTH_SHORT);
+			toast.show();
+		} else {
+			
+			RequestParams params = new RequestParams();
+			params.put("lname", mNom.getText().toString());
+			params.put("fname", mPrenom.getText().toString());
+			params.put("email", mEmail.getText().toString());
+			params.put("pwd", mPassword.getText().toString());
 
-		Log.d("params", params.toString());
+			Log.d("params", params.toString());
 
-		String url = "users.php?method=createuser&lname="+mNom.getText().toString()+"&fname="+mPrenom.getText().toString()+"&email="+mEmail.getText().toString()+"&pwd="+mPassword.getText().toString();
-		Webservice.post(url, null, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-				Log.d("create_account", "success");
-				Toast toast = Toast.makeText(getApplicationContext(), "Création réussie", Toast.LENGTH_SHORT);
-				toast.show();
-				//passage a activity "Connexion"
-				Intent intent = new Intent(SignIn.this, Connexion.class);
-				startActivity(intent);
-				finish();
-			}
+			String url = "users.php?method=createuser&lname="+mNom.getText().toString()+"&fname="+mPrenom.getText().toString()+"&email="+mEmail.getText().toString()+"&pwd="+mPassword.getText().toString();
+			Webservice.post(url, null, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+					Log.d("create_account", "success");
+					Toast toast = Toast.makeText(getApplicationContext(), "Création réussie", Toast.LENGTH_SHORT);
+					toast.show();
+					//passage a activity "Connexion"
+					Intent intent = new Intent(SignIn.this, Connexion.class);
+					startActivity(intent);
+					finish();
+				}
 
-			@Override
-			public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-				Log.d("create_account", "failure");
-				Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
-				toast.show();
-			}
-		});
+				@Override
+				public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+					Log.d("create_account", "failure");
+					Toast toast = Toast.makeText(getApplicationContext(), "Echec de la création", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+			});
+			
+		}
 	}
 
 }
