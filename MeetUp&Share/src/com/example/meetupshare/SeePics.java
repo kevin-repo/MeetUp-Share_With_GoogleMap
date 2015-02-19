@@ -1,6 +1,14 @@
 package com.example.meetupshare;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -20,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
@@ -49,16 +58,16 @@ public class SeePics extends MainActivity implements ListOfItems{
 	}
 
 
-	
+
 	/**
 	 * Initialisation de la liste des evenements
 	 */
 	public void init(){
 		RequestParams params = new RequestParams();
 		params.put("idu", mCurrentUser.getId());
-		
+
 		String file = Webservice.eventsMethod();
-		
+
 		//Recuperation de la liste d'event passés
 		Webservice.get(file+"?method=readeventsgone", params, new JsonHttpResponseHandler(){			
 			//Version 1
@@ -78,8 +87,20 @@ public class SeePics extends MainActivity implements ListOfItems{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mListEvent.get(position).getUrl()));
-				startActivity(intent); 
+				URL url;
+				try {
+					url = new URL(mListEvent.get(position).getUrl());
+					HttpsURLConnection connexion = (HttpsURLConnection)url.openConnection();
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mListEvent.get(position).getUrl()));
+					startActivity(intent); 
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+					Toast toast = Toast.makeText(getApplicationContext(), "L'adresse renseignée pour le partage des photos n'est pas valide", Toast.LENGTH_SHORT);
+					toast.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+						
 			}			
 		});
 	}
@@ -115,19 +136,19 @@ public class SeePics extends MainActivity implements ListOfItems{
 	}
 
 	public void removeItemOfList(int i) {}
-	
+
 	public String ajouterEspace(String s){
 		String res;
 		res = s.replace("_", " ");
 		return res;
 	}
-	
+
 	public String deleteHour(String s){
 		String res;
-		
+
 		int i = s.indexOf(" ");
 		res = s.substring(0, i);
 		return res;
 	}
-	
+
 }

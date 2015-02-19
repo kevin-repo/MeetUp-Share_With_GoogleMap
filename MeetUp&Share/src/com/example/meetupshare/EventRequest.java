@@ -36,7 +36,6 @@ public class EventRequest extends MainActivity implements ListOfItems{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_request);
 		EventRequestActivity = this;
@@ -49,10 +48,20 @@ public class EventRequest extends MainActivity implements ListOfItems{
 		mList.setAdapter(mAdapter);
 		
 		init();
+		
+		
+		getIntent().setAction("Already created");
 	}
 
 	public static EventRequest getInstance(){
         return EventRequestActivity;
+	}
+	
+	protected void onRestart(){
+		super.onRestart();
+		Intent intent = getIntent();
+		startActivity(intent);
+		finish();
 	}
 	
 	/**

@@ -54,6 +54,13 @@ public class Calandar extends MainActivity implements ListOfItems{
 		init();
 	}
 
+	protected void onRestart(){
+		super.onRestart();
+		Intent intent = getIntent();
+		startActivity(intent);
+		finish();
+	}
+	
 	/**
 	 * Initialisation de la liste des evenements
 	 */

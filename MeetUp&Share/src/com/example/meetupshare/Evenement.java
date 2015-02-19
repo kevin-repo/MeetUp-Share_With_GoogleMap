@@ -170,10 +170,11 @@ public class Evenement extends MainActivity implements ListOfItems{
 				Log.d("refuse_event", "sucess");
 				Toast toast = Toast.makeText(getApplicationContext(), "Evénement supprimé de la liste" , Toast.LENGTH_SHORT);
 				toast.show();
-
+				//TODO Ameliorer retour a liste
 				//Passage a activity EventRequest
-				if(EventRequest.getInstance() != null){
+				/*if(EventRequest.getInstance() != null){
 					Intent intent = new Intent(Evenement.this, EventRequest.class);
+					//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("currentEvent", mCurrentEvent);
 					bundle.putSerializable("currentUser", mCurrentUser);
@@ -189,7 +190,15 @@ public class Evenement extends MainActivity implements ListOfItems{
 					intent.putExtras(bundle);
 					startActivity(intent);
 					finish();
-				}
+				}*/
+				
+				Intent intent = new Intent(Evenement.this, Home.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("currentUser", mCurrentUser);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
 			}
 
 			@Override

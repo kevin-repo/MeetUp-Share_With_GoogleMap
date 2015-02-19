@@ -57,10 +57,10 @@ public class FriendRequest extends MainActivity{
 		RequestParams params = new RequestParams();
 		params.put("idcurrent", mCurrentUser.getId());
 		
-		String file = Webservice.eventsMethod();
-	
-		Webservice.get(file+"?method=friendrequests", params, new JsonHttpResponseHandler(){			
-			//Version 1
+		String file = Webservice.usersMethod();
+		String url = file+"?method=friendrequests&idcurrent="+mCurrentUser.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+
 			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 				Log.d("friend_request_list", "sucess");
 				populateListFriends(response);
@@ -94,7 +94,6 @@ public class FriendRequest extends MainActivity{
 						removeElementOfList(position);																		
 						//mise a jour de la liste
 						mAdapter.notifyDataSetChanged();
-						//TODO passage a activity "Home" si liste de demande d'amis vide
 					}
 
 					@Override
