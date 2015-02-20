@@ -166,7 +166,6 @@ public class Contacts extends MainActivity  implements ListOfItems{
 			}
 			//vide le contenu de la liste contenant les id et positions des amis a supprimer
 			mAdapter.initializeIdCheckedItems();
-			mAdapter.initializemPositionItemsChecked();
 		}else{
 			Toast toast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner un contact à supprimer", Toast.LENGTH_SHORT);
 			toast.show();

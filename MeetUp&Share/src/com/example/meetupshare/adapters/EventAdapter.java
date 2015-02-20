@@ -7,7 +7,6 @@ import com.example.meetupshare.R;
 import com.example.models.Event;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class EventAdapter extends ArrayAdapter<Event>{
 	private LayoutInflater mInflater;
 	private List<String> mIdCheckedItems;
 	private List<Integer> mPositionItemsChecked;
-	private Integer mPosition;
 	private boolean mHideCheckBox;
 
 	public EventAdapter(Context context, int ressourceId, List<Event> list, boolean hideCheckbox) {
@@ -67,7 +65,6 @@ public class EventAdapter extends ArrayAdapter<Event>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
-		mPosition = position;
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.event_list, null);
@@ -83,12 +80,10 @@ public class EventAdapter extends ArrayAdapter<Event>{
 				public void onClick(View v) {
 					if(((CheckBox) v).isChecked()){
 						//ajout au conteneur des contacts coches
-						Log.d("checked", holder.idEvenement.getText().toString());
-						Log.d("p_checked", ""+mPosition);
 						mIdCheckedItems.add(holder.idEvenement.getText().toString());
-						mPositionItemsChecked.add(mPosition);
 					}else{
-						Log.d("checked", "decoche");
+						//suppression au conteneur des contacts coches
+			        	mIdCheckedItems.remove(holder.idEvenement.getText().toString());
 					}
 				}
 			});
