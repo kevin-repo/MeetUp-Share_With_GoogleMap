@@ -31,7 +31,7 @@ import android.widget.Toast;
 public class Evenement extends MainActivity implements ListOfItems{
 
 	private Event mCurrentEvent;
-	private TextView mDate, mHeure, mTitre, mDescription;
+	private TextView mDate, mHeure, mTitre, mDescription, mParticipant;
 	private ArrayList<User> mListParticipant;
 	private FriendAdapter mAdapter;
 	private ListView mList;
@@ -47,6 +47,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 		mDate = (TextView) findViewById(R.id.date_event_evenement_layout);
 		mHeure = (TextView) findViewById(R.id.heure_event_evenement_layout);
 		mTitre = (TextView) findViewById(R.id.titre_event_evenement_layout);
+		mParticipant = (TextView) findViewById(R.id.participants_text);
 		mParticipateEventBtn = (Button) findViewById(R.id.participate_event_btn);
 		mAlterEventBtn = (Button) findViewById(R.id.alter_event_btn);
 		mDescription = (TextView) findViewById(R.id.description);
@@ -114,6 +115,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("participant_list", "failure");
+				mParticipant.setText("Aucun participant");
 			}
 		});
 	}
@@ -244,7 +246,9 @@ public class Evenement extends MainActivity implements ListOfItems{
 	public void alterEvent(View view){
 		Intent intent = new Intent(Evenement.this, AlterEvent.class);
 		Bundle bundle = new Bundle();
+		bundle.putSerializable("currentUser", mCurrentUser);
 		bundle.putSerializable("currentEvent", mCurrentEvent);
+		bundle.putSerializable("participantList", mListParticipant);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}

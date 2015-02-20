@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
+    android:layout_height="fill_parent"
     android:background="@drawable/walpaper" >
 
     <TextView
@@ -11,106 +11,196 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Modification de l'événement"
         android:gravity="center_vertical|center_horizontal"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:paddingLeft="5dp" />
+        android:text="Modification de l&apos;événement"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/alter_title_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/alter_event_textview"
-        android:layout_marginTop="24dp"
-        android:layout_toLeftOf="@+id/alter_title_event_btn"
-        android:ems="10"
-        android:hint="Modifier le titre"
-       	android:textColor="#FFFFFF" >
-        <requestFocus />
-    </EditText>
+    <RelativeLayout
+        android:id="@+id/first_modification_event"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" >
 
-    <Button
-        android:id="@+id/alter_title_event_btn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/alter_title_event"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/alter_title_event"
-        android:text="OK" 
-        android:onClick="alterTitle"/>
+        <EditText
+            android:id="@+id/alter_title_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="50dp"
+            android:layout_toLeftOf="@+id/alter_title_event_btn"
+            android:ems="10"
+            android:hint="Modifier le titre"
+            android:textColor="#FFFFFF" >
 
-    <EditText
-        android:id="@+id/alter_location_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/alter_title_event"
-        android:layout_below="@+id/alter_title_event"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Modifier l'adresse"
-        android:textColor="#FFFFFF" />
+            <requestFocus />
+        </EditText>
 
-    <Button
-        android:id="@+id/alter_location_event_btn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/alter_location_event"
-        android:layout_alignTop="@+id/alter_location_event"
-        android:layout_toRightOf="@+id/alter_title_event"
-        android:onClick="alterLocation"
-        android:text="OK" />
+        <Button
+            android:id="@+id/alter_title_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/alter_title_event"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/alter_title_event"
+            android:onClick="alterTitle"
+            android:text="OK" />
 
-    <EditText
-        android:id="@+id/alter_link_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/alter_location_event"
-        android:layout_below="@+id/alter_location_event"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:hint="Modifier le lien partage photo"
-        android:textColor="#FFFFFF" />
+        <EditText
+            android:id="@+id/alter_location_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/alter_title_event"
+            android:layout_below="@+id/alter_title_event"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Modifier l&apos;adresse"
+            android:textColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/alter_link_event_btn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/alter_link_event"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/alter_link_event"
-        android:onClick="alterLink"
-        android:text="OK" />
-    
-    <EditText
-        android:id="@+id/alter_description_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/alter_link_event"
-        android:layout_below="@+id/alter_link_event"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:hint="Modifier la description"
-        android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/alter_location_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/alter_location_event"
+            android:layout_alignTop="@+id/alter_location_event"
+            android:layout_toRightOf="@+id/alter_title_event"
+            android:onClick="alterLocation"
+            android:text="OK" />
 
-    <Button
-        android:id="@+id/alter_description_event_btn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/alter_description_event"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/alter_description_event"
-        android:onClick="alterDescription"
-        android:text="OK" />
-    
+        <EditText
+            android:id="@+id/alter_link_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/alter_location_event"
+            android:layout_below="@+id/alter_location_event"
+            android:layout_marginTop="22dp"
+            android:ems="10"
+            android:hint="Modifier le lien partage photo"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/alter_link_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/alter_link_event"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/alter_link_event"
+            android:onClick="alterLink"
+            android:text="OK" />
+
+        <EditText
+            android:id="@+id/alter_description_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/alter_link_event"
+            android:layout_below="@+id/alter_link_event"
+            android:layout_marginTop="22dp"
+            android:ems="10"
+            android:hint="Modifier la description"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/alter_description_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/alter_description_event"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/alter_description_event"
+            android:onClick="alterDescription"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/next_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:onClick="alterNext"
+            android:text="Suivant" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/second_modification_event"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="visible" >
+              
+        <DatePicker
+            android:id="@+id/alter_date_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/alter_date_event_btn"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:calendarViewShown="false" 
+            android:textColor="#FFFFFF" />
+        
+        <TextView
+            android:id="@+id/alter_invite_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alter_date_event"
+            android:textSize="20dp"
+            android:layout_alignLeft="@+id/alter_date_event"
+            android:layout_marginTop="5dp"
+            android:text="Invités" 
+            android:textColor="#FFFFFF" />
+        
+        <ListView
+            android:id="@+id/alter_liste_contacts_event"
+            android:layout_width="wrap_content"
+            android:layout_height="202dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignRight="@+id/alter_date_event"
+            android:layout_alignLeft="@+id/alter_date_event"
+            android:layout_below="@+id/alter_invite_text_view" >
+
+        </ListView>
+        
+        <Button
+            android:id="@+id/previous_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:onClick="alterPrevious"
+            android:text="Précédent" />
+
+        <Button
+            android:id="@+id/alter_liste_contacts_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/alter_liste_contacts_event"
+            android:onClick="alterDate"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/alter_date_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/alter_date_event"
+            android:layout_toRightOf="@+id/alter_date_event"
+            android:onClick="alterContactList"
+            android:text="OK" />
+        
+    </RelativeLayout>
 
 </RelativeLayout>

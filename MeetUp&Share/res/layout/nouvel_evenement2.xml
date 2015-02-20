@@ -65,15 +65,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/invites_new_event_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.05" >
-
+        android:layout_weight="0.05"
+        android:orientation="vertical" >
+		
+        <TextView
+            android:id="@+id/invite_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginLeft="5dp"
+            android:text="Invités" 
+            android:textColor="#FFFFFF" />
+        
         <ListView
             android:id="@+id/liste_contacts_event"
             android:layout_width="match_parent"
-            android:layout_height="202dp" 
-             android:textColor="#FFFFFF" >
+            android:layout_height="202dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"  
+            android:textColor="#FFFFFF" >
         </ListView>
     </LinearLayout>
 

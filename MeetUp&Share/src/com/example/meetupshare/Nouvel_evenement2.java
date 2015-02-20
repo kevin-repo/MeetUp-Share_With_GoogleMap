@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 	private FriendAdapter mAdapter;
 	private ListView mList;
 	private List<String> mIdFriendSelectedList;
+	private LinearLayout mListLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 		mListFriend = new ArrayList<User>();
 		mAdapter = new FriendAdapter(this, R.layout.friend_list, mListFriend, false);
 		mList = (ListView)findViewById(R.id.liste_contacts_event);
+		mListLayout = (LinearLayout) findViewById(R.id.invites_new_event_linearlayout);
 		//Recuperation des informations stockees dans l'intent
 		mEvenement = (Event) getIntent().getExtras().get("newEvent");
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
@@ -82,6 +85,7 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("contact_list_event", "failure");
+				mListLayout.setVisibility(View.GONE);
 			}
 		});
 	}
