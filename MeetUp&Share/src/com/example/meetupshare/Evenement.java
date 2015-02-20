@@ -36,7 +36,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 	private FriendAdapter mAdapter;
 	private ListView mList;
 	private User mCurrentUser;
-	private Button mParticipateEventBtn;
+	private Button mParticipateEventBtn, mAlterEventBtn;
 
 
 	@Override
@@ -48,6 +48,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 		mHeure = (TextView) findViewById(R.id.heure_event_evenement_layout);
 		mTitre = (TextView) findViewById(R.id.titre_event_evenement_layout);
 		mParticipateEventBtn = (Button) findViewById(R.id.participate_event_btn);
+		mAlterEventBtn = (Button) findViewById(R.id.alter_event_btn);
 		mDescription = (TextView) findViewById(R.id.description);
 
 		mCurrentEvent = (Event) getIntent().getExtras().get("currentEvent");
@@ -62,8 +63,17 @@ public class Evenement extends MainActivity implements ListOfItems{
 		init();
 		initParticipantList();
 		isParticipate();
+		isOrganizer();
 	}
 
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		Intent intent = getIntent();
+		startActivity(intent);
+		finish();
+	}
+	
 	/**
 	 * Initialisation des informations de l'evenement
 	 */
@@ -132,6 +142,25 @@ public class Evenement extends MainActivity implements ListOfItems{
 	}
 
 	/**
+	 * Initialisation du bouton modifier un evenement
+	 */
+	public void isOrganizer(){
+		String file = Webservice.eventsMethod();
+		String url = file+"?method=readcurrent&id=" + mCurrentEvent.getId();
+		Webservice.get(url, null, new JsonHttpResponseHandler(){			
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				Log.d("is_organizer", "sucess");
+				if(mCurrentUser.getId()== response.optLong("id_u")){ //user est l'organisateur de l'event
+					mAlterEventBtn.setVisibility(View.VISIBLE);
+				}
+			}
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("is_organizer", "failure");
+			}
+		});
+	}
+	
+	/**
 	 * Current user participe a l'evenement
 	 */
 	public void participateEvent(View view){
@@ -157,7 +186,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 			}
 		});
 	}
-
+	
 	/**
 	 * Current user ne participe pas a l'evenement
 	 */
@@ -208,6 +237,19 @@ public class Evenement extends MainActivity implements ListOfItems{
 		});
 	}
 
+	/**
+	 * Redirige vers l'activity AlterEvent 
+	 * @param view
+	 */
+	public void alterEvent(View view){
+		Intent intent = new Intent(Evenement.this, AlterEvent.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("currentEvent", mCurrentEvent);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
+	
+	
 	/**
 	 * Permet de remplir la liste des participants
 	 * @param array

@@ -135,22 +135,30 @@
         <Button
             android:id="@+id/participate_event_btn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-          
+            android:layout_height="match_parent"     
             android:layout_weight="0.5"
             android:onClick="participateEvent"
             android:text="Participer" 
-             android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"/>
         
         <Button
             android:id="@+id/refuse_event_btn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           
+            android:layout_height="match_parent"    
             android:layout_weight="0.5"
             android:onClick="refuseEvent"
             android:text="Ne pas participer" 
-             android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"/>
+        
+        <Button
+            android:id="@+id/alter_event_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"    
+            android:layout_weight="0.5"
+            android:onClick="alterEvent"
+            android:text="Modifier"
+            android:visibility="gone" 
+            android:textColor="#FFFFFF"/>
         
     </LinearLayout>
 

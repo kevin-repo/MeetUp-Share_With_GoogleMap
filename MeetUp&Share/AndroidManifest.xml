@@ -68,6 +68,10 @@
             android:name=".EventRequest"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".AlterEvent"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

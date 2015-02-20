@@ -5,112 +5,112 @@
     android:background="@drawable/walpaper" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/alter_event_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Modifier les paramètres du compte"
+        android:text="Modification de l'événement"
+        android:gravity="center_vertical|center_horizontal"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:paddingRight="5dp"
         android:paddingLeft="5dp" />
 
     <EditText
-        android:id="@+id/modifnom"
+        android:id="@+id/alter_title_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/alter_event_textview"
         android:layout_marginTop="24dp"
-        android:layout_toLeftOf="@+id/button1"
+        android:layout_toLeftOf="@+id/alter_title_event_btn"
         android:ems="10"
-        android:hint="Modifier le nom"
+        android:hint="Modifier le titre"
        	android:textColor="#FFFFFF" >
         <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="72dp"
-        android:text="Supprimer compte" 
-        android:onClick="supprimerCompte"
-        android:textColor="#FFFFFF"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/button4"
-        android:layout_marginTop="46dp"
-        android:text="Attention: toute suppression est définitive" 
-        android:textColor="#FFFFFF"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp" />
-
-    <Button
-        android:id="@+id/button1"
+        android:id="@+id/alter_title_event_btn"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/modifnom"
+        android:layout_alignBottom="@+id/alter_title_event"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/modifnom"
+        android:layout_alignTop="@+id/alter_title_event"
         android:text="OK" 
-        android:onClick="modifierNom"/>
+        android:onClick="alterTitle"/>
 
     <EditText
-        android:id="@+id/modifprenom"
+        android:id="@+id/alter_location_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/modifnom"
-        android:layout_below="@+id/modifnom"
+        android:layout_alignRight="@+id/alter_title_event"
+        android:layout_below="@+id/alter_title_event"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Modifier le prénom"
+        android:hint="Modifier l'adresse"
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/alter_location_event_btn"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/modifprenom"
-        android:layout_alignTop="@+id/modifprenom"
-        android:layout_toRightOf="@+id/modifnom"
-        android:onClick="modifierPrenom"
+        android:layout_alignBottom="@+id/alter_location_event"
+        android:layout_alignTop="@+id/alter_location_event"
+        android:layout_toRightOf="@+id/alter_title_event"
+        android:onClick="alterLocation"
         android:text="OK" />
 
     <EditText
-        android:id="@+id/modifmdp"
+        android:id="@+id/alter_link_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/modifprenom"
-        android:layout_below="@+id/modifprenom"
+        android:layout_alignRight="@+id/alter_location_event"
+        android:layout_below="@+id/alter_location_event"
         android:layout_marginTop="22dp"
         android:ems="10"
-        android:hint="Modifier le mot de passe"
+        android:hint="Modifier le lien partage photo"
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/alter_link_event_btn"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/modifmdp"
+        android:layout_alignBottom="@+id/alter_link_event"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/modifmdp"
-        android:onClick="modifierMdp"
+        android:layout_alignTop="@+id/alter_link_event"
+        android:onClick="alterLink"
         android:text="OK" />
+    
+    <EditText
+        android:id="@+id/alter_description_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/alter_link_event"
+        android:layout_below="@+id/alter_link_event"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="Modifier la description"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/alter_description_event_btn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/alter_description_event"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/alter_description_event"
+        android:onClick="alterDescription"
+        android:text="OK" />
+    
 
 </RelativeLayout>

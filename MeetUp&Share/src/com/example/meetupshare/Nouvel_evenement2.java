@@ -225,8 +225,5 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 		return res;
 	}
 
-
-
-
 }
 
