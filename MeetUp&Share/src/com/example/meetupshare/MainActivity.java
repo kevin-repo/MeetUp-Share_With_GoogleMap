@@ -14,12 +14,14 @@ import android.view.MenuItem;
  */
 public class MainActivity extends Activity {
 
-	User currentUser;
+	private User mCurrentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		mCurrentUser = (User)getIntent().getExtras().get("currentUser");
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class MainActivity extends Activity {
 		case R.id.options:
 			Intent intent1 = new Intent(this, Options.class);
 			Bundle bundle1 = new Bundle();
-			bundle1.putSerializable("currentUser", currentUser);
+			bundle1.putSerializable("currentUser", mCurrentUser);
 			intent1.putExtras(bundle1);
 			startActivity(intent1);
 			return true;

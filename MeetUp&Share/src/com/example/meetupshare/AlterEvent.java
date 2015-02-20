@@ -304,7 +304,7 @@ public class AlterEvent extends MainActivity implements ListOfItems{
 	/**
 	 * Modifier la liste d'invites a l'evenement
 	 */
-	public void alterContactList(){
+	public void alterContactList(View view){
 		associateParticipants();
 	}
 

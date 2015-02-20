@@ -155,7 +155,7 @@
             android:textSize="20dp"
             android:layout_alignLeft="@+id/alter_date_event"
             android:layout_marginTop="5dp"
-            android:text="Invités" 
+            android:text="Contacts" 
             android:textColor="#FFFFFF" />
         
         <ListView
@@ -182,22 +182,22 @@
             android:text="Précédent" />
 
         <Button
-            android:id="@+id/alter_liste_contacts_event_btn"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/alter_liste_contacts_event"
-            android:onClick="alterDate"
-            android:text="OK" />
-
-        <Button
             android:id="@+id/alter_date_event_btn"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/alter_date_event"
-            android:layout_toRightOf="@+id/alter_date_event"
+            android:layout_alignParentRight="true"
+            android:onClick="alterDate"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/alter_liste_contacts_event_btn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alter_invite_text_view"
+            android:layout_toRightOf="@+id/alter_liste_contacts_event"
             android:onClick="alterContactList"
             android:text="OK" />
         

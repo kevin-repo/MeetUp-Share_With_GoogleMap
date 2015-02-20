@@ -44,11 +44,8 @@ public class Options extends MainActivity {
 		}
 	}
 
-
-
-
 	public void modifierNom(View view){
-		String url = "users.php?method=updatelname&idcurrent=1&lname="+mNom.getText().toString()+"";
+		String url = "users.php?method=updatelname&idcurrent="+mCurrentUser.getId()+"&lname="+mNom.getText().toString();
 
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
@@ -67,7 +64,7 @@ public class Options extends MainActivity {
 	}
 
 	public void modifierPrenom(View view){
-		String url = "users.php?method=updatefname&idcurrent=1&lname="+mPrenom.getText().toString()+"";
+		String url = "users.php?method=updatefname&idcurrent="+mCurrentUser.getId()+"&lname="+mPrenom.getText().toString();
 
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
@@ -87,7 +84,7 @@ public class Options extends MainActivity {
 	}
 
 	public void modifierMdp(View view){
-		String url = "users.php?method=?method=updatepwd&idcurrent=1&lname="+mPassword.getText().toString()+"";
+		String url = "users.php?method=?method=updatepwd&idcurrent="+mCurrentUser.getId()+"&lname="+mPassword.getText().toString();
 
 		Webservice.post(url, null, new AsyncHttpResponseHandler() {
 			@Override
