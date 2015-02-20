@@ -138,7 +138,7 @@ public class Contacts extends MainActivity  implements ListOfItems{
 		if(mAdapter.getCountIdCheckedItemsList() != 0){
 			for(int i = 0; i < mIdFriendSelectedList.size(); i++){
 				final int position = i;
-				/*String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelectedList.get(i);
+				String url = "users.php?method=deletefriend&idcurrent=" + mCurrentUser.getId() + "&idfriend=" + mIdFriendSelectedList.get(i);
 				Webservice.delete(url, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -158,7 +158,7 @@ public class Contacts extends MainActivity  implements ListOfItems{
 						Toast toast = Toast.makeText(getApplicationContext(), "Echec de la suppression", Toast.LENGTH_SHORT);
 						toast.show();		
 					}			
-				});*/
+				});
 				//suppression de l'ami selectionne de la liste friend
 				removeItemOfList(i);		
 				//mise a jour de la liste
