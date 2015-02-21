@@ -31,12 +31,13 @@ import android.widget.Toast;
 public class Evenement extends MainActivity implements ListOfItems{
 
 	private Event mCurrentEvent;
-	private TextView mDate, mHeure, mTitre, mDescription, mParticipant;
+	private TextView mDate, mHeure, mTitre, mDescription, mParticipant, mLocation;
 	private ArrayList<User> mListParticipant;
 	private FriendAdapter mAdapter;
 	private ListView mList;
 	private User mCurrentUser;
 	private Button mParticipateEventBtn, mAlterEventBtn;
+	private ArrayList<User> mListGuest;
 
 
 	@Override
@@ -47,6 +48,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 		mDate = (TextView) findViewById(R.id.date_event_evenement_layout);
 		mHeure = (TextView) findViewById(R.id.heure_event_evenement_layout);
 		mTitre = (TextView) findViewById(R.id.titre_event_evenement_layout);
+		mLocation = (TextView) findViewById(R.id.location_event_evenement);
 		mParticipant = (TextView) findViewById(R.id.participants_text);
 		mParticipateEventBtn = (Button) findViewById(R.id.participate_event_btn);
 		mAlterEventBtn = (Button) findViewById(R.id.alter_event_btn);
@@ -56,6 +58,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
 
 		mListParticipant = new ArrayList<User>();
+		mListGuest = new ArrayList<User>();
 		mAdapter = new FriendAdapter(this, android.R.layout.simple_list_item_multiple_choice, mListParticipant, true);
 		mList = (ListView)findViewById(R.id.liste_participants);
 
@@ -65,6 +68,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 		initParticipantList();
 		isParticipate();
 		isOrganizer();
+		getGuestList();
 	}
 
 	@Override
@@ -89,6 +93,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 				mHeure.setText(response.optString("hour"));
 				mTitre.setText(ajouterEspace(response.optString("title")));
 				mDescription.setText(ajouterEspace(response.optString("description")));
+				mLocation.setText(ajouterEspace(response.optString("place")));
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
@@ -248,11 +253,42 @@ public class Evenement extends MainActivity implements ListOfItems{
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("currentUser", mCurrentUser);
 		bundle.putSerializable("currentEvent", mCurrentEvent);
-		bundle.putSerializable("participantList", mListParticipant);
+		bundle.putSerializable("guestList", mListGuest);
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Recuperation de la liste des invites a l'evenement
+	 */
+	private void getGuestList(){
+		RequestParams params = new RequestParams();
+		params.put("event", mCurrentEvent.getId());
+
+		String file = Webservice.eventsMethod();
+
+		Webservice.get(file+"?method=readguests", params, new JsonHttpResponseHandler(){			
+			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+				Log.d("read_guest", "sucess");
+				for(int i = 0; i < response.length(); i++){
+					User contact = new User();
+					try {
+						contact.setId(response.getJSONArray(i).optLong(0));
+						contact.setFirstname(response.getJSONArray(i).optString(1));
+						contact.setLastname(response.getJSONArray(i).optString(2));
+						mListGuest.add(contact);
+						Log.d("mListGuest "+i, ""+mListGuest.get(i).getId());
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}		
+				}
+			}
+
+			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
+				Log.d("read_guest", "failure");
+			}
+		});
+	}
 	
 	/**
 	 * Permet de remplir la liste des participants

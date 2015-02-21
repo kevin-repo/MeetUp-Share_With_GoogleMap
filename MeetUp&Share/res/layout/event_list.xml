@@ -42,15 +42,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp" >
+            
+            <ImageView
+                android:id="@+id/date_event_list_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/calendar"
+                android:layout_marginRight="5dp" />
+            
             <TextView
                 android:id="@+id/date_event_list"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_marginTop="2dp"
                 android:text="Date"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"  />
 
             <TextView
                 android:id="@+id/heure_event_list"
@@ -59,14 +67,23 @@
                 android:layout_weight="0.5"
                 android:text="Heure" 
                 android:visibility = "gone"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF" />         
+            
+            <ImageView
+                android:id="@+id/place_event_list_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_action_place" />
+            
              <TextView
-                android:id="@+id/place_event_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Place"
-                android:textColor="#FFFFFF" />
+                 android:id="@+id/place_event_list"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Place"
+                 android:textColor="#FFFFFF" />
+
         </LinearLayout>
     </LinearLayout>
 

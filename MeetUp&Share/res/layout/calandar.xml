@@ -24,7 +24,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" 
         android:layout_weight="0.5">
     
         <ListView android:id="@+id/listEvent" 
@@ -45,10 +48,9 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:onClick="addEvent"
-           
             android:text="Add"
             android:textSize="@dimen/vinght" 
-             android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/remove_event_btn"
@@ -57,9 +59,8 @@
             android:layout_weight="0.5"
             android:onClick="removeEvent"
             android:text="Remove"
-           
             android:textSize="@dimen/vinght"
-             android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"/>
           
     </LinearLayout>
 	

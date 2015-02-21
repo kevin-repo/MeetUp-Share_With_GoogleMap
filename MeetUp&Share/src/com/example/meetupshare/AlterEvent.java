@@ -47,7 +47,7 @@ public class AlterEvent extends MainActivity implements ListOfItems{
 	private ListView mList;
 	private User mCurrentUser;
 	private List<String> mIdFriendSelectedList;
-	private ArrayList<User> mListParticipant;
+	private ArrayList<User> mListGuest;
 	private Button mContactListBtn;
 	
 
@@ -67,12 +67,11 @@ public class AlterEvent extends MainActivity implements ListOfItems{
 		mList = (ListView)findViewById(R.id.alter_liste_contacts_event);
 		mContactListBtn = (Button)findViewById(R.id.alter_liste_contacts_event_btn); 
 		mListFriend = new ArrayList<User>();
+		mListGuest = (ArrayList<User>) getIntent().getExtras().get("guestList");
 		mAdapter = new FriendAdapter(this, R.layout.friend_list, mListFriend, false);
 		mCurrentEvent = (Event) getIntent().getExtras().get("currentEvent");
 		mCurrentUser = (User) getIntent().getExtras().get("currentUser");
-		mListParticipant = (ArrayList<User>) getIntent().getExtras().get("participantList");
-		
-		Log.d("mListParticipant", ""+mListParticipant.size());
+			
 		mList.setAdapter(mAdapter);
 
 		init();
@@ -132,8 +131,6 @@ public class AlterEvent extends MainActivity implements ListOfItems{
 			}
 		});
 	}
-
-
 
 	/**
 	 * Modifier le nom de l'événement
@@ -343,6 +340,7 @@ public class AlterEvent extends MainActivity implements ListOfItems{
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						Log.d("associate_participant_event", "success");
 						removeItemOfList(position);
+						show();
 					}
 
 					@Override
@@ -390,9 +388,9 @@ public class AlterEvent extends MainActivity implements ListOfItems{
 	 * Permet de supprimer les contacts participants deja a l'evenement de la liste des contacts a inviter
 	 */
 	public void removeParticipants(){
-		for(int i = 0; i < mListParticipant.size(); i++){
+		for(int i = 0; i < mListGuest.size(); i++){
 			for(int j = 0; j < mListFriend.size(); j++){
-				if(mListParticipant.get(i).getId() == mListFriend.get(j).getId()){
+				if(mListGuest.get(i).getId() == mListFriend.get(j).getId()){
 					mListFriend.remove(j);
 				}
 			}

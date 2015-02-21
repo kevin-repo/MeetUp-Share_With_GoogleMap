@@ -22,7 +22,7 @@
         android:id="@+id/first_modification_event"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <EditText
             android:id="@+id/alter_title_event"
@@ -134,7 +134,7 @@
         android:id="@+id/second_modification_event"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="visible" >
+        android:visibility="gone" >
               
         <DatePicker
             android:id="@+id/alter_date_event"
@@ -144,8 +144,7 @@
             android:layout_toLeftOf="@+id/alter_date_event_btn"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
-            android:calendarViewShown="false" 
-            android:textColor="#FFFFFF" />
+            android:calendarViewShown="false" />
         
         <TextView
             android:id="@+id/alter_invite_text_view"

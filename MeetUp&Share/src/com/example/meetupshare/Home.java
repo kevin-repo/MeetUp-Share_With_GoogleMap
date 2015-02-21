@@ -24,7 +24,7 @@ import com.loopj.android.http.RequestParams;
 public class Home extends MainActivity {
 
 	private User mCurrentUser;
-	private LinearLayout mLayoutInvitation, mLayoutInvitationFriends, mLayoutInvitationEvents;
+	private LinearLayout mLayoutInvitation, mLayoutInvitationFriends, mLayoutInvitationEvents, mDateLayout, mPlaceLayout;
 	private TextView mCptFriendRequests, mCptEventRequests, mIdNextEvent, mTitleNextEvent, mDateNextEvent, mPlaceNextEvent, mNullNextEvent;
 
 	@Override
@@ -35,6 +35,8 @@ public class Home extends MainActivity {
 		mLayoutInvitation = (LinearLayout) findViewById(R.id.invitation_layout);
 		mLayoutInvitationFriends = (LinearLayout) findViewById(R.id.invitation_friend_layout);
 		mLayoutInvitationEvents = (LinearLayout) findViewById(R.id.invitation_event_layout);
+		mDateLayout = (LinearLayout) findViewById(R.id.date_nex_event_layout);
+		mPlaceLayout = (LinearLayout) findViewById(R.id.lieu_next_event_layout);
 		mCptFriendRequests = (TextView) findViewById(R.id.friend_counter);
 		mCptEventRequests = (TextView) findViewById(R.id.event_counter);
 		mIdNextEvent = (TextView) findViewById(R.id.id_next_event);
@@ -213,14 +215,18 @@ public class Home extends MainActivity {
 				}else{
 					//aucun prochain evenement
 					mTitleNextEvent.setVisibility(View.GONE);
-					mDateNextEvent.setVisibility(View.GONE);
-					mPlaceNextEvent.setVisibility(View.GONE);
+					mDateLayout.setVisibility(View.GONE);
+					mPlaceLayout.setVisibility(View.GONE);
 					mNullNextEvent.setVisibility(View.VISIBLE);
 				}
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("next_event", "failure");
+				mTitleNextEvent.setVisibility(View.GONE);
+				mDateLayout.setVisibility(View.GONE);
+				mPlaceLayout.setVisibility(View.GONE);
+				mNullNextEvent.setVisibility(View.VISIBLE);
 			}
 		});
 	}

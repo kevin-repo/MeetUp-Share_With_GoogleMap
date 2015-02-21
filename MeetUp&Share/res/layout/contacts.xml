@@ -19,7 +19,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Contacts"
             android:textAppearance="?android:attr/textAppearanceLarge" 
-              android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 
@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" >
 
         <EditText
             android:id="@+id/recherche_ami"
@@ -41,7 +43,7 @@
         <ListView
             android:id="@+id/liste_contacts"
             android:layout_width="match_parent"
-            android:layout_height="262dp">
+            android:layout_height="262dp" >
         </ListView>
         
         <EditText
@@ -66,10 +68,9 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:onClick="addFriend"
-            
             android:text="Add"
             android:textSize="@dimen/vinght" 
-              android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/remove_friend_btn"
@@ -89,7 +90,7 @@
             android:layout_weight="0.5"
             android:onClick="validateAdd"
             android:text="Valider"
-            
+     		android:textColor="#FFFFFF"  
             android:textSize="@dimen/vinght"
             android:visibility="gone" />
               

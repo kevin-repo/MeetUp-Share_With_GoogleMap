@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@drawable/walpaper"
-    >
+    android:background="@drawable/walpaper" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,38 +19,37 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone"
+            android:background="#E6E6E6" >
 
             <LinearLayout
                 android:id="@+id/invitation_friend_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
                 android:clickable="true"
                 android:orientation="horizontal"
                 android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/friend_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:onClick="friendRequests"
-                    android:src="@drawable/friends" />
+                    android:src="@drawable/ic_action_add_person" />
 
                 <TextView
                     android:id="@+id/friend_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Compteur"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#FFFFFF" />
+                    android:textSize="15sp"
+                    android:textColor="#C03000" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/invitation_event_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
                 android:clickable="true"
                 android:orientation="horizontal"
                 android:visibility="gone" >
@@ -62,15 +60,15 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
                     android:onClick="eventRequests"
-                    android:src="@drawable/event" />
+                    android:src="@drawable/ic_action_event" />
 
                 <TextView
                     android:id="@+id/event_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Compteur"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#FFFFFF" />
+                    android:textSize="15sp"
+                    android:textColor="#C03000" />
             </LinearLayout>
         </LinearLayout>
 
@@ -78,71 +76,102 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="Prochain évènement"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30sp"
             android:textStyle="bold" 
-             android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/id_next_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
             android:text="Id"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="gone" 
-             android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/null_next_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
+        	android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:ems="10"
             android:text="Aucun prochain événement"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="gone"
-             android:textColor="#FFFFFF"  />
+            android:textColor="#FFFFFF"  />
 
 
         <TextView
             android:id="@+id/titre_next_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
             android:text="Titre"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-             android:textColor="#FFFFFF"  />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF" />
 
         <LinearLayout
+            android:id="@+id/date_nex_event_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4" >
+            android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/date_nex_event_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/calendar" />
 
             <TextView
                 android:id="@+id/date_next_event"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
                 android:text="Date"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                 android:textColor="#FFFFFF"  />
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/lieu_next_event_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+        	android:layout_marginRight="5dp"
+            android:orientation="horizontal" >
+            
+            <ImageView
+                android:id="@+id/lieu_next_event_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_action_place" />
 
             <TextView
                 android:id="@+id/lieu_next_event"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+                android:layout_marginTop="5dp"
                 android:text="Lieu"
-                android:textAppearance="?android:attr/textAppearanceLarge" 
+                android:textSize="17sp"
                 android:textColor="#FFFFFF" />
-        </LinearLayout>
+            
+       </LinearLayout>
+        
     </LinearLayout>
 
     <LinearLayout
@@ -172,7 +201,7 @@
             android:layout_weight="0.5"
             android:onClick="calandar"
             android:text="Calendrier" 
-             android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/contacts"
@@ -181,7 +210,7 @@
             android:layout_weight="0.5"
             android:onClick="contacts"
             android:text="Contacts" 
-             android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <Button
