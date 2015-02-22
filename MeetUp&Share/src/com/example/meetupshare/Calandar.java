@@ -79,6 +79,8 @@ public class Calandar extends MainActivity implements ListOfItems{
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("event_list", "failure");
+				Toast toast = Toast.makeText(getApplicationContext(), "Aucun événement trouvé", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 		});
 		

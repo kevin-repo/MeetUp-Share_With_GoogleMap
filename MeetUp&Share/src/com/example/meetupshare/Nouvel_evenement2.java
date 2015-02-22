@@ -1,10 +1,15 @@
 package com.example.meetupshare;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import com.example.meetupshare.adapters.FriendAdapter;
 import com.example.models.Event;
@@ -15,6 +20,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -90,6 +96,27 @@ public class Nouvel_evenement2 extends MainActivity implements ListOfItems{
 		});
 	}
 
+	/**
+	 * Permet d'acceder au navigateur internet pour aller recuperer le lien de stockage des photos
+	 * @param view
+	 */
+	public void searchLink(View view){
+		URL url;
+		try {
+			url = new URL("https://www.google.com/intl/fr_fr/drive/");
+			HttpsURLConnection connexion = (HttpsURLConnection)url.openConnection();
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/intl/fr_fr/drive/"));
+			startActivity(intent); 
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			Toast toast = Toast.makeText(getApplicationContext(), "Impossible d'accéder à internet", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}
+	
+	
 	/**
 	 * Methode permettant la creation d'un event
 	 * @param view

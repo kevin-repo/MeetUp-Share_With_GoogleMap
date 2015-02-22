@@ -36,7 +36,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
             android:orientation="horizontal" >
 
             <ImageView
@@ -60,7 +59,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
             android:orientation="horizontal" >
 
             <ImageView
@@ -71,14 +69,22 @@
 
             <TextView
                 android:id="@+id/location_event_evenement"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
 				android:layout_marginTop="5dp"
 				android:layout_marginLeft="5dp"
                 android:textSize="20sp"
                 android:text="Location"
                 android:textColor="#FFFFFF" />
+            
+            <ImageButton
+                android:id="@+id/map_evenement_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_action_map"
+                android:onClick="seeMap"
+                android:visibility="gone" />
         </LinearLayout>
         
 

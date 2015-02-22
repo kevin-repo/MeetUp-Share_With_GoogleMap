@@ -3,8 +3,10 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-      android:background="@drawable/walpaper">
+    android:background="@drawable/walpaper"
+	android:paddingLeft="5dp"
+	android:paddingRight="5dp"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +21,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Nouvel Evènement"
-            android:textAppearance="?android:attr/textAppearanceLarge" 
-             android:textColor="#FFFFFF" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,8 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Addresse" 
-             android:textColor="#FFFFFF" />
+            android:hint="Addresse"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,18 +52,32 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Description"
-            android:inputType="textMultiLine" 
-             android:textColor="#FFFFFF" >
+            android:inputType="textMultiLine"
+            android:textColor="#FFFFFF" >
         </EditText>
-        
-        <EditText
-            android:id="@+id/url"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:ems="10" 
-            android:hint="Url pour stockage photos" 
-             android:textColor="#FFFFFF" />
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.2"
+                android:hint="Url pour stockage photos"
+                android:textColor="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/search_photo_link_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_action_search"
+                android:onClick="searchLink" />
+            
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -70,23 +86,24 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.05"
         android:orientation="vertical" >
-		
+
         <TextView
             android:id="@+id/invite_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
             android:layout_marginLeft="5dp"
-            android:text="Invités" 
-            android:textColor="#FFFFFF" />
-        
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Invités"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
         <ListView
             android:id="@+id/liste_contacts_event"
             android:layout_width="match_parent"
             android:layout_height="202dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"  
+            android:layout_marginTop="5dp"
             android:textColor="#FFFFFF" >
         </ListView>
     </LinearLayout>
@@ -96,9 +113,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
-        
         android:onClick="creerEvenement"
         android:text="Validate"
-         android:textColor="#FFFFFF"  />
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

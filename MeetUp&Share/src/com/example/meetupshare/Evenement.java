@@ -88,12 +88,14 @@ public class Evenement extends MainActivity implements ListOfItems{
 		Webservice.get(url, null, new JsonHttpResponseHandler(){
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				Log.d("read_event", "success");
-
+				
 				mDate.setText(deleteHour(response.optString("date")));
 				mHeure.setText(response.optString("hour"));
 				mTitre.setText(ajouterEspace(response.optString("title")));
 				mDescription.setText(ajouterEspace(response.optString("description")));
 				mLocation.setText(ajouterEspace(response.optString("place")));
+				
+				mCurrentEvent.setLocation(response.optString("place"));
 			}
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
@@ -259,6 +261,19 @@ public class Evenement extends MainActivity implements ListOfItems{
 	}
 	
 	/**
+	 * Redirection vers activity "SeeMap"
+	 * @param view
+	 */
+	public void seeMap(View view){
+		Intent intent = new Intent(Evenement.this, SeeMap.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("currentUser", mCurrentUser);
+		bundle.putSerializable("currentEvent", mCurrentEvent);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
+	
+	/**
 	 * Recuperation de la liste des invites a l'evenement
 	 */
 	private void getGuestList(){
@@ -277,7 +292,6 @@ public class Evenement extends MainActivity implements ListOfItems{
 						contact.setFirstname(response.getJSONArray(i).optString(1));
 						contact.setLastname(response.getJSONArray(i).optString(2));
 						mListGuest.add(contact);
-						Log.d("mListGuest "+i, ""+mListGuest.get(i).getId());
 					} catch (JSONException e1) {
 						e1.printStackTrace();
 					}		

@@ -79,6 +79,8 @@ public class Contacts extends MainActivity  implements ListOfItems{
 
 			public void onFailure(int statusCode, Header[] headers, String s, Throwable e) {
 				Log.d("contact_list", "failure");
+				Toast toast = Toast.makeText(getApplicationContext(), "Aucun contact trouvé", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 		});
 		
