@@ -84,7 +84,7 @@
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/ic_action_map"
                 android:onClick="seeMap"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </LinearLayout>
         
 

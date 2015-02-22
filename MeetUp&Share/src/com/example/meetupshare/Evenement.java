@@ -11,6 +11,8 @@ import com.example.meetupshare.adapters.FriendAdapter;
 import com.example.models.Event;
 import com.example.models.User;
 import com.example.webservice.Webservice;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -95,6 +97,7 @@ public class Evenement extends MainActivity implements ListOfItems{
 				mDescription.setText(ajouterEspace(response.optString("description")));
 				mLocation.setText(ajouterEspace(response.optString("place")));
 				
+				mCurrentEvent.setTitre(ajouterEspace(response.optString("title")));
 				mCurrentEvent.setLocation(response.optString("place"));
 			}
 
@@ -265,12 +268,17 @@ public class Evenement extends MainActivity implements ListOfItems{
 	 * @param view
 	 */
 	public void seeMap(View view){
-		Intent intent = new Intent(Evenement.this, SeeMap.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("currentUser", mCurrentUser);
-		bundle.putSerializable("currentEvent", mCurrentEvent);
-		intent.putExtras(bundle);
-		startActivity(intent);
+		if(isCheckPlayServices()){
+			Intent intent = new Intent(Evenement.this, SeeMap.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("currentUser", mCurrentUser);
+			bundle.putSerializable("currentEvent", mCurrentEvent);
+			intent.putExtras(bundle);
+			startActivity(intent);
+		} else {
+			Toast toast = Toast.makeText(getApplicationContext(), "Accès à la carte impossible : veuillez installer Google Play Service" , Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	}
 	
 	/**
@@ -303,6 +311,25 @@ public class Evenement extends MainActivity implements ListOfItems{
 			}
 		});
 	}
+	
+	/**
+	 * Controle si l'utilisateur possede Google Play Service
+	 * @return boolean
+	 */
+	private boolean isCheckPlayServices() {
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (resultCode != ConnectionResult.SUCCESS) {
+			if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+				GooglePlayServicesUtil.getErrorDialog(resultCode, this, 9000).show();
+			} else {
+				Log.d("check_play_services", "device non supporté");
+				
+			}
+			return false;
+		}
+		return true;
+	}
+	
 	
 	/**
 	 * Permet de remplir la liste des participants
